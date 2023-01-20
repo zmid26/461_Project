@@ -7,3 +7,5 @@ We are also a group for Open source software design.
 We love coding.
 
 Zane Middaugh
+
+Josh Christian
