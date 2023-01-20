@@ -6,6 +6,5 @@ We are also a group for Open source software design.
 
 We love coding.
 
-Zane Middaugh
-
-Josh Christian
+Zane Middaugh made this repo
+Josh Christian helped
