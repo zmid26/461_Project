@@ -19,9 +19,11 @@ fn main(){
     //debug code to print the url we saved from the command line
     println!("URL passed in from the command line: {:?}", urls); 
 
-    //this runs "git clone" with the last .arg as the URL
-    let _git_clone_command = Command::new("git").arg("clone").arg(&urls[1]).output();
-    
+    //loop through all the URLs
+    for url in &urls {
+        println!("Cloning: {} . . .", url); //print a status message on what URL is currently being cloned
+        let _git_clone_command = Command::new("git").arg("clone").arg(url).output(); //clone the current URL
+    }
 
 }
 
