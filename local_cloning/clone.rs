@@ -1,6 +1,7 @@
 use std::env; //rust stdlib function to get command line args
 use std::fs; //rust file library
-use std::process::Command; //library to run processes in rust
+//use std::process::Command; //library to run processes in rust
+//use git2::Repository; //git2 is a github library for rust
 
 fn main(){
     
@@ -17,12 +18,16 @@ fn main(){
     let urls: Vec<&str> = data.split('\n').collect();
     
     //debug code to print the url we saved from the command line
-    println!("URL passed in from the command line: {:?}", urls); 
+    println!("URLs from the file: {:?}", urls); 
 
     //loop through all the URLs
     for url in &urls {
         println!("Cloning: {} . . .", url); //print a status message on what URL is currently being cloned
-        let _git_clone_command = Command::new("git").arg("clone").arg(url).output(); //clone the current URL
+        
+        /*let repo = match Repository::clone(url, ".") {
+            Ok(repo) => repo,
+            Err(e) => panic!("failed to clone: {}", e),
+        };*/
     }
 
 }
