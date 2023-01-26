@@ -1,13 +1,8 @@
 use std::env; //rust stdlib function to get command line args
 use std::fs; //rust file library
+use std::process::Command; //library to run processes in rust
 
 fn main(){
-
-    //PLAN
-    //1. clone a github repo into local directory
-        //1.2. clone a npm repo into local directory
-    //2. find the readme file
-    //3. count characters in that file
     
     //save the command line argument
     let cli_input: Vec<String> = env::args().collect(); 
@@ -21,8 +16,11 @@ fn main(){
     //now, chop this string into a vector at every newline since the URLS are newline delimited
     let urls: Vec<&str> = data.split('\n').collect();
     
-    println!("URL passed in from the command line: {:?}", urls); //print the url we saved from the command line
+    //debug code to print the url we saved from the command line
+    println!("URL passed in from the command line: {:?}", urls); 
 
+    //this runs "git clone" with the last .arg as the URL
+    let _git_clone_command = Command::new("git").arg("clone").arg(&urls[1]).output();
     
 
 }
