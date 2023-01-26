@@ -1,4 +1,5 @@
 use std::env; //rust stdlib function to get command line args
+use std::fs; //rust file library
 
 fn main(){
 
@@ -8,11 +9,19 @@ fn main(){
     //2. find the readme file
     //3. count characters in that file
     
-    let args: Vec<String> = env::args().collect(); //take the command line arguments and creates a vector out of them
+    //save the command line argument
+    let cli_input: Vec<String> = env::args().collect(); 
 
-    let url = &args[1]; //create a variable and save the first command line argument into it
+    //create a variable for the file path and save the first command line argument into it
+    let filepath = &cli_input[1]; 
+
+    //take the contents of the file and save into a single string
+    let data = fs::read_to_string(filepath).expect("Unable to read file");
+
+    //now, chop this string into a vector at every newline since the URLS are newline delimited
+    let urls: Vec<&str> = data.split('\n').collect();
     
-    println!("URL passed in from the command line: {}", url); //print the url we saved from the command line
+    println!("URL passed in from the command line: {:?}", urls); //print the url we saved from the command line
 
     
 
