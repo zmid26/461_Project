@@ -12,20 +12,14 @@ fn main(){
 
     if arg.eq("install") == true { //CLI argument was "install"
 
-        //PUT THE COMMANDS NEEDED TO INSTALL DEPENDENCIES IN HERE _____________________________________________________
-
-
-        //_____________________________________________________________________________________________________________
+        //run script to install necessary stuff for rust (rust_installer.py)
+        let _rust_install_command = Command::new("python3").arg("install/rust_installer.py").spawn();
     
     }
     else if arg.eq("build") == true { //CLI argument was "build"
 
-        //COMPILATION AND BUILD COMMANDS GO HERE IN HERE _______________________________________________________________
-
-        //these commands compile the local cloning code
-        let _clone_build_command = Command::new("rustc").arg("local_cloning/clone.rs").spawn(); //compiles the rust script called clone.rs
-
-        //______________________________________________________________________________________________________________
+        //build the rammpup calculation code (calculate_RampUp.rs)
+        let _rampup_build_command = Command::new("rustc").arg("local_cloning/calculate_RampUp.rs").arg("--out-dir").arg("local_cloning/").spawn(); //compiles the rust script called calculate_RampUp.rs
 
     }
     else if arg.eq("test") == true { //CLI argument was "test"
@@ -33,11 +27,8 @@ fn main(){
     }
     else { //CLI argument was an input file
 
-        //COMMANDS TO RUN CODE GO HERE______________________________________________________________________
+        //run the rampup calculation (calculate_RampUp)
+        let _run_rampup = Command::new("./local_cloning/calculate_RampUp").arg(&cli_input[1]).spawn(); //runs the rust executable "calculate_RampUp" with the CLI input file
 
-        //run the local cloning executable
-        let _run_clone_script = Command::new("./clone").arg(&cli_input[1]).spawn(); //runs the rust executable "clone" with the CLI input file
-
-        //______________________________________________________________________________________________________________
     }
 }
