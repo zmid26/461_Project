@@ -3,7 +3,9 @@ use std::fs; //rust file library
 use std::fs::File; //rust file library
 use std::process::Command; //library to run processes in rust
 use std::io::{BufRead, BufReader};
+use tokei::{Config, Languages, LanguageType};
 //use pyo3::prelude::*; //module to run python code in rust
+use std::path::Path;
 
 fn main(){
     
@@ -33,11 +35,37 @@ fn main(){
     //run clone function to locally clone repos (pass in the input file)
     clone_repos((&filepath).to_string());
 
-    let filename = "local_cloning/cloned_repos/2/index.js";
+    //loop through all folders in "cloned_repos"
+    let cloned_folders = fs::read_dir("local_cloning/cloned_repos/").unwrap();
+    let mut n = 1;
+    for folder in cloned_folders {
+        //println!("Cloned directory {}: {}", n, folder.unwrap().path().display());
 
-    let num_lines: i64 = count_total_lines((&filename).to_string());
+        //this counts comments and code lines in folder
+        let _folder_path = (folder.unwrap().path().display()).to_string();
+        let readme = "README.md";
+        let _readme_path = [&_folder_path, readme].join("/");
+        let is_readme = Path::new(&_readme_path).exists();
+        println!("\nREADME?: {}", is_readme);
 
-    println!("Total lines are: {}",num_lines);
+        if is_readme == true {
+            let readme_lines = count_total_lines(_readme_path);
+            println!("lines in README: {}", readme_lines);
+        }
+
+        let paths = &[_folder_path];
+        let excluded = &[];
+        let config = Config::default();
+        let mut languages = Languages::new();
+        languages.get_statistics(paths, excluded, &config);
+        let js = &languages[&LanguageType::JavaScript];
+        println!("Lines of code in folder {}: {}", n, js.code);
+        println!("Lines of comments in folder {}: {}\n", n, js.comments);
+
+        n+=1;
+    }
+    
+    //each time through, call tokei and print 
 }
 
 //this function takes in a filename and returns the number of lines in it
