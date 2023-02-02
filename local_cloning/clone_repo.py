@@ -12,7 +12,7 @@ urls = input_file.read().splitlines()
 url_num = 1
 
 #make a directory named 'cloned_repos' to put the cloned repos in
-os.system("mkdir local_cloning/cloned_repos/")
+os.mkdir("local_cloning/cloned_repos/")
 
 #loops through all of the URLs
 for url in urls:
@@ -21,8 +21,10 @@ for url in urls:
     if "github" in url:
         
         #clone the current git URL into a directory named after the current url_num value
-        #Repo.clone_from(url, "local_cloning/cloned_repos/" + str(url_num) + "/") #i.e. first URL will be put in a directory called '1', second URL will be put in '2', etc.
-        os.system("git clone " + url + " local_cloning/cloned_repos/" + str(url_num))
+        Repo.clone_from(url, "local_cloning/cloned_repos/" + str(url_num) + "/") #i.e. first URL will be put in a directory called '1', second URL will be put in '2', etc.
+        
+        #print status update
+        print("finished cloning url #" + str(url_num))
 
         #increment the url number
         url_num = url_num + 1
@@ -36,6 +38,9 @@ for url in urls:
         #clone the current npm URL into 'local_cloning/cloned_repos' directory
         os.system("npm v " + package_name + " dist.tarball | xargs curl | tar -xz")
         os.system("mv package/ local_cloning/cloned_repos/" + str(url_num))
+
+        #print status update
+        print("finished cloning url #" + str(url_num))
 
         #increment the url number
         url_num = url_num + 1
