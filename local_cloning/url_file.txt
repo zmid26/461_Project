@@ -1,2 +1,4 @@
+https://www.npmjs.com/package/even
 https://github.com/aidancaputi/ece463.git
 https://github.com/aidancaputi/ECE368
+https://www.npmjs.com/package/async
