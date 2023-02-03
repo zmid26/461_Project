@@ -1,4 +1,5 @@
-https://www.npmjs.com/package/even
-https://github.com/aidancaputi/ece463.git
-https://github.com/aidancaputi/ECE368
-https://www.npmjs.com/package/async
+https://github.com/cloudinary/cloudinary_npm
+https://www.npmjs.com/package/express
+https://github.com/nullivex/nodist
+https://github.com/lodash/lodash
+https://www.npmjs.com/package/browserify
