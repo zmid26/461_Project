@@ -8,13 +8,9 @@ edition = "2021"
 [dependencies]
 tokei = "12.1.2"
 
-[dependencies.pyo3]
-version = "0.18.0"
-features = ["auto-initialize"]
-
 [[bin]]
-name = "run"
-path = "run.rs"
+name = "main"
+path = "main.rs"
 
 [[bin]]
 name = "calculate_ramp_up"
