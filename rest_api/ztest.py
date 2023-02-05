@@ -7,7 +7,7 @@ def main():
     for u in urls:
         currResp = rq.get(u)
         resp.append(currResp.json())
-   
+
     print(resp)
 
 if __name__ == "__main__":
