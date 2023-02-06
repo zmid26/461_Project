@@ -1,8 +1,9 @@
 import requests
+import sys # import sys to use command line arguments
 
 f = open('env.txt', 'r') # open file containing github token
 github_token = f.readline()[13:].replace('\n', '') # retrieve github token
-f2 = open('url_file.txt', 'r') # open file containing urls
+f2 = open(sys.argv[1],'r') # open file containing urls
 urls = f2.readlines() 
 repositories = []
 for url in urls: # extract owner and name of each repository
@@ -30,7 +31,9 @@ for repository in repositories:
   if response.status_code == 200: # extract the result from the response
     starCount = response.json()["data"]["repository"]["stargazerCount"]
     openIssuesCount = response.json()["data"]["repository"]["openIssues"]["totalCount"]
-    correctness = starCount / (starCount + openIssuesCount) # calculate correctness
-    print("Correctness score for repo %s owned by %s: %f" % (repository[1], repository[0], correctness))
+    correctness = starCount / (starCount + openIssuesCount * 10) # calculate correctness
+    print("Number of stars: %i" % starCount)
+    print("Number of open issues: %i" % openIssuesCount)
+    print("Correctness score for repo %s owned by %s: %f \n" % (repository[1], repository[0], correctness))
   else: # handle error if response is not received correctly
-    raise Exception("Failed to retrieve response using GraphQL by returning code {}. {}".format(response.status_code, query))
+    print("Failed to retrieve response using GraphQL by returning code {}.".format(response.status_code))
