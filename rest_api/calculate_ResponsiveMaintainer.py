@@ -4,6 +4,8 @@ import sys
 
 def getResponsiveScore(githubRepoURL):
 
+    #githubRepoURL.replace('\n','')
+
     repoDir = githubRepoURL.split('https://github.com/')[1]
 
     openURL = 'https://api.github.com/search/issues?q=repo:' + repoDir + '+type:issue+state:open&per_page=1'
@@ -29,7 +31,7 @@ def main():
     urls = testFile.readlines()
 
     for u in urls:
-        print('Score for repo,', u, ', is: ',getResponsiveScore(u))
+        print('Responsive Maintainer score for repo: ', u, ',\nis: ',getResponsiveScore(u))
 
 if __name__ == "__main__":
     main()
