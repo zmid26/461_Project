@@ -26,9 +26,12 @@ fn main(){
         println!("CLI input was: test");
     }
     else { //CLI argument was an input file
-
+        
         //run the rampup calculation (calculate_RampUp)
         let _run_rampup = Command::new("./target/debug/main").arg(&cli_input[1]).status(); //runs the rust executable "calculate_RampUp" with the CLI input file
+        
+        //run the correctness calculation (calculate_Correctness)
+        let _run_correctness = Command::new("python3").arg("graphql_api/calculate_Correctness.py").status();
 
     }
 }
