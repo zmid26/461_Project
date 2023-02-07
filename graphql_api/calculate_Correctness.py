@@ -1,13 +1,28 @@
 import requests
 import sys # import sys to use command line arguments
+import json # import json to parse json file
 
 f = open('env.txt', 'r') # open file containing github token
 github_token = f.readline()[13:].replace('\n', '') # retrieve github token
+f.close()
 f2 = open(sys.argv[1],'r') # open file containing urls
 urls = f2.readlines() 
+f2.close()
+
 repositories = []
-for url in urls: # extract owner and name of each repository
-  repositories.append((url.partition('github.com/')[2].partition('/')[0],url.partition('github.com/')[2].partition('/')[2].replace('\n','')))
+for x in range(len(urls)): # extract owner and name of each repository
+  repoName = urls[x].partition('github.com/')[2] # extract "owner/repo"
+
+  if not repoName: # if github.com/ is not found, extract as npmjs package
+    with open('local_cloning/cloned_repos/' + str(x+1) + '/package.json') as json_File:
+      npmsRepo = json.load(json_File) # load json file containing repo info
+    repoName = npmsRepo['repository'] # extract repo info
+
+    if not isinstance(repoName, str): # if a dict is returned instead of str
+      repoName = list(repoName.values())[1] # extract url from dict
+      repoName = repoName.partition('github.com/')[2].replace('.git','') # extract "owner/repo"
+  
+  repositories.append((repoName.partition('/')[0],repoName.partition('/')[2].replace('\n',''))) # append (owner, repo)
 
 url = 'https://api.github.com/graphql' # graphql url
 headers = {'Authorization': 'token ' + github_token} # build the header
