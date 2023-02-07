@@ -1,0 +1,12 @@
+/home/shay/a/acaputi/schoolwork/spring2023/461/project_461/target/debug/deps/ignore-1c0758c841539c0d.rmeta: /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/lib.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/default_types.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/dir.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/gitignore.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/overrides.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/pathutil.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/types.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/walk.rs
+
+/home/shay/a/acaputi/schoolwork/spring2023/461/project_461/target/debug/deps/ignore-1c0758c841539c0d.d: /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/lib.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/default_types.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/dir.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/gitignore.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/overrides.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/pathutil.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/types.rs /home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/walk.rs
+
+/home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/lib.rs:
+/home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/default_types.rs:
+/home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/dir.rs:
+/home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/gitignore.rs:
+/home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/overrides.rs:
+/home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/pathutil.rs:
+/home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/types.rs:
+/home/shay/a/acaputi/.cargo/registry/src/github.com-1ecc6299db9ec823/ignore-0.4.18/src/walk.rs:
