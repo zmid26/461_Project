@@ -13,4 +13,7 @@ fn main(){
     //run the correctness calculation (calculate_Correctness)
     let _run_correctness = Command::new("python3").arg("graphql_api/calculate_Correctness.py").arg(&cli_input[1]).status();
 
+    //run the responsive maintainer calculation (calculate_ResponsiveMaintainer.py)
+    let _run_responsivemaintainer = Command::new("python3").arg("rest_api/calculate_ResponsiveMaintainer.py").arg(&cli_input[1]).status();
+
 }
