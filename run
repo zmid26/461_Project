@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ $1 == 'install' ]; then
+    python3 install/localclone_install.py
+elif [ $1 == 'build' ]; then 
+    cargo build
+else
+    ./target/debug/main "$@"
+fi
