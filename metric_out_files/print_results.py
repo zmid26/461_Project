@@ -4,8 +4,10 @@ from git import Repo #import git library
 import sys #import sys to use command line arguments
 import os
 
+#keep track of which index of the array we are at
 url_idx = 0
 
+#list of dictionaries, where each dictionary is 
 output = []
 
 #open the command line argument file
