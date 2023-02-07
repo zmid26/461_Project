@@ -2,10 +2,11 @@ use std::env; //rust stdlib function to get command line args
 use std::fs; //rust file library
 use std::fs::File; //rust file library
 use std::process::Command; //library to run processes in rust
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, BufWriter};
 use tokei::{Config, Languages, LanguageType};
 //use pyo3::prelude::*; //module to run python code in rust
 use std::path::Path;
+use std::io::Write;
 
 fn main(){
     
@@ -40,6 +41,9 @@ fn main(){
 
     //initialize a counter for the current folder number
     let mut folder_num = 1;
+
+    //open output file to write rampup scores to
+    let mut out_file = BufWriter::new(File::create("metric_out_files/rampup_out.txt").expect("Error opening output file for rampup"));
 
     //loop through all folders in "cloned_repos"
     for folder in cloned_folders {
@@ -83,6 +87,10 @@ fn main(){
         let comment_u32 = u32::try_from(comment_lines).unwrap();
         let ramp_up = calculate_ramp_up(readme_lines, code_u32, comment_u32);
         println!("RampUp score for repo {}: {:.2}\n", folder_num, ramp_up);
+
+        
+
+        write!(out_file, "{0}\n", ramp_up).expect("Error writing rampup to output");
 
         //increment the folder counter
         folder_num+=1;
