@@ -50,5 +50,6 @@ for repository in repositories:
     print("Number of stars: %i" % starCount)
     print("Number of open issues: %i" % openIssuesCount)
     print("Correctness score for repo %s owned by %s: %f \n" % (repository[1], repository[0], correctness))
+  
   else: # handle error if response is not received correctly
     print("Failed to retrieve response using GraphQL by returning code {}.".format(response.status_code))

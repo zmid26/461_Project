@@ -16,6 +16,8 @@ fn main(){
     //create a variable for the file path and save the first command line argument into it
     let filepath = &cli_input[1]; 
 
+    println!("{}", filepath);
+
     //take the contents of the file and save into a single string
     let data = fs::read_to_string(filepath).expect("Unable to read file");
 
@@ -33,6 +35,12 @@ fn main(){
         url_index += 1;
     }
     
+    //check if the cloned repos folder is already there from a previous run, and delete it if so
+    let is_cloned_repos = Path::new("local_cloning/cloned_repos/").exists();
+    if is_cloned_repos == true{
+        fs::remove_dir_all("local_cloning/cloned_repos/").expect("error deleting cloned repos directory");
+    }
+    
     //run clone function to locally clone repos (pass in the input file)
     clone_repos((&filepath).to_string());
 
@@ -43,7 +51,7 @@ fn main(){
     let mut folder_num = 1;
 
     //open output file to write rampup scores to
-    let mut out_file = BufWriter::new(File::create("metric_out_files/rampup_out.txt").expect("Error opening output file for rampup"));
+    let mut out_file = BufWriter::new(File::create("output/rampup_out.txt").expect("Error opening output file for rampup"));
 
     //loop through all folders in "cloned_repos"
     for folder in cloned_folders {
