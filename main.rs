@@ -1,6 +1,6 @@
 use std::env; //rust stdlib function to get command line args
-//use std::fs; //rust file library
 use std::process::Command; //library to run processes in rust
+
 
 fn main(){
 
@@ -16,4 +16,8 @@ fn main(){
     //run the responsive maintainer calculation (calculate_ResponsiveMaintainer.py)
     let _run_responsivemaintainer = Command::new("python3").arg("rest_api/calculate_ResponsiveMaintainer.py").arg(&cli_input[1]).status();
 
+
+    let _print_results = Command::new("python3").arg("output/print_results.py").arg("local_cloning/url_file.txt").status();
+
 }
+
