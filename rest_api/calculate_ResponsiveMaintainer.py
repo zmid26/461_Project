@@ -116,8 +116,10 @@ def main():
     gitURLs = getGithubURLs(urls)
 
     #find and print the responsive maintainer metric for each repo
-    for u in gitURLs:
-        print('\nResponsive Maintainer score for repo: ', u, '\nis: ',getResponsiveScore(u),'\n')
-
+    with open('output/resp_maintain_out.txt', 'w') as f:
+        for u in gitURLs:
+            print('\nResponsive Maintainer score for repo: ', u, '\nis: ',getResponsiveScore(u),'\n')
+            f.write(str(getResponsiveScore(u)))
+            f.write('\n')
 if __name__ == "__main__":
     main()
