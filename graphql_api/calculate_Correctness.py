@@ -28,28 +28,33 @@ url = 'https://api.github.com/graphql' # graphql url
 headers = {'Authorization': 'token ' + github_token} # build the header
 
 # run requests
-for repository in repositories:
-  # build the query to retrieve needed info using from the given repo
-  query = '''
-  query {
-    repository(owner: "%s", name: "%s") {
-      stargazerCount
-      openIssues: issues(states: OPEN) {
-        totalCount
+with open('output/correctness_out.txt', 'w') as f:
+  for repository in repositories:
+    # build the query to retrieve needed info using from the given repo
+    query = '''
+    query {
+      repository(owner: "%s", name: "%s") {
+        stargazerCount
+        openIssues: issues(states: OPEN) {
+          totalCount
+        }
       }
     }
-  }
-  ''' % (repository[0], repository[1])
-  json = { 'query' : query }
+    ''' % (repository[0], repository[1])
+    json = { 'query' : query }
 
-  response = requests.post(url=url, json=json, headers=headers)
-  if response.status_code == 200: # extract the result from the response
-    starCount = response.json()["data"]["repository"]["stargazerCount"]
-    openIssuesCount = response.json()["data"]["repository"]["openIssues"]["totalCount"]
-    correctness = starCount / (starCount + openIssuesCount * 10) # calculate correctness
-    print("Number of stars: %i" % starCount)
-    print("Number of open issues: %i" % openIssuesCount)
-    print("Correctness score for repo %s owned by %s: %f \n" % (repository[1], repository[0], correctness))
-  
-  else: # handle error if response is not received correctly
-    print("Failed to retrieve response using GraphQL by returning code {}.".format(response.status_code))
+    response = requests.post(url=url, json=json, headers=headers)
+    if response.status_code == 200: # extract the result from the response
+      starCount = response.json()["data"]["repository"]["stargazerCount"]
+      openIssuesCount = response.json()["data"]["repository"]["openIssues"]["totalCount"]
+      correctness = starCount / (starCount + openIssuesCount * 10) # calculate correctness
+      print("Number of stars: %i" % starCount)
+      print("Number of open issues: %i" % openIssuesCount)
+      print("Correctness score for repo %s owned by %s: %f \n" % (repository[1], repository[0], correctness))
+
+      #write the correctness score to the outputfile
+      f.write(str(correctness))
+      f.write('\n')
+    
+    else: # handle error if response is not received correctly
+      print("Failed to retrieve response using GraphQL by returning code {}.".format(response.status_code))
