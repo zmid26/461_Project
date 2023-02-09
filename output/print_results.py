@@ -14,6 +14,7 @@ rampup = []
 correctness = []
 responsive_maintainer = []
 netscore = []
+license = []
 
 #open the command line argument file
 input_file = open(sys.argv[1],'r') 
@@ -39,10 +40,15 @@ with open("output/resp_maintain_out.txt") as resp_out:
     for line in resp_out:
         responsive_maintainer.append(float(line.strip()))
 
+#open license output and add to license list
+with open("output/license_out.txt") as lic_out:
+    for line in lic_out:
+        license.append(float(line.strip()))
+
 #calculate netscore for each url (just chose correctness as iterator because lazy..couldve been any iterator that goes for the number of urls)
 url_idx = 0
 for x in correctness:
-    netscore.append( ((responsive_maintainer[url_idx] * 4.0) + (correctness[url_idx] * 3.0) + (rampup[url_idx] * 2.0)) / 9.0)
+    netscore.append( ((responsive_maintainer[url_idx] * 4.0) + (correctness[url_idx] * 3.0) + (rampup[url_idx] * 2.0) + (license[url_idx])) / 10.0)
     
     url_idx += 1
 
@@ -56,6 +62,7 @@ for x in netscore:
     (output[url_idx]).update({"RAMP_UP_SCORE":rampup[url_idx]})
     (output[url_idx]).update({"CORRECTNESS_SCORE":correctness[url_idx]})
     (output[url_idx]).update({"RESPONSIVE_MAINTAINER_SCORE":responsive_maintainer[url_idx]})
+    (output[url_idx]).update({"LICENSE_SCORE":license[url_idx]})
     url_idx += 1
 
 #sort netscore list and do the same ops to output so that output is sorted in the same way
