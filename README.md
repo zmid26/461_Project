@@ -2,8 +2,7 @@ Current functionality:
 
 "./run install" will run the python script called "localclone_installer.py" in the 'install' directory
 
-    -it does this straight from the 'run.rs' file
-    -right now, the only thing this file does is install GitPython
+    -does this straight from bash script
 
 
 "./run build" will run the command "cargo build" 
@@ -16,14 +15,9 @@ Current functionality:
 "./run URL_FILE" will run the command "./target/debug/main URL_FILE"
 
     -this command runs the executable from the "main.rs" rust file
-    -as of now, this executable will only run the executable from the "calculate_ramp_up.rs" file
-    -once other metrics have been implemented, "main.rs" will call all metric calculations needed
-    -it will also handle CLI output when we get to it
-    -NOTE: the folder 'local_cloning/cloned_repos' must NOT exist when this command is executed.
-           the program will fail if this directory already exists, as it creates it at runtime.
-           before running this command, make sure that directory isn't leftover from a previous run.
-    -NOTE: there is no input checking in terms of the filename yet. make sure to give the full path
-           to the input URL file
+    -will print formatted output that inlcudes all metrics except for license
+    -scores are not rounded yet
+
 
 "./run test" just prints a message out
 
