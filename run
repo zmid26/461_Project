@@ -3,9 +3,9 @@
 if [ $1 == 'install' ]; then
     python3 install/localclone_install.py
 elif [ $1 == 'build' ]; then 
-    cargo build
+    cargo build; export $(cat .env | xargs)
 elif [ $1 == 'clean' ]; then 
-    rm -r -f target; cd local_cloning; rm -r -f cloned_repos
+    rm -r -f target; cd local_cloning; rm -r -f cloned_repos; cd ../output; rm *.txt
 else
     ./target/debug/main "$@"
 fi

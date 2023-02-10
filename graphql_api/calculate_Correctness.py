@@ -1,10 +1,10 @@
 import requests
 import sys # import sys to use command line arguments
 import json # import json to parse json file
+import os
 
-f = open('env.txt', 'r') # open file containing github token
-github_token = f.readline()[13:].replace('\n', '') # retrieve github token
-f.close()
+github_token = os.environ.get('GITHUB_TOKEN')
+
 f2 = open(sys.argv[1],'r') # open file containing urls
 urls = f2.readlines() 
 f2.close()

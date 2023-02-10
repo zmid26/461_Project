@@ -3,6 +3,7 @@ from pprint import pprint
 import sys
 import json
 import datetime as dt
+import os
 
 MAXNUMOPEN = 1000
 UPDATEDECAY = 1.1
@@ -16,8 +17,8 @@ def getResponsiveScore(githubRepoURL):
 
     openURL = 'https://api.github.com/repos/' + repoDir
 
-    f = open('env.txt', 'r') # open file containing github token
-    github_token = f.readline()[13:].replace('\n', '') # retrieve github token
+    github_token = os.environ.get('GITHUB_TOKEN')
+
     headers = {'Authorization': 'token ' + github_token} # build the header for authentication
    
    # get a response using the REST API
@@ -44,7 +45,7 @@ def getResponsiveScore(githubRepoURL):
             print('improper repo format- investigate repo at ',githubRepoURL)
             return -1
 
-        # calculate ration of open to closed requests for score
+        # calculate ratio of open to closed requests for score
 
         score = 0
 
@@ -64,7 +65,6 @@ def getResponsiveScore(githubRepoURL):
 
         score += 0.75 * (UPDATEDECAY ** (-1 * elapsedTime))
 
-        print(openNum,hasIssues,elapsedTime)
         return score
     
     # return invalid score if not able to get repo information
@@ -103,6 +103,10 @@ def getGithubURLs(repos):
     return gitLinks
 
 def main():
+    logLvl = os.environ.get('LOG_LEVEL')
+
+    if logLvl == 1:
+        print('log level 1')
 
     #read in data from test file
     testFile = open(sys.argv[1],'r')
@@ -118,8 +122,9 @@ def main():
     #find and print the responsive maintainer metric for each repo
     with open('output/resp_maintain_out.txt', 'w') as f:
         for u in gitURLs:
-            print('\nResponsive Maintainer score for repo: ', u, '\nis: ',getResponsiveScore(u),'\n')
-            f.write(str(getResponsiveScore(u)))
+            currScore = getResponsiveScore(u)
+            print('\nResponsive Maintainer score for repo: ', u, '\nis: ',currScore,'\n')
+            f.write(str(currScore))
             f.write('\n')
 if __name__ == "__main__":
     main()
