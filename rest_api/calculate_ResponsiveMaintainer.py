@@ -19,8 +19,8 @@ def getResponsiveScore(githubRepoURL):
 
     github_token = os.environ.get('GITHUB_TOKEN')
     
-    file_v2 = open('log/logv2.txt','a+')
-    file_v3 = open('log/logv3.txt','a+')
+    file_v2 = open('log/logv1.txt','a+')
+    file_v3 = open('log/logv2.txt','a+')
 
     file_v2.write('\n\n>>> beginning respmaintainer metric with REST api\n')
 

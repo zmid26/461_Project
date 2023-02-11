@@ -2,11 +2,11 @@ import os
 
 logLvl = os.environ.get('LOG_LEVEL')
 
-if logLvl == '2':
-    logTemp = open('log/logv2.txt','r')
+if logLvl == '1':
+    logTemp = open('log/logv1.txt','r')
     logInfo = logTemp.readlines()
-elif logLvl == '3':
-    logTemp = open('log/logv3.txt','r')
+elif logLvl == '2':
+    logTemp = open('log/logv2.txt','r')
     logInfo = logTemp.readlines()
 else:
     logInfo = []

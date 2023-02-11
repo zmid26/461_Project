@@ -9,8 +9,8 @@ f2 = open(sys.argv[1],'r') # open file containing urls
 urls = f2.readlines() 
 f2.close()
 
-file_v2 = open('log/logv2.txt','a+')
-file_v3 = open('log/logv3.txt','a+')
+file_v2 = open('log/logv1.txt','a+')
+file_v3 = open('log/logv2.txt','a+')
 
 repositories = []
 for x in range(len(urls)): # extract owner and name of each repository
