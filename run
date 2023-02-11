@@ -3,9 +3,11 @@
 if [ $1 == 'install' ]; then
     python3 install/localclone_install.py
 elif [ $1 == 'build' ]; then 
-    cargo build
+    cargo build;
 elif [ $1 == 'clean' ]; then 
-    rm -r -f target; cd local_cloning; rm -r -f cloned_repos
+    rm log_file.txt && rm -r -f target && cd local_cloning && rm -r -f cloned_repos && cd ../output && rm *.txt && cd ../log && rm *.txt;
+elif [ $1 == 'tempclean' ]; then 
+    rm log_file.txt && cd output && rm *.txt && cd ../log && rm *.txt;
 else
-    ./target/debug/main "$@"
+    export $(cat .env | xargs); ./target/debug/main "$@"
 fi

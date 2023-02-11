@@ -3,6 +3,7 @@ from pprint import pprint
 import sys
 import json
 import datetime as dt
+import os
 
 MAXNUMOPEN = 1000
 UPDATEDECAY = 1.1
@@ -16,8 +17,19 @@ def getResponsiveScore(githubRepoURL):
 
     openURL = 'https://api.github.com/repos/' + repoDir
 
-    f = open('env.txt', 'r') # open file containing github token
-    github_token = f.readline()[13:].replace('\n', '') # retrieve github token
+    github_token = os.environ.get('GITHUB_TOKEN')
+    
+    file_v2 = open('log/logv2.txt','a+')
+    file_v3 = open('log/logv3.txt','a+')
+
+    file_v2.write('\n\n>>> beginning respmaintainer metric with REST api\n')
+
+    file_v3.write('\n\n------------------\n')
+    file_v3.write('current analysis of responsive maintainer metric will be done with github REST api\n')
+    file_v3.write('beginning retrieval of information from repository %s\n' % githubRepoURL)
+    file_v3.write('------------------\n')
+
+
     headers = {'Authorization': 'token ' + github_token} # build the header for authentication
    
    # get a response using the REST API
@@ -25,6 +37,8 @@ def getResponsiveScore(githubRepoURL):
 
     # if the response is successful, get the issue numbers
     if openResp.status_code == 200:
+        file_v2.write('able to receive response from github\n')
+        file_v3.write('able to receive response code %d from github\n' % openResp.status_code)
         
         # test if the repos contain the correct data in json format
         try:
@@ -40,37 +54,54 @@ def getResponsiveScore(githubRepoURL):
             day = int(updatedDate[2].split('T')[0])
             updatedDate = dt.date(year,month,day)
 
+            file_v2.write('proper repo format - data retrieval successful\n')
+            file_v3.write('proper repo format - retrieved %s from the api\n' % updatedDate)
+
+
         except:
-            print('improper repo format- investigate repo at ',githubRepoURL)
+            file_v2.write('improper repo format')
+            file_v3.write('improper repo format- investigate repo at %s \n' % githubRepoURL)
+
             return -1
 
-        # calculate ration of open to closed requests for score
+        # calculate ratio of open to closed requests for score
 
         score = 0
 
         if hasIssues == True:
+            file_v2.write('repo had nonzero number of issues\n')
+            file_v3.write('repo had more than 0 issues = True\n')
             score += 0.05
 
         if openNum > 25:
+            file_v2.write('number of open issues exceeded threshold\n')
+            file_v3.write('number of open issues exceeded threshold of 25\n')
             score += min(0.2,0.2 * ((MAXNUMOPEN - openNum) / MAXNUMOPEN))
 
         elapsedTime = str(dt.date.today() - updatedDate)
         if elapsedTime == '0:00:00':
+            file_v2.write('repo was updated today\n')
+            file_v3.write('repo was updated today, i.e. day difference was %s\n' % elapsedTime)
             elapsedTime = 0
         else:
             elapsedTime = int(elapsedTime.split(' ')[0])
+            file_v2.write('repo was not updated today\n')
+            file_v3.write('repo was not updated today, it was updated %d days ago\n' % elapsedTime)
             if elapsedTime < 0:
                 elapsedTime = 0
 
         score += 0.75 * (UPDATEDECAY ** (-1 * elapsedTime))
 
-        print(openNum,hasIssues,elapsedTime)
+        file_v3.write('responsive maintainer score was calculated to be %f with decay factor %f\n' % (score,UPDATEDECAY))
+
         return score
     
     # return invalid score if not able to get repo information
     else:
-        print('failed to resolve repository: ',githubRepoURL,' as ',openURL)
-        print('openResp.status_code: ',openResp.status_code)
+        #print('failed to resolve repository: ',githubRepoURL,' as ',openURL)
+        #print('openResp.status_code: ',openResp.status_code)
+        file_v2.write('failed to resolve repository\n')
+        file_v3.write('failed to resolve repository with response code %d from github\n' % openResp.status_code)
 
         return -1
 
@@ -118,8 +149,9 @@ def main():
     #find and print the responsive maintainer metric for each repo
     with open('output/resp_maintain_out.txt', 'w') as f:
         for u in gitURLs:
-            print('\nResponsive Maintainer score for repo: ', u, '\nis: ',getResponsiveScore(u),'\n')
-            f.write(str(getResponsiveScore(u)))
+            currScore = getResponsiveScore(u)
+            print('\nResponsive Maintainer score for repo: ', u, '\nis: ',currScore,'\n')
+            f.write(str(currScore))
             f.write('\n')
 if __name__ == "__main__":
     main()

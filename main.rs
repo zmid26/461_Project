@@ -19,8 +19,8 @@ fn main(){
     //run the license calculation (license.py)
     let _run_license = Command::new("python3").arg("local_cloning/license.py").arg(&cli_input[1]).status();
 
-
-    let _print_results = Command::new("python3").arg("output/print_results.py").arg("local_cloning/url_file.txt").status();
-
+    let _print_results = Command::new("python3").arg("output/print_results.py").arg(&cli_input[1]).status();
+    
+    let _set_logs = Command::new("python3").arg("verbosity.py").arg(&cli_input[1]).status();
 }
 
