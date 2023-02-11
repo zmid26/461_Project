@@ -3,7 +3,12 @@ import sys # import sys to use command line arguments
 import json # import json to parse json file
 import os
 
-github_token = os.environ.get('GITHUB_TOKEN')
+env_file = open('.env')
+vars = env_file.readlines()
+for v in vars:
+  if v.find('GITHUB_TOKEN') != -1:
+    github_token = v.split('GITHUB_TOKEN=')[1]
+    github_token = github_token.replace('\n','')
 
 f2 = open(sys.argv[1],'r') # open file containing urls
 urls = f2.readlines() 
