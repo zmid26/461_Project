@@ -1,0 +1,10 @@
+https://github.com/chalk/chalk
+https://github.com/debug-js/debug
+https://github.com/motion-canvas/motion-canvas
+https://github.com/jashkenas/underscore
+https://github.com/sveltejs/svelte
+https://www.npmjs.com/package/express
+https://www.npmjs.com/package/async
+https://www.npmjs.com/package/lodash
+https://www.npmjs.com/package/axios
+https://www.npmjs.com/package/mocha

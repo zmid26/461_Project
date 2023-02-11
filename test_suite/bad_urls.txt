@@ -1,0 +1,10 @@
+https://github.com/phonegap/phonegap-app-anyconference
+https://github.com/ReversedK/LocateAnything
+https://github.com/l3lackcurtains/graphql-boilerplate
+https://github.com/vbaicu/mMusicCast
+https://github.com/lookitscook/kiosk
+https://www.npmjs.com/package/url-inspector
+https://www.npmjs.com/package/package
+https://www.npmjs.com/package/validate-npm-package-license
+https://www.npmjs.com/package/universal-data-tool
+https://www.npmjs.com/package/anycontrol
