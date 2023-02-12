@@ -14,7 +14,7 @@ Repo had 569 stars
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 59889 stars
+Repo had 14332 stars
 
 
 >>> beginning correctness metric with GraphQL api
@@ -32,7 +32,7 @@ Repo had 55602 stars
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 14332 stars
+Repo had 59889 stars
 
 
 >>> beginning respmaintainer metric with REST api
