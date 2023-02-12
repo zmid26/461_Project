@@ -1,6 +1,8 @@
 from git import Repo #import git library 
 import sys #import sys to use command line arguments
 import os
+import subprocess
+from subprocess import DEVNULL
 
 devnull = open('/dev/null', 'w')
 sys.stdout = devnull
@@ -44,8 +46,10 @@ for url in urls:
         package_name = url[url.find('/package/') + 9:]
 
         #clone the current npm URL into 'local_cloning/cloned_repos' directory
-        os.system("npm v " + package_name + " dist.tarball | xargs curl | tar -xz")
-        os.system("mv package/ local_cloning/cloned_repos/" + str(url_num))
+        #os.system("npm v " + package_name + " dist.tarball | xargs curl | tar -xz")
+        subprocess.Popen("npm v " + package_name + " dist.tarball | xargs curl | tar -xz", shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
+        #os.system("mv package/ local_cloning/cloned_repos/" + str(url_num))
+        subprocess.Popen("mv package/ local_cloning/cloned_repos/" + str(url_num), shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
 
         #print status update
         log1.write("finished cloning url #\n" + str(url_num))

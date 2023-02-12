@@ -9,14 +9,14 @@ Lines of comments in folder 1: 2292
 RampUp score for repo 1: 0.26
 
 
-Lines of code in folder 2: 1867
-Lines of comments in folder 2: 1597
-RampUp score for repo 2: 1.00
+Lines of code in folder 2: 1693
+Lines of comments in folder 2: 448
+RampUp score for repo 2: 0.53
 
 
-Lines of code in folder 3: 1693
-Lines of comments in folder 3: 448
-RampUp score for repo 3: 0.53
+Lines of code in folder 3: 5601
+Lines of comments in folder 3: 116
+RampUp score for repo 3: 0.04
 
 
 Lines of code in folder 4: 20447
@@ -24,9 +24,9 @@ Lines of comments in folder 4: 5155
 RampUp score for repo 4: 0.50
 
 
-Lines of code in folder 5: 5601
-Lines of comments in folder 5: 116
-RampUp score for repo 5: 0.04
+Lines of code in folder 5: 1867
+Lines of comments in folder 5: 1597
+RampUp score for repo 5: 1.00
 
 
 
@@ -43,13 +43,13 @@ Correctness score for repo cloudinary_npm owned by cloudinary: 0.837997
 
 ------------------
 current analysis of correctness will be done with github GraphQL api
-beginning retrieval of information from repository expressjs express
+beginning retrieval of information from repository browserify browserify
 ------------------
 successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-Number of stars: 59889
-Number of open issues: 119
-Correctness score for repo express owned by expressjs: 0.980517 
+Number of stars: 14332
+Number of open issues: 353
+Correctness score for repo browserify owned by browserify: 0.802374 
 
 
 ------------------
@@ -76,13 +76,13 @@ Correctness score for repo lodash owned by lodash: 0.946707
 
 ------------------
 current analysis of correctness will be done with github GraphQL api
-beginning retrieval of information from repository browserify browserify
+beginning retrieval of information from repository expressjs express
 ------------------
 successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-Number of stars: 14332
-Number of open issues: 353
-Correctness score for repo browserify owned by browserify: 0.802374 
+Number of stars: 59889
+Number of open issues: 119
+Correctness score for repo express owned by expressjs: 0.980517 
 
 
 ------------------
@@ -98,14 +98,14 @@ responsive maintainer score was calculated to be 0.434869 with decay factor 1.10
 
 ------------------
 current analysis of responsive maintainer metric will be done with github REST api
-beginning retrieval of information from repository https://github.com/expressjs/express
+beginning retrieval of information from repository https://github.com/browserify/browserify
 ------------------
 able to receive response code 200 from github
 proper repo format - retrieved 2023-02-12 from the api
 repo had more than 0 issues = True
 number of open issues exceeded threshold of 25
 repo was updated today, i.e. day difference was 0:00:00
-responsive maintainer score was calculated to be 0.965400 with decay factor 1.100000
+responsive maintainer score was calculated to be 0.923000 with decay factor 1.100000
 
 
 ------------------
@@ -134,11 +134,11 @@ responsive maintainer score was calculated to be 0.906000 with decay factor 1.10
 
 ------------------
 current analysis of responsive maintainer metric will be done with github REST api
-beginning retrieval of information from repository https://github.com/browserify/browserify
+beginning retrieval of information from repository https://github.com/expressjs/express
 ------------------
 able to receive response code 200 from github
 proper repo format - retrieved 2023-02-12 from the api
 repo had more than 0 issues = True
 number of open issues exceeded threshold of 25
 repo was updated today, i.e. day difference was 0:00:00
-responsive maintainer score was calculated to be 0.923000 with decay factor 1.100000
+responsive maintainer score was calculated to be 0.965400 with decay factor 1.100000
