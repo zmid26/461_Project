@@ -14,6 +14,9 @@ url_num = 1
 #make a directory named 'cloned_repos' to put the cloned repos in
 os.mkdir("local_cloning/cloned_repos/")
 
+log1 = open('log/logv1.txt','w')
+log2 = open('log/logv2.txt','w')
+
 #loops through all of the URLs
 for url in urls:
 
@@ -24,7 +27,8 @@ for url in urls:
         Repo.clone_from(url, "local_cloning/cloned_repos/" + str(url_num) + "/") #i.e. first URL will be put in a directory called '1', second URL will be put in '2', etc.
         
         #print status update
-        print("finished cloning url #" + str(url_num))
+        #print("finished cloning url #" + str(url_num))
+        log1.write("finished cloning url #" + str(url_num) + "\n")
 
         #increment the url number
         url_num = url_num + 1
@@ -40,7 +44,7 @@ for url in urls:
         os.system("mv package/ local_cloning/cloned_repos/" + str(url_num))
 
         #print status update
-        print("finished cloning url #" + str(url_num))
+        log1.write("finished cloning url #\n" + str(url_num))
 
         #increment the url number
         url_num = url_num + 1

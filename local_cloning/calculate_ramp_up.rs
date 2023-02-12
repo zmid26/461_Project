@@ -16,22 +16,34 @@ fn main(){
     //create a variable for the file path and save the first command line argument into it
     let filepath = &cli_input[1]; 
 
-    println!("{}", filepath);
-
     //take the contents of the file and save into a single string
     let data = fs::read_to_string(filepath).expect("Unable to read file");
 
     //now, chop this string into a vector at every newline since the URLS are newline delimited
     let _urls: Vec<&str> = data.split('\n').collect();
 
+    let is_logv1 = Path::new("log/logv1.txt").exists();
+    if is_logv1 == true{
+        fs::remove_file("log/logv1.txt").expect("Error deleting old log file");
+    }
+
+    let is_logv2 = Path::new("log/logv2.txt").exists();
+    if is_logv2 == true{
+        fs::remove_file("log/logv2.txt").expect("Error deleting old log file");
+    }
+
+    let mut log1 = BufWriter::new(File::create("log/logv1.txt").expect("Error opening output file for rampup"));
+    let mut log2 = BufWriter::new(File::create("log/logv2.txt").expect("Error opening output file for rampup"));
+
     //get number of URLS
     let num_urls = _urls.len();
-    println!("number of urls passed in: {}", num_urls);
+    write!(log1, "Number of URLs in the input file: {0}\n", num_urls).expect("Error writing to log");
+    
 
     //loop through urls and print their corresponding clone folder numbers
     let mut url_index = 1;
     for url in _urls {
-        println!("folder number / url     :     {} / {}", url_index, url);
+        write!(log2, "Folder number and url:     {} / {}\n", url_index, url).expect("Error writing to log");
         url_index += 1;
     }
     
@@ -72,15 +84,15 @@ fn main(){
         //get the number of lines of code and comments
         let code_lines = js.code;
         let comment_lines = js.comments;
-        println!("Lines of code in folder {}: {}", folder_num, code_lines);
-        println!("Lines of comments in folder {}: {}", folder_num, comment_lines);
+        write!(log2, "\nLines of code in folder {}: {}\n", folder_num, code_lines).expect("Error writing to log");
+        write!(log2, "Lines of comments in folder {}: {}\n", folder_num, comment_lines).expect("Error writing to log");
+        
 
         //calculate rampup
         let code_u32 = u32::try_from(code_lines).unwrap();
         let comment_u32 = u32::try_from(comment_lines).unwrap();
         let ramp_up = calculate_ramp_up(code_u32, comment_u32);
-        println!("RampUp score for repo {}: {:.2}\n", folder_num, ramp_up);
-
+        write!(log2, "RampUp score for repo {}: {:.2}\n\n", folder_num, ramp_up).expect("Error writing to log");
         
 
         write!(out_file, "{0}\n", ramp_up).expect("Error writing rampup to output");
