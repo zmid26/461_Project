@@ -64,6 +64,7 @@ for x in netscore:
     (output[url_idx]).update({"NET_SCORE":netscore[url_idx]})
     (output[url_idx]).update({"RAMP_UP_SCORE":rampup[url_idx]})
     (output[url_idx]).update({"CORRECTNESS_SCORE":correctness[url_idx]})
+    (output[url_idx]).update({"BUS_FACTOR_SCORE":-1})
     (output[url_idx]).update({"RESPONSIVE_MAINTAINER_SCORE":responsive_maintainer[url_idx]})
     (output[url_idx]).update({"LICENSE_SCORE":license[url_idx]})
     url_idx += 1
@@ -74,4 +75,7 @@ net_and_out_sorted = sorted(net_and_out, reverse=True)
 sorted_output = [x[1] for x in net_and_out_sorted]
 
 #print the sorted output
-print(*sorted_output, sep='\n')
+for x in sorted_output:
+    print(json.dumps(x))
+
+exit(0)
