@@ -47,9 +47,9 @@ beginning retrieval of information from repository expressjs express
 ------------------
 successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-Number of stars: 59882
+Number of stars: 59887
 Number of open issues: 119
-Correctness score for repo express owned by expressjs: 0.980515 
+Correctness score for repo express owned by expressjs: 0.980516 
 
 
 ------------------
@@ -69,9 +69,9 @@ beginning retrieval of information from repository lodash lodash
 ------------------
 successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-Number of stars: 55587
-Number of open issues: 311
-Correctness score for repo lodash owned by lodash: 0.947016 
+Number of stars: 55600
+Number of open issues: 313
+Correctness score for repo lodash owned by lodash: 0.946705 
 
 
 ------------------
@@ -80,9 +80,9 @@ beginning retrieval of information from repository browserify browserify
 ------------------
 successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-Number of stars: 14331
+Number of stars: 14332
 Number of open issues: 353
-Correctness score for repo browserify owned by browserify: 0.802363 
+Correctness score for repo browserify owned by browserify: 0.802374 
 
 
 ------------------
@@ -92,8 +92,8 @@ beginning retrieval of information from repository https://github.com/cloudinary
 able to receive response code 200 from github
 proper repo format - retrieved 2023-02-05 from the api
 repo had more than 0 issues = True
-repo was not updated today, it was updated 6 days ago
-responsive maintainer score was calculated to be 0.473355 with decay factor 1.100000
+repo was not updated today, it was updated 7 days ago
+responsive maintainer score was calculated to be 0.434869 with decay factor 1.100000
 
 
 ------------------
@@ -101,7 +101,7 @@ current analysis of responsive maintainer metric will be done with github REST a
 beginning retrieval of information from repository https://github.com/expressjs/express
 ------------------
 able to receive response code 200 from github
-proper repo format - retrieved 2023-02-11 from the api
+proper repo format - retrieved 2023-02-12 from the api
 repo had more than 0 issues = True
 number of open issues exceeded threshold of 25
 repo was updated today, i.e. day difference was 0:00:00
@@ -116,8 +116,8 @@ able to receive response code 200 from github
 proper repo format - retrieved 2023-02-10 from the api
 repo had more than 0 issues = True
 number of open issues exceeded threshold of 25
-repo was not updated today, it was updated 1 days ago
-responsive maintainer score was calculated to be 0.922418 with decay factor 1.100000
+repo was not updated today, it was updated 2 days ago
+responsive maintainer score was calculated to be 0.860435 with decay factor 1.100000
 
 
 ------------------
@@ -125,11 +125,11 @@ current analysis of responsive maintainer metric will be done with github REST a
 beginning retrieval of information from repository https://github.com/lodash/lodash
 ------------------
 able to receive response code 200 from github
-proper repo format - retrieved 2023-02-11 from the api
+proper repo format - retrieved 2023-02-12 from the api
 repo had more than 0 issues = True
 number of open issues exceeded threshold of 25
 repo was updated today, i.e. day difference was 0:00:00
-responsive maintainer score was calculated to be 0.906400 with decay factor 1.100000
+responsive maintainer score was calculated to be 0.906000 with decay factor 1.100000
 
 
 ------------------
@@ -137,8 +137,8 @@ current analysis of responsive maintainer metric will be done with github REST a
 beginning retrieval of information from repository https://github.com/browserify/browserify
 ------------------
 able to receive response code 200 from github
-proper repo format - retrieved 2023-02-10 from the api
+proper repo format - retrieved 2023-02-12 from the api
 repo had more than 0 issues = True
 number of open issues exceeded threshold of 25
-repo was not updated today, it was updated 1 days ago
-responsive maintainer score was calculated to be 0.854818 with decay factor 1.100000
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.923000 with decay factor 1.100000
