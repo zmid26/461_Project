@@ -1,4 +1,9 @@
 import os
+import sys
+
+devnull = open('/dev/null', 'w')
+sys.stdout = devnull
+sys.stderr = devnull
 
 env_file = open('.env')
 vars = env_file.readlines()

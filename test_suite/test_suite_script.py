@@ -50,3 +50,4 @@ for url in urls:
 
 print("%i/%i test cases passed." % (passedTests, len(urls)))
 print(net_scores)
+exit(0)
