@@ -3,14 +3,23 @@ import sys # import sys to use command line arguments
 import json # import json to parse json file
 import os
 
-github_token = os.environ.get('GITHUB_TOKEN')
+devnull = open('/dev/null', 'w')
+sys.stdout = devnull
+sys.stderr = devnull
+
+env_file = open('.env')
+vars = env_file.readlines()
+for v in vars:
+  if v.find('GITHUB_TOKEN') != -1:
+    github_token = v.split('GITHUB_TOKEN=')[1]
+    github_token = github_token.replace('\n','')
 
 f2 = open(sys.argv[1],'r') # open file containing urls
 urls = f2.readlines() 
 f2.close()
 
-file_v2 = open('log/logv2.txt','a+')
-file_v3 = open('log/logv3.txt','a+')
+file_v2 = open('log/logv1.txt','a+')
+file_v3 = open('log/logv2.txt','a+')
 
 repositories = []
 for x in range(len(urls)): # extract owner and name of each repository
@@ -74,15 +83,15 @@ with open('output/correctness_out.txt', 'w') as f:
         file_v2.write('impproper repo format\n')
         file_v3.write('improper repo format - error with repo\n')
 
-      print("Number of stars: %i" % starCount)
-      print("Number of open issues: %i" % openIssuesCount)
-      print("Correctness score for repo %s owned by %s: %f \n" % (repository[1], repository[0], correctness))
+      #print("Number of stars: %i" % starCount)
+      #print("Number of open issues: %i" % openIssuesCount)
+      #print("Correctness score for repo %s owned by %s: %f \n" % (repository[1], repository[0], correctness))
       
       #write the correctness score to the outputfile
       f.write(str(correctness))
       f.write('\n')
     
     else: # handle error if response is not received correctly
-      print("Failed to retrieve response using GraphQL by returning code {}.".format(response.status_code))
+      #print("Failed to retrieve response using GraphQL by returning code {}.".format(response.status_code))
       file_v2.write('Failed to retrieve response')
       file_v3.write('Failed to retrieve response with code %d\n' % response.status_code)

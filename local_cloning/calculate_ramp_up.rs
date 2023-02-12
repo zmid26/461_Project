@@ -4,7 +4,6 @@ use std::fs::File; //rust file library
 use std::process::Command; //library to run processes in rust
 use std::io::BufWriter;
 use tokei::{Config, Languages, LanguageType};
-//use pyo3::prelude::*; //module to run python code in rust
 use std::path::Path;
 use std::io::Write;
 
@@ -16,36 +15,84 @@ fn main(){
     //create a variable for the file path and save the first command line argument into it
     let filepath = &cli_input[1]; 
 
-    println!("{}", filepath);
-
     //take the contents of the file and save into a single string
-    let data = fs::read_to_string(filepath).expect("Unable to read file");
+    let data = match fs::read_to_string(filepath){
+        Ok(data) => data,
+        Err(..) => {
+            println!("Error reading the input file!\n");
+            std::process::exit(1);
+        }
+    };
 
     //now, chop this string into a vector at every newline since the URLS are newline delimited
     let _urls: Vec<&str> = data.split('\n').collect();
 
-    //get number of URLS
-    let num_urls = _urls.len();
-    println!("number of urls passed in: {}", num_urls);
+    //if the logfiles exist from a previous run, delete them
+    let is_logv1 = Path::new("log/logv1.txt").exists();
+    if is_logv1 == true{
+        
+        //remove old log1 file and handle error
+        let _remove_log1 = match fs::remove_file("log/logv1.txt"){
+            Ok(_remove_log1) => _remove_log1,
+            Err(..) => {
+                println!("Error deleting old log1 file!\n");
+                std::process::exit(1);
+            }
+        };
+    }
+    let is_logv2 = Path::new("log/logv2.txt").exists();
+    if is_logv2 == true{
 
-    //loop through urls and print their corresponding clone folder numbers
+        //remove old log2 file and handle error
+        let _remove_log2 = match fs::remove_file("log/logv2.txt"){
+            Ok(_remove_log2) => _remove_log2,
+            Err(..) => {
+                println!("Error deleting old log2 file!\n");
+                std::process::exit(1);
+            }
+        };
+    }
+
+    //open new logfiles after cleaning old ones
+    let mut log1 = BufWriter::new(File::create("log/logv1.txt").expect("Error creating log1 file!"));
+    let mut log2 = BufWriter::new(File::create("log/logv2.txt").expect("Error creating log2 file!"));
+
+    //get number of URLS and log the count
+    let num_urls = _urls.len();
+    write!(log1, "Number of URLs in the input file: {0}\n", num_urls).expect("Error writing to log1!");
+
+    //loop through urls and log their corresponding clone folder numbers
     let mut url_index = 1;
     for url in _urls {
-        println!("folder number / url     :     {} / {}", url_index, url);
+        write!(log2, "Folder number and url:     {} / {}\n", url_index, url).expect("Error writing to log2!");
         url_index += 1;
     }
     
     //check if the cloned repos folder is already there from a previous run, and delete it if so
     let is_cloned_repos = Path::new("local_cloning/cloned_repos/").exists();
     if is_cloned_repos == true{
-        fs::remove_dir_all("local_cloning/cloned_repos/").expect("error deleting cloned repos directory");
+        
+        //cleans out old repos if theyre still there
+        let _remove_old_clones = match fs::remove_dir_all("local_cloning/cloned_repos/"){
+            Ok(_remove_old_clones) => _remove_old_clones,
+            Err(..) => {
+                println!("Error deleting old cloned repos!\n");
+                std::process::exit(1);
+            }
+        };
     }
     
     //run clone function to locally clone repos (pass in the input file)
     clone_repos((&filepath).to_string());
 
     //open up the directory with all the cloned repos
-    let cloned_folders = fs::read_dir("local_cloning/cloned_repos/").unwrap();
+    let cloned_folders = match fs::read_dir("local_cloning/cloned_repos/"){
+        Ok(cloned_folders) => cloned_folders,
+        Err(..) => {
+            println!("Error opening up cloned repos directory!\n");
+            std::process::exit(1);
+        }
+    };
 
     //initialize a counter for the current folder number
     let mut folder_num = 1;
@@ -69,20 +116,20 @@ fn main(){
         languages.get_statistics(paths, excluded, &config);
         let js = &languages[&LanguageType::JavaScript];
 
-        //get the number of lines of code and comments
+        //get the number of lines of code and comments and log them
         let code_lines = js.code;
         let comment_lines = js.comments;
-        println!("Lines of code in folder {}: {}", folder_num, code_lines);
-        println!("Lines of comments in folder {}: {}", folder_num, comment_lines);
+        write!(log2, "\nLines of code in folder {}: {}\n", folder_num, code_lines).expect("Error writing to log");
+        write!(log2, "Lines of comments in folder {}: {}\n", folder_num, comment_lines).expect("Error writing to log");
+        
 
-        //calculate rampup
+        //calculate rampup and log it
         let code_u32 = u32::try_from(code_lines).unwrap();
         let comment_u32 = u32::try_from(comment_lines).unwrap();
         let ramp_up = calculate_ramp_up(code_u32, comment_u32);
-        println!("RampUp score for repo {}: {:.2}\n", folder_num, ramp_up);
-
+        write!(log2, "RampUp score for repo {}: {:.2}\n\n", folder_num, ramp_up).expect("Error writing to log");
         
-
+        //write the rampup score to the rampup_out.txt file in the output folder
         write!(out_file, "{0}\n", ramp_up).expect("Error writing rampup to output");
 
         //increment the folder counter
@@ -111,6 +158,12 @@ fn calculate_ramp_up(lines_of_code: u32, lines_of_comments: u32) -> f32{
 fn clone_repos(filepath: String){
 
     //run clone_repo.py
-    let _run_clone_script = Command::new("python3").arg("local_cloning/clone_repo.py").arg(&filepath).status();
+    let _run_clone_script = Command::new("python3").arg("local_cloning/clone_repo.py").arg(&filepath).status().expect("Err");
+
+    //if the clone script didnt return success, exit 1 and print error
+    if _run_clone_script.success() == false {
+        println!("Error cloning repos!");
+        std::process::exit(1);
+    }
 }
 

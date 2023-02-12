@@ -5,6 +5,10 @@ import json
 import datetime as dt
 import os
 
+devnull = open('/dev/null', 'w')
+sys.stdout = devnull
+sys.stderr = devnull
+
 MAXNUMOPEN = 1000
 UPDATEDECAY = 1.1
 
@@ -17,10 +21,16 @@ def getResponsiveScore(githubRepoURL):
 
     openURL = 'https://api.github.com/repos/' + repoDir
 
-    github_token = os.environ.get('GITHUB_TOKEN')
+    env_file = open('.env')
+    vars = env_file.readlines()
+    for v in vars:
+        if v.find('GITHUB_TOKEN') != -1:
+            github_token = v.split('GITHUB_TOKEN=')[1]
+            github_token = github_token.replace('\n','')
+
     
-    file_v2 = open('log/logv2.txt','a+')
-    file_v3 = open('log/logv3.txt','a+')
+    file_v2 = open('log/logv1.txt','a+')
+    file_v3 = open('log/logv2.txt','a+')
 
     file_v2.write('\n\n>>> beginning respmaintainer metric with REST api\n')
 
@@ -150,7 +160,7 @@ def main():
     with open('output/resp_maintain_out.txt', 'w') as f:
         for u in gitURLs:
             currScore = getResponsiveScore(u)
-            print('\nResponsive Maintainer score for repo: ', u, '\nis: ',currScore,'\n')
+            #print('\nResponsive Maintainer score for repo: ', u, '\nis: ',currScore,'\n')
             f.write(str(currScore))
             f.write('\n')
 if __name__ == "__main__":

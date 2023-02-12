@@ -1,4 +1,5 @@
 import subprocess
+from subprocess import DEVNULL
 
 passedTests = 0
 net_scores = []
@@ -15,15 +16,15 @@ for url in urls:
         newTestFile.write(url.strip())
 
     # run each individual script for metric calculation
-    subprocess.run(['./target/debug/calculate_ramp_up', 'test_suite/newTest.txt'])
-    subprocess.run(['python3', 'graphql_api/calculate_Correctness.py', 'test_suite/newTest.txt'])
-    subprocess.run(['python3', 'rest_api/calculate_ResponsiveMaintainer.py', 'test_suite/newTest.txt'])
-    subprocess.run(['python3', 'local_cloning/license.py', 'test_suite/newTest.txt'])
-    printed_result = str(subprocess.run(['python3', 'output/print_results.py', 'test_suite/newTest.txt'], stdout=subprocess.PIPE).stdout)
-    
+    printed_result = str(subprocess.run(['./run', 'test_suite/newTest.txt'], stdout=subprocess.PIPE).stdout)
+   
     # extract net_score value from output
-    score_index = int(printed_result.find('NET_SCORE')) + 12
-    net_score = float(printed_result[score_index:(score_index+6)])
+    try:
+        net_print = printed_result.split('"NET_SCORE":')[1]
+        net_score = float(net_print.split(',')[0])
+    except:
+        net_score = -1
+
     if net_score <= 1 and net_score >= 0: # if the net_score is valid, add it as a passed test
         passedTests += 1
         net_scores.append(net_score)
@@ -50,3 +51,5 @@ for url in urls:
 
 print("%i/%i test cases passed." % (passedTests, len(urls)))
 print(net_scores)
+
+exit(0)

@@ -1,6 +1,12 @@
 from git import Repo #import git library 
 import sys #import sys to use command line arguments
 import os
+import subprocess
+from subprocess import DEVNULL
+
+devnull = open('/dev/null', 'w')
+sys.stdout = devnull
+sys.stderr = devnull
 
 #open the command line argument file
 input_file = open(sys.argv[1],'r') 
@@ -14,6 +20,9 @@ url_num = 1
 #make a directory named 'cloned_repos' to put the cloned repos in
 os.mkdir("local_cloning/cloned_repos/")
 
+log1 = open('log/logv1.txt','w')
+log2 = open('log/logv2.txt','w')
+
 #loops through all of the URLs
 for url in urls:
 
@@ -24,7 +33,8 @@ for url in urls:
         Repo.clone_from(url, "local_cloning/cloned_repos/" + str(url_num) + "/") #i.e. first URL will be put in a directory called '1', second URL will be put in '2', etc.
         
         #print status update
-        print("finished cloning url #" + str(url_num))
+        #print("finished cloning url #" + str(url_num))
+        log1.write("finished cloning url #" + str(url_num) + "\n")
 
         #increment the url number
         url_num = url_num + 1
@@ -36,11 +46,15 @@ for url in urls:
         package_name = url[url.find('/package/') + 9:]
 
         #clone the current npm URL into 'local_cloning/cloned_repos' directory
-        os.system("npm v " + package_name + " dist.tarball | xargs curl | tar -xz")
-        os.system("mv package/ local_cloning/cloned_repos/" + str(url_num))
+        #os.system("npm v " + package_name + " dist.tarball | xargs curl | tar -xz")
+        subprocess.Popen("npm v " + package_name + " dist.tarball | xargs curl | tar -xz", shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
+        #os.system("mv package/ local_cloning/cloned_repos/" + str(url_num))
+        subprocess.Popen("mv package/ local_cloning/cloned_repos/" + str(url_num), shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
 
         #print status update
-        print("finished cloning url #" + str(url_num))
+        log1.write("finished cloning url #\n" + str(url_num))
 
         #increment the url number
         url_num = url_num + 1
+
+exit(0)
