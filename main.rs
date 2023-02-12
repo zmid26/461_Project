@@ -92,7 +92,7 @@ fn clean_up(){
     let _clean_license = match fs::remove_file("output/license_out.txt"){
         Ok(_clean_license) => _clean_license,
         Err(..) => {
-            println!("Error cleaning correctness output!\n");
+            println!("Error cleaning license output!\n");
             std::process::exit(1);
         }
     };
