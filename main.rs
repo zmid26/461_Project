@@ -1,6 +1,7 @@
 use std::env; //rust stdlib function to get command line args
 use std::process::Command; //library to run processes in rust
-
+use std::fs; //rust file library
+use std::process;
 
 fn main(){
 
@@ -22,5 +23,19 @@ fn main(){
     let _print_results = Command::new("python3").arg("output/print_results.py").arg(&cli_input[1]).status();
     
     let _set_logs = Command::new("python3").arg("verbosity.py").arg(&cli_input[1]).status();
+
+    clean_up();
+
+    process::exit(0);
 }
 
+//this function removes locally cloned repos and output files
+fn clean_up(){
+
+    fs::remove_dir_all("local_cloning/cloned_repos/").expect("Error deleting cloned repos directory");
+    fs::remove_file("output/correctness_out.txt").expect("Error deleting cloned repos directory");
+    fs::remove_file("output/license_out.txt").expect("Error deleting cloned repos directory");
+    fs::remove_file("output/rampup_out.txt").expect("Error deleting cloned repos directory");
+    fs::remove_file("output/resp_maintain_out.txt").expect("Error deleting cloned repos directory");
+
+}
