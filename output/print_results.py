@@ -61,12 +61,12 @@ url_idx = 0
 for x in netscore:
     output.append({})
     (output[url_idx]).update({"URL":urls[url_idx]})
-    (output[url_idx]).update({"NET_SCORE":netscore[url_idx]})
-    (output[url_idx]).update({"RAMP_UP_SCORE":rampup[url_idx]})
-    (output[url_idx]).update({"CORRECTNESS_SCORE":correctness[url_idx]})
+    (output[url_idx]).update({"NET_SCORE":round(netscore[url_idx], 2)})
+    (output[url_idx]).update({"RAMP_UP_SCORE":round(rampup[url_idx], 2)})
+    (output[url_idx]).update({"CORRECTNESS_SCORE":round(correctness[url_idx], 2)})
     (output[url_idx]).update({"BUS_FACTOR_SCORE":-1})
-    (output[url_idx]).update({"RESPONSIVE_MAINTAINER_SCORE":responsive_maintainer[url_idx]})
-    (output[url_idx]).update({"LICENSE_SCORE":license[url_idx]})
+    (output[url_idx]).update({"RESPONSIVE_MAINTAINER_SCORE":round(responsive_maintainer[url_idx], 2)})
+    (output[url_idx]).update({"LICENSE_SCORE":round(license[url_idx], 2)})
     url_idx += 1
 
 #sort netscore list and do the same ops to output so that output is sorted in the same way
@@ -76,6 +76,6 @@ sorted_output = [x[1] for x in net_and_out_sorted]
 
 #print the sorted output
 for x in sorted_output:
-    print(json.dumps(x))
+    print(json.dumps(x, separators=(', ', ':')))
 
 exit(0)
