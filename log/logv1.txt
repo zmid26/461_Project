@@ -1,0 +1,74 @@
+Number of URLs in the input file: 5
+ning url #
+2finished cloning url #3
+finished cloning url #4
+finished cloning url #
+5
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 569 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 59882 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 1470 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 55587 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 14331 stars
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+repo was not updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was not updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was not updated today
