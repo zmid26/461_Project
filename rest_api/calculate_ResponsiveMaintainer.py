@@ -5,6 +5,10 @@ import json
 import datetime as dt
 import os
 
+devnull = open('/dev/null', 'w')
+sys.stdout = devnull
+sys.stderr = devnull
+
 MAXNUMOPEN = 1000
 UPDATEDECAY = 1.1
 
@@ -156,7 +160,7 @@ def main():
     with open('output/resp_maintain_out.txt', 'w') as f:
         for u in gitURLs:
             currScore = getResponsiveScore(u)
-            print('\nResponsive Maintainer score for repo: ', u, '\nis: ',currScore,'\n')
+            #print('\nResponsive Maintainer score for repo: ', u, '\nis: ',currScore,'\n')
             f.write(str(currScore))
             f.write('\n')
 if __name__ == "__main__":

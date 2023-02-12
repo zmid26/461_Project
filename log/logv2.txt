@@ -47,9 +47,9 @@ beginning retrieval of information from repository expressjs express
 ------------------
 successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-Number of stars: 59887
+Number of stars: 59889
 Number of open issues: 119
-Correctness score for repo express owned by expressjs: 0.980516 
+Correctness score for repo express owned by expressjs: 0.980517 
 
 
 ------------------
@@ -69,9 +69,9 @@ beginning retrieval of information from repository lodash lodash
 ------------------
 successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-Number of stars: 55600
+Number of stars: 55602
 Number of open issues: 313
-Correctness score for repo lodash owned by lodash: 0.946705 
+Correctness score for repo lodash owned by lodash: 0.946707 
 
 
 ------------------

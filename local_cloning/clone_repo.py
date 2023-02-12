@@ -2,6 +2,10 @@ from git import Repo #import git library
 import sys #import sys to use command line arguments
 import os
 
+devnull = open('/dev/null', 'w')
+sys.stdout = devnull
+sys.stderr = devnull
+
 #open the command line argument file
 input_file = open(sys.argv[1],'r') 
 
@@ -48,3 +52,5 @@ for url in urls:
 
         #increment the url number
         url_num = url_num + 1
+
+exit(0)

@@ -5,6 +5,9 @@ import sys #import sys to use command line arguments
 import os
 import json
 
+devnull = open('/dev/null', 'w')
+sys.stderr = devnull
+
 #keep track of which index of the array we are at
 url_idx = 0
 
