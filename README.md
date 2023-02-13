@@ -19,8 +19,8 @@ Current functionality:
     -scores are not rounded yet
 
 
-"./run test" just prints a message out
+"./run test" will run the test suite
 
-    -we have not implemented the test functionality yet
-
-
+    -this command runs a test suite consisting of 20 separate test cases
+    -10 good and 10 bad urls are included in this test suite
+    -number of passed tests and line coverage % are printed to output

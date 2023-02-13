@@ -1,8 +1,8 @@
-https://github.com/chalk/chalk
+https://github.com/ramda/ramda
 https://github.com/debug-js/debug
-https://github.com/motion-canvas/motion-canvas
+https://github.com/josephg/ShareJS
 https://github.com/jashkenas/underscore
-https://github.com/sveltejs/svelte
+https://github.com/Automattic/mongoose
 https://www.npmjs.com/package/express
 https://www.npmjs.com/package/async
 https://www.npmjs.com/package/lodash
