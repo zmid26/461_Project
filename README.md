@@ -1,4 +1,4 @@
-Current functionality:
+Functionality:
 
 "./run install" will run the python script called "localclone_installer.py" in the 'install' directory
 
@@ -7,16 +7,14 @@ Current functionality:
 
 "./run build" will run the command "cargo build" 
 
-    -this command builds "main.rs" as well as "calculate_ramp_up.rs" at the same time
-    -these two executables will be located in the 'target/debug' directory 
+    -this command builds "main.rs" as well as "calculate_ramp_up.rs" at the same time 
     -this command also installs dependencies that are needed for the rust code. these are specified 'Cargo.toml' file
 
 
 "./run URL_FILE" will run the command "./target/debug/main URL_FILE"
 
     -this command runs the executable from the "main.rs" rust file
-    -will print formatted output that inlcudes all metrics except for license
-    -scores are not rounded yet
+    -will print formatted output that inlcudes all metrics except for BusFactor which we omitted
 
 
 "./run test" will run the test suite
