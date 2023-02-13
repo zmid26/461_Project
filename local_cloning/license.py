@@ -6,6 +6,7 @@ readme_pattern = re.compile("(?i)README.md")
 license_pattern = re.compile("(?i)license")
 found = 0
 
+#sorry about this one
 rootdir = 'local_cloning/cloned_repos/'
 with open('output/license_out.txt', 'w') as f:
   for file in os.listdir(rootdir):

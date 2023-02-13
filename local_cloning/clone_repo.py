@@ -46,9 +46,7 @@ for url in urls:
         package_name = url[url.find('/package/') + 9:]
 
         #clone the current npm URL into 'local_cloning/cloned_repos' directory
-        #os.system("npm v " + package_name + " dist.tarball | xargs curl | tar -xz")
         subprocess.run(["npm v " + package_name + " dist.tarball | xargs curl | tar -xz"], shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
-        #os.system("mv package/ local_cloning/cloned_repos/" + str(url_num))
         subprocess.run(["mv package/ local_cloning/cloned_repos/" + str(url_num)], shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
 
         #print status update
