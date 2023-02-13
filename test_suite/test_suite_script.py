@@ -29,6 +29,7 @@ for url in urls:
         
 print("Total: " + str(len(urls)))
 print("Passed: " + str(len(net_scores)))
-print("%i/%i test cases passed." % (len(net_scores), len(urls)))
+print("Coverage: n/a%")
+print("%i/%i test cases passed. n/a%% line coverage achieved" % (len(net_scores), len(urls)))
 
 exit(0)
