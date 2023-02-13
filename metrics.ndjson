@@ -1,3 +1,4 @@
 {"metric":"RAMP_UP_SCORE", "api":"clone", "filepath":"local_cloning/calculate_ramp_up.rs", "line":129}
 {"metric":"LICENSE_SCORE", "api":"clone", "filepath":"local_cloning/license.py", "line":21}
 {"metric":"BUS_FACTOR_SCORE", "api":"none", "filepath":"none", "line":-1}
+{"metric:":"CORRECTNESS_SCORE", "api":"graphql", "filepath":graphql_api/calculate_Correctness.py", "line":73}

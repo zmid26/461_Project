@@ -47,12 +47,12 @@ for url in urls:
 
         #clone the current npm URL into 'local_cloning/cloned_repos' directory
         #os.system("npm v " + package_name + " dist.tarball | xargs curl | tar -xz")
-        subprocess.Popen("npm v " + package_name + " dist.tarball | xargs curl | tar -xz", shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
+        subprocess.run(["npm v " + package_name + " dist.tarball | xargs curl | tar -xz"], shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
         #os.system("mv package/ local_cloning/cloned_repos/" + str(url_num))
-        subprocess.Popen("mv package/ local_cloning/cloned_repos/" + str(url_num), shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
+        subprocess.run(["mv package/ local_cloning/cloned_repos/" + str(url_num)], shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
 
         #print status update
-        log1.write("finished cloning url #\n" + str(url_num))
+        log1.write("finished cloning url #" + str(url_num) + "\n")
 
         #increment the url number
         url_num = url_num + 1

@@ -14,9 +14,8 @@ for v in vars:
     github_token = v.split('GITHUB_TOKEN=')[1]
     github_token = github_token.replace('\n','')
 
-f2 = open(sys.argv[1],'r') # open file containing urls
-urls = f2.readlines() 
-f2.close()
+with open(sys.argv[1],'r') as f: # open file containing urls
+  urls = f.readlines() 
 
 file_v2 = open('log/logv1.txt','a+')
 file_v3 = open('log/logv2.txt','a+')
