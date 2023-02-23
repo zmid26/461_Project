@@ -6,8 +6,8 @@ readme_pattern = re.compile("(?i)README.md")
 license_pattern = re.compile("(?i)license")
 found = 0
 
-#sorry about this one
-rootdir = 'local_cloning/cloned_repos/'
+#sorry about this oner
+rootdir = 'output/cloned_repos/'
 with open('output/license_out.txt', 'w') as f:
   for file in os.listdir(rootdir):
       d = os.path.join(rootdir, file)

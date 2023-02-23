@@ -1,0 +1,7 @@
+.DS_Store
+target
+.env
+log
+Cargo.lock
+url_file.txt
+output

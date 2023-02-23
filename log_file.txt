@@ -1,0 +1,144 @@
+Folder number and url:     1 / https://github.com/cloudinary/cloudinary_npm
+Folder number and url:     2 / https://www.npmjs.com/package/express
+Folder number and url:     3 / https://github.com/nullivex/nodist
+Folder number and url:     4 / https://github.com/lodash/lodash
+Folder number and url:     5 / https://www.npmjs.com/package/browserify
+
+Lines of code in folder 1: 20447
+Lines of comments in folder 1: 5155
+RampUp score for repo 1: 0.50
+
+
+Lines of code in folder 2: 1867
+Lines of comments in folder 2: 1597
+RampUp score for repo 2: 1.00
+
+
+Lines of code in folder 3: 17586
+Lines of comments in folder 3: 2292
+RampUp score for repo 3: 0.26
+
+
+Lines of code in folder 4: 1693
+Lines of comments in folder 4: 448
+RampUp score for repo 4: 0.53
+
+
+Lines of code in folder 5: 5601
+Lines of comments in folder 5: 116
+RampUp score for repo 5: 0.04
+
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository cloudinary cloudinary_npm
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 571
+Number of open issues: 13
+Correctness score for repo cloudinary_npm owned by cloudinary: 0.814551 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository expressjs express
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 59996
+Number of open issues: 106
+Correctness score for repo express owned by expressjs: 0.982639 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository nullivex nodist
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 1474
+Number of open issues: 40
+Correctness score for repo nodist owned by nullivex: 0.786553 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository lodash lodash
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 55697
+Number of open issues: 310
+Correctness score for repo lodash owned by lodash: 0.947276 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository browserify browserify
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 14345
+Number of open issues: 353
+Correctness score for repo browserify owned by browserify: 0.802517 
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/cloudinary/cloudinary_npm
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-02-22 from the api
+repo had more than 0 issues = True
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.800000 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/expressjs/express
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-02-22 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.969000 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/nullivex/nodist
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-02-17 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was not updated today, it was updated 5 days ago
+responsive maintainer score was calculated to be 0.706291 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/lodash/lodash
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-02-22 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.906600 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/browserify/browserify
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-02-22 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.923000 with decay factor 1.100000

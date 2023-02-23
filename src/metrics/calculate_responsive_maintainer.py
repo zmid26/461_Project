@@ -29,8 +29,8 @@ def getResponsiveScore(githubRepoURL):
             github_token = github_token.replace('\n','')
 
     
-    file_v2 = open('log/logv1.txt','a+')
-    file_v3 = open('log/logv2.txt','a+')
+    file_v2 = open('output/logv1.txt','a+')
+    file_v3 = open('output/logv2.txt','a+')
 
     file_v2.write('\n\n>>> beginning respmaintainer metric with REST api\n')
 
@@ -123,7 +123,7 @@ def getGithubURLs(repos):
         repoName = repos[x].partition('github.com/')[2] # extract "owner/repo"
 
         if not repoName: # if github.com/ is not found, extract as npmjs package
-            with open('local_cloning/cloned_repos/' + str(x+1) + '/package.json') as json_File:
+            with open('output/cloned_repos/' + str(x+1) + '/package.json') as json_File:
                 npmsRepo = json.load(json_File) # load json file containing repo info
                 repoName = npmsRepo['repository'] # extract repo info
 

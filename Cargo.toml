@@ -7,11 +7,3 @@ edition = "2021"
 
 [dependencies]
 tokei = "12.1.2"
-
-[[bin]]
-name = "main"
-path = "main.rs"
-
-[[bin]]
-name = "calculate_ramp_up"
-path = "local_cloning/calculate_ramp_up.rs"
