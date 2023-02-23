@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
+mkdir -p output
 
 if [ $1 == 'install' ]; then
-    python3 install/localclone_install.py
+    python3 src/metric_utility_functions/localclone_install.py
 elif [ $1 == 'build' ]; then 
     cargo build;
 elif [ $1 == 'clean' ]; then 
-    rm log_file.txt; rm -r -f target; cd local_cloning && rm -r -f cloned_repos && cd ../output && rm *.txt && cd ../log && rm *.txt;
+    rm log_file.txt; rm -r -f target; cd output && rm -r -f cloned_repos && cd ../output && rm *.txt && cd ../log && rm *.txt;
 elif [ $1 == 'tempclean' ]; then 
     rm testfile.txt && cd output && rm *.txt && cd ../log && rm *.txt;
 elif [ $1 == 'test' ]; then
     python3 test_suite/test_suite_script.py
 else
-    ./target/debug/main "$@"
+    cargo run "$@"
 fi

@@ -2,6 +2,7 @@ use std::env; //rust stdlib function to get command line args
 use std::process::Command; //library to run processes in rust
 use std::fs; //rust file library
 use std::process;
+mod metrics;
 
 fn main(){
 
@@ -9,15 +10,10 @@ fn main(){
     let cli_input: Vec<String> = env::args().collect(); 
 
     //run the rampup calculation (calculate_RampUp)
-    let _run_rampup = Command::new("./target/debug/calculate_ramp_up").arg(&cli_input[1]).status().expect("Err"); //runs the rust executable "calculate_RampUp" with the CLI input file
-
-    //if the rampup calculation failed, exit 1 (error message is handled in the calculation code)
-    if _run_rampup.success() == false {
-        process::exit(1);
-    }
+    metrics::calculate_ramp_up::ramp_up_score(&cli_input[1]);
 
     //run the correctness calculation (calculate_Correctness)
-    let _run_correctness = Command::new("python3").arg("graphql_api/calculate_Correctness.py").arg(&cli_input[1]).status().expect("Err");
+    let _run_correctness = Command::new("python3").arg("src/metrics/calculate_correctness.py").arg(&cli_input[1]).status().expect("Err");
 
     //if the correctness script didnt return success, exit 1 and print error
     if _run_correctness.success() == false {
@@ -26,7 +22,7 @@ fn main(){
     }
 
     //run the responsive maintainer calculation (calculate_ResponsiveMaintainer.py)
-    let _run_responsivemaintainer = Command::new("python3").arg("rest_api/calculate_ResponsiveMaintainer.py").arg(&cli_input[1]).status().expect("Err");
+    let _run_responsivemaintainer = Command::new("python3").arg("src/metrics/calculate_responsive_maintainer.py").arg(&cli_input[1]).status().expect("Err");
 
     //if the responsive maintainer script didnt return success, exit 1 and print error
     if _run_responsivemaintainer.success() == false {
@@ -35,7 +31,7 @@ fn main(){
     }
 
     //run the license calculation (license.py)
-    let _run_license = Command::new("python3").arg("local_cloning/license.py").arg(&cli_input[1]).status().expect("Err");
+    let _run_license = Command::new("python3").arg("src/metrics/calculate_license.py").arg(&cli_input[1]).status().expect("Err");
 
     //if the license script didnt return success, exit 1 and print error
     if _run_license.success() == false {
@@ -44,7 +40,7 @@ fn main(){
     }
 
     //print the results (print_results.py)
-    let _print_results = Command::new("python3").arg("output/print_results.py").arg(&cli_input[1]).status().expect("Err");
+    let _print_results = Command::new("python3").arg("src/metric_utility_functions/print_results.py").arg(&cli_input[1]).status().expect("Err");
 
     //if printing results didnt return success, exit 1 and print error
     if _print_results.success() == false {
@@ -53,10 +49,10 @@ fn main(){
     }
     
     //do logging 
-    let _set_logs = Command::new("python3").arg("verbosity.py").arg(&cli_input[1]).status().expect("Err");
+    let _set_logs = Command::new("python3").arg("src/verbosity.py").arg(&cli_input[1]).status().expect("Err");
 
     //if verbosity didnt return success, exit 1 and print error
-    if _print_results.success() == false {
+    if _set_logs.success() == false {
         println!("Error in verbosity script!");
         std::process::exit(1);
     }
@@ -72,7 +68,7 @@ fn main(){
 fn clean_up(){
 
     //remove local clone repos
-    let _clean_old_clones = match fs::remove_dir_all("local_cloning/cloned_repos/"){
+    let _clean_old_clones = match fs::remove_dir_all("output/cloned_repos/"){
         Ok(_clean_old_clones) => _clean_old_clones,
         Err(..) => {
             println!("Error cleaning old cloned repos!\n");

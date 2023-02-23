@@ -20,10 +20,10 @@ for v in vars:
 
 
 if logLvl == 1:
-    logTemp = open('log/logv1.txt','r')
+    logTemp = open('output/logv1.txt','r')
     logInfo = logTemp.readlines()
 elif logLvl == 2:
-    logTemp = open('log/logv2.txt','r')
+    logTemp = open('output/logv2.txt','r')
     logInfo = logTemp.readlines()
 else:
     logInfo = []
