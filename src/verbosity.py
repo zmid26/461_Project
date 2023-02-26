@@ -5,18 +5,20 @@ devnull = open('/dev/null', 'w')
 sys.stdout = devnull
 sys.stderr = devnull
 
-env_file = open('.env')
-vars = env_file.readlines()
+#env_file = open('.env')
+#vars = env_file.readlines()
 
-for v in vars:
-    if v.find('LOG_FILE') != -1:
-        log_fstr = v.split('LOG_FILE=')[1]
-        log_fstr = log_fstr.replace('\n','')
-    if v.find('LOG_LEVEL') != -1:
-        logLvl = v.split('LOG_LEVEL=')[1]
-        logLvl = logLvl.replace('\n','')
-        logLvl = int(logLvl)
+#for v in vars:
+#    if v.find('LOG_FILE') != -1:
+#        log_fstr = v.split('LOG_FILE=')[1]
+#        log_fstr = log_fstr.replace('\n','')
+#    if v.find('LOG_LEVEL') != -1:
+#        logLvl = v.split('LOG_LEVEL=')[1]
+#        logLvl = logLvl.replace('\n','')
+#        logLvl = int(logLvl)
 
+logLvl = os.getenv('LOG_LEVEL')
+log_fstr = os.getenv('LOG_FILE')
 
 
 if logLvl == 1:
