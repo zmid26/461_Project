@@ -21,12 +21,7 @@ def getResponsiveScore(githubRepoURL):
 
     openURL = 'https://api.github.com/repos/' + repoDir
 
-    env_file = open('.env')
-    vars = env_file.readlines()
-    for v in vars:
-        if v.find('GITHUB_TOKEN') != -1:
-            github_token = v.split('GITHUB_TOKEN=')[1]
-            github_token = github_token.replace('\n','')
+    github_token = os.getenv('GITHUB_TOKEN')
 
     
     file_v2 = open('output/logv1.txt','a+')
