@@ -12,6 +12,9 @@ fn main(){
     //run the rampup calculation (calculate_RampUp)
     metrics::calculate_ramp_up::ramp_up_score(&cli_input[1]);
 
+    //run the bus factor calculation (calculate_BusFactor)
+    metrics::calculate_bus_factor::bus_factor_score(&cli_input[1]);
+
     //run the correctness calculation (calculate_Correctness)
     let _run_correctness = Command::new("python3").arg("src/metrics/calculate_correctness.py").arg(&cli_input[1]).status().expect("Err");
 
