@@ -18,30 +18,43 @@ pub fn bus_factor_score(filepath: &str) {
             Arc::new(Octocrab::builder().personal_token(t).build().unwrap())
         }
         Err(_e) => {
-            //simple_log::debug!("BF Score: Did not use Github token.");
+            // simple_log::debug!("BF Score: Did not use Github token.");
             octocrab::instance()
         }
     };
 
+    // Get the urls from the input file
     let urls = get_urls(filepath);
+
+    // Create the output file
     let mut out_file =
         BufWriter::new(File::create("output/bus_factor_out.txt").expect("Error creating output file!"));
 
+    // Iterate through the urls and calculate the bus factor score
     for url in &urls {
         let git_url;
+
+        // If the url is from npm, get the github url
         if &url[0..22] == "https://www.npmjs.com/" {
          git_url = get_github_url_for_npm(&url).unwrap();
         }
         else {
             git_url = url.to_string();
         }
+
+        // Get the keywords from the url in the form (owner, repo)
         let keywords = get_keywords(&git_url);
+
+        // Calculate the bus factor score
         let score = find_bf_score(&octocrab, keywords);
+
+        // Write the score to the output file
         write!(out_file, "{0}\n", score).expect("Error writing rampup to output");
     }
 
 }
 
+// Function to get the urls from the input file
 fn get_urls(filepath: &str) -> Vec<String> {
     let data = match fs::read_to_string(filepath) {
         Ok(data) => data,
@@ -59,22 +72,28 @@ fn get_urls(filepath: &str) -> Vec<String> {
     url_vec
 }
 
+// Function to calculate the bus factor score
 #[tokio::main]
 async fn find_bf_score(octocrab: &Octocrab, (owner, repo): (&str, &str)) -> f32 {
+
+    // Get the repo information using octocrab
     let repo = octocrab.repos(owner, repo).get().await.unwrap();
 
     let url = repo.contributors_url.unwrap();
     let path = url.path();
 
+    // Get the contributor information using http request (through octocrab)
     let user_info: Vec<Contributor> = octocrab.get(path, None::<&str>).await.unwrap();
     //simple_log::debug!("contents = {:?}", user_info);
+
+    // Get the number of contributors
     let num_contributors = user_info.len() as f32;
 
+    // Calculate the bus factor
     let mut total_contributions = 0;
     for structure in &user_info {
         total_contributions += structure.contributions;
     }
-
     let mut contributions = 0;
     let mut bus_factor = 0;
     while contributions < (total_contributions / 2) {
@@ -82,14 +101,18 @@ async fn find_bf_score(octocrab: &Octocrab, (owner, repo): (&str, &str)) -> f32 
         bus_factor += 1;
     }
     //simple_log::info!("bus factor = {}", bus_factor);
+    // Normalize the bus factor score
     normalize_score(num_contributors, (bus_factor + 1) as f32)
 }
 
+// Function to normalize the bus factor score
 fn normalize_score(num_contributors: f32, bus_factor: f32) -> f32 {
     let bus_factor_norm = f32::exp(-0.25 * bus_factor);
     let length_norm = f32::exp(-0.1 * num_contributors);
     bus_factor_norm * 0.8 + length_norm * 0.3
 }
+
+// Function to get the keywords from the url
 fn get_keywords(_url: &str) -> (&str, &str) {
     let part_str = &_url[19..];
     let divisionidx = part_str.find("/").expect("Error getting keywords");
@@ -99,6 +122,7 @@ fn get_keywords(_url: &str) -> (&str, &str) {
     (owner, repo)
 }
 
+// Function to get the github url from the npm url
 fn get_github_url_for_npm(npm_url: &str) -> Result<String, ureq::Error> {
     let url = format!("https://registry.npmjs.org/{}", &npm_url[30..]);
     let json: serde_json::Value = ureq::get(&url).call()?.into_json()?;
@@ -122,6 +146,7 @@ fn get_github_url_for_npm(npm_url: &str) -> Result<String, ureq::Error> {
     }
 }
 
+// Struct to hold the contributor information
 #[allow(unused)]
 #[derive(Deserialize, Debug)]
 struct Contributor {
