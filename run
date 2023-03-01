@@ -6,7 +6,7 @@ if [ $1 == 'install' ]; then
 elif [ $1 == 'build' ]; then 
     cargo build;
 elif [ $1 == 'clean' ]; then 
-    rm log_file.txt; rm -r -f target; cd output && rm -r -f cloned_repos && cd ../output && rm *.txt && cd ../log && rm *.txt;
+    rm log_file.log; rm -r -f target; rm -r -f output
 elif [ $1 == 'tempclean' ]; then 
     rm testfile.txt && cd output && rm *.txt && cd ../log && rm *.txt;
 elif [ $1 == 'test' ]; then

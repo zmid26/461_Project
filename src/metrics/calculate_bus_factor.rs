@@ -1,15 +1,14 @@
 // Calculate bus factor score based on the bus factor and number of contributors
 use octocrab::Octocrab;
 use serde::Deserialize;
+use std::fs;
 use std::fs::File; //rust file library
 use std::io::BufWriter;
 use std::io::Write;
 use std::sync::Arc; //rust write library
-use std::fs;
-
 
 pub fn bus_factor_score(filepath: &str) {
-    //simple_log::info!("Calculating Bus Factor Score.)");
+    simple_log::info!("Calculating Bus Factor Score.)");
 
     let token = std::env::var("GITHUB_TOKEN");
     let octocrab = match token {
@@ -18,7 +17,7 @@ pub fn bus_factor_score(filepath: &str) {
             Arc::new(Octocrab::builder().personal_token(t).build().unwrap())
         }
         Err(_e) => {
-            // simple_log::debug!("BF Score: Did not use Github token.");
+            simple_log::debug!("BF Score: Did not use Github token.");
             octocrab::instance()
         }
     };
@@ -27,8 +26,9 @@ pub fn bus_factor_score(filepath: &str) {
     let urls = get_urls(filepath);
 
     // Create the output file
-    let mut out_file =
-        BufWriter::new(File::create("output/bus_factor_out.txt").expect("Error creating output file!"));
+    let mut out_file = BufWriter::new(
+        File::create("output/bus_factor_out.txt").expect("Error creating output file!"),
+    );
 
     // Iterate through the urls and calculate the bus factor score
     for url in &urls {
@@ -36,9 +36,8 @@ pub fn bus_factor_score(filepath: &str) {
 
         // If the url is from npm, get the github url
         if &url[0..22] == "https://www.npmjs.com/" {
-         git_url = get_github_url_for_npm(&url).unwrap();
-        }
-        else {
+            git_url = get_github_url_for_npm(&url).unwrap();
+        } else {
             git_url = url.to_string();
         }
 
@@ -51,7 +50,6 @@ pub fn bus_factor_score(filepath: &str) {
         // Write the score to the output file
         write!(out_file, "{0}\n", score).expect("Error writing rampup to output");
     }
-
 }
 
 // Function to get the urls from the input file
@@ -75,7 +73,6 @@ fn get_urls(filepath: &str) -> Vec<String> {
 // Function to calculate the bus factor score
 #[tokio::main]
 async fn find_bf_score(octocrab: &Octocrab, (owner, repo): (&str, &str)) -> f32 {
-
     // Get the repo information using octocrab
     let repo = octocrab.repos(owner, repo).get().await.unwrap();
 
@@ -84,7 +81,7 @@ async fn find_bf_score(octocrab: &Octocrab, (owner, repo): (&str, &str)) -> f32 
 
     // Get the contributor information using http request (through octocrab)
     let user_info: Vec<Contributor> = octocrab.get(path, None::<&str>).await.unwrap();
-    //simple_log::debug!("contents = {:?}", user_info);
+    simple_log::debug!("contents = {:?}", user_info);
 
     // Get the number of contributors
     let num_contributors = user_info.len() as f32;
@@ -100,7 +97,7 @@ async fn find_bf_score(octocrab: &Octocrab, (owner, repo): (&str, &str)) -> f32 
         contributions += user_info[bus_factor].contributions;
         bus_factor += 1;
     }
-    //simple_log::info!("bus factor = {}", bus_factor);
+    simple_log::info!("bus factor = {}", bus_factor);
     // Normalize the bus factor score
     normalize_score(num_contributors, (bus_factor + 1) as f32)
 }
@@ -133,8 +130,7 @@ fn get_github_url_for_npm(npm_url: &str) -> Result<String, ureq::Error> {
         if &github_url[..10] == "ssh://git@" {
             github_url = github_url[10..].to_string();
             github_url = format!("https://{github_url}");
-        }
-        else if &github_url[..2] == "//" {
+        } else if &github_url[..2] == "//" {
             github_url = format!("https:{github_url}");
         }
         for _i in 1..5 {
