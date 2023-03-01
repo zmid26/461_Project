@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 mkdir -p output
+export LOG_LEVEL=2
+export LOG_FILE=/Users/MyHome/Documents/GitHub/461_Project/testfile.txt
 
 if [ $1 == 'install' ]; then
     python3 src/metric_utility_functions/localclone_install.py
@@ -10,7 +12,7 @@ elif [ $1 == 'clean' ]; then
 elif [ $1 == 'tempclean' ]; then 
     rm testfile.txt && cd output && rm *.txt && cd ../log && rm *.txt;
 elif [ $1 == 'test' ]; then
-    python3 test_suite/test_suite_script.py
+    python3 test/test_suite_script.py
 else
     cargo run "$@"
 fi
