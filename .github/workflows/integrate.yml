@@ -12,8 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/labeler@v4
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
