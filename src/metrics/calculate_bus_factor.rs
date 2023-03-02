@@ -13,7 +13,7 @@ pub fn bus_factor_score(filepath: &str) {
     let token = std::env::var("GITHUB_TOKEN");
     let octocrab = match token {
         Ok(t) => {
-            //simple_log::debug!("BF Score: Used Github token.)");
+            simple_log::debug!("BF Score: Used Github token.)");
             Arc::new(Octocrab::builder().personal_token(t).build().unwrap())
         }
         Err(_e) => {
@@ -48,12 +48,12 @@ pub fn bus_factor_score(filepath: &str) {
         let score = find_bf_score(&octocrab, keywords);
 
         // Write the score to the output file
-        write!(out_file, "{0}\n", score).expect("Error writing rampup to output");
+        write!(out_file, "{0}\n", score).expect("Error writing bus factor to output");
     }
 }
 
 // Function to get the urls from the input file
-fn get_urls(filepath: &str) -> Vec<String> {
+pub fn get_urls(filepath: &str) -> Vec<String> {
     let data = match fs::read_to_string(filepath) {
         Ok(data) => data,
         Err(..) => {
@@ -110,7 +110,7 @@ fn normalize_score(num_contributors: f32, bus_factor: f32) -> f32 {
 }
 
 // Function to get the keywords from the url
-fn get_keywords(_url: &str) -> (&str, &str) {
+pub fn get_keywords(_url: &str) -> (&str, &str) {
     let part_str = &_url[19..];
     let divisionidx = part_str.find("/").expect("Error getting keywords");
     let owner = &part_str[..divisionidx];
@@ -120,7 +120,7 @@ fn get_keywords(_url: &str) -> (&str, &str) {
 }
 
 // Function to get the github url from the npm url
-fn get_github_url_for_npm(npm_url: &str) -> Result<String, ureq::Error> {
+pub fn get_github_url_for_npm(npm_url: &str) -> Result<String, ureq::Error> {
     let url = format!("https://registry.npmjs.org/{}", &npm_url[30..]);
     let json: serde_json::Value = ureq::get(&url).call()?.into_json()?;
     let repo_info = &json["repository"];
