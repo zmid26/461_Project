@@ -2,18 +2,21 @@ import requests
 import sys # import sys to use command line arguments
 import json # import json to parse json file
 import os
+import logging
+from verbosity import setup_logging
 
 devnull = open('/dev/null', 'w')
 sys.stdout = devnull
 sys.stderr = devnull
 
-github_token = os.getenv('GITHUB_TOKEN')
+# Setup logging
+setup_logging()
+
+# Get github_token from environment variables
+github_token = os.environ.get('GITHUB_TOKEN')
 
 with open(sys.argv[1],'r') as f: # open file containing urls
   urls = f.readlines() 
-
-file_v2 = open('output/logv1.txt','a+')
-file_v3 = open('output/logv2.txt','a+')
 
 repositories = []
 for x in range(len(urls)): # extract owner and name of each repository
@@ -22,8 +25,8 @@ for x in range(len(urls)): # extract owner and name of each repository
 
   if not repoName: # if github.com/ is not found, extract as npmjs package
     with open('output/cloned_repos/' + str(x+1) + '/package.json') as json_File:
-      npmsRepo = json.load(json_File) # load json file containing repo info
-    repoName = npmsRepo['repository'] # extract repo info
+      npmsRepo = json.load(json_File) # load json file containing repo debug
+    repoName = npmsRepo['repository'] # extract repo debug
 
     if not isinstance(repoName, str): # if a dict is returned instead of str
       repoName = list(repoName.values())[1] # extract url from dict
@@ -37,13 +40,10 @@ headers = {'Authorization': 'token ' + github_token} # build the header
 # run requests
 with open('output/correctness_out.txt', 'w') as f:
   for repository in repositories:
-    file_v2.write('\n\n>>> beginning correctness metric with GraphQL api\n')
+    logging.debug('current analysis of correctness will be done with github GraphQL api')
+    logging.debug('beginning retrieval of information from repository %s %s' % (repository[0],repository[1]))
 
-    file_v3.write('\n\n------------------\n')
-    file_v3.write('current analysis of correctness will be done with github GraphQL api\n')
-    file_v3.write('beginning retrieval of information from repository %s %s\n' % (repository[0],repository[1]))
-    file_v3.write('------------------\n')
-    # build the query to retrieve needed info using from the given repo
+    # build the query to retrieve needed debug using from the given repo
     query = '''
     query {
       repository(owner: "%s", name: "%s") {
@@ -58,34 +58,24 @@ with open('output/correctness_out.txt', 'w') as f:
 
     response = requests.post(url=url, json=json, headers=headers)
     if response.status_code == 200: # extract the result from the response
-      file_v2.write('successful graphql api retrieval\n')
-      file_v3.write('successful graphQL api retrieval with code %d\n' % response.status_code)
+      logging.debug('successful graphQL api retrieval with code %d' % response.status_code)
 
       try:
         starCount = response.json()["data"]["repository"]["stargazerCount"]
         openIssuesCount = response.json()["data"]["repository"]["openIssues"]["totalCount"]
         correctness = starCount / (starCount + openIssuesCount * 10) # calculate correctness
-        file_v2.write('proper repo format\n')
-        file_v3.write('proper repo format - data retrieval successful\n')
-
-        file_v3.write("Number of stars: %i\n" % starCount)
-        file_v3.write("Number of open issues: %i\n" % openIssuesCount)
-        file_v2.write('Repo had %d stars\n' % starCount)
-        file_v3.write("Correctness score for repo %s owned by %s: %f \n" % (repository[1], repository[0], correctness))
+        
+        logging.debug('proper repo format - data retrieval successful')
+        logging.info('Repo had %d stars' % starCount)
+        logging.info("Correctness score for repo ")#%s owned by %s: %f" % (repository[1], repository[0], correctness))
 
       except:
-        file_v2.write('impproper repo format\n')
-        file_v3.write('improper repo format - error with repo\n')
+        logging.debug('improper repo format - error with repo')
+        print('error with repo')
 
-      #print("Number of stars: %i" % starCount)
-      #print("Number of open issues: %i" % openIssuesCount)
-      #print("Correctness score for repo %s owned by %s: %f \n" % (repository[1], repository[0], correctness))
-      
       #write the correctness score to the outputfile
       f.write(str(correctness))
       f.write('\n')
     
     else: # handle error if response is not received correctly
-      #print("Failed to retrieve response using GraphQL by returning code {}.".format(response.status_code))
-      file_v2.write('Failed to retrieve response')
-      file_v3.write('Failed to retrieve response with code %d\n' % response.status_code)
+      logging.debug('Failed to retrieve response with code %d' % response.status_code)

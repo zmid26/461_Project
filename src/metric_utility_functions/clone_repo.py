@@ -20,9 +20,6 @@ url_num = 1
 #make a directory named 'cloned_repos' to put the cloned repos in
 os.mkdir("output/cloned_repos/")
 
-log1 = open('output/logv1.txt','w')
-log2 = open('output/logv2.txt','w')
-
 #loops through all of the URLs
 for url in urls:
 
@@ -31,11 +28,7 @@ for url in urls:
         
         #clone the current git URL into a directory named after the current url_num value
         Repo.clone_from(url, "output/cloned_repos/" + str(url_num) + "/") #i.e. first URL will be put in a directory called '1', second URL will be put in '2', etc.
-        
-        #print status update
-        #print("finished cloning url #" + str(url_num))
-        log1.write("finished cloning url #" + str(url_num) + "\n")
-
+  
         #increment the url number
         url_num = url_num + 1
 
@@ -48,9 +41,6 @@ for url in urls:
         #clone the current npm URL into 'output/cloned_repos' directory
         subprocess.run(["npm v " + package_name + " dist.tarball | xargs curl | tar -xz"], shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
         subprocess.run(["mv package/ output/cloned_repos/" + str(url_num)], shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
-
-        #print status update
-        log1.write("finished cloning url #" + str(url_num) + "\n")
 
         #increment the url number
         url_num = url_num + 1

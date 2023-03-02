@@ -2,7 +2,6 @@ use std::fs; //rust file library
 use std::fs::File; //rust file library
 use std::io::BufWriter;
 use std::io::Write;
-use std::path::Path;
 use std::process::Command; //library to run processes in rust
 use tokei::{Config, LanguageType, Languages};
 
@@ -20,63 +19,17 @@ pub fn ramp_up_score(filepath: &str) {
     //now, chop this string into a vector at every newline since the URLS are newline delimited
     let _urls: Vec<&str> = data.split('\n').collect();
 
-    //if the logfiles exist from a previous run, delete them
-    let is_logv1 = Path::new("output/logv1.txt").exists();
-    if is_logv1 == true {
-        //remove old log1 file and handle error
-        let _remove_log1 = match fs::remove_file("output/logv1.txt") {
-            Ok(_remove_log1) => _remove_log1,
-            Err(..) => {
-                println!("Error deleting old log1 file!\n");
-                std::process::exit(1);
-            }
-        };
-    }
-    let is_logv2 = Path::new("output/logv2.txt").exists();
-    if is_logv2 == true {
-        //remove old log2 file and handle error
-        let _remove_log2 = match fs::remove_file("output/logv2.txt") {
-            Ok(_remove_log2) => _remove_log2,
-            Err(..) => {
-                println!("Error deleting old log2 file!\n");
-                std::process::exit(1);
-            }
-        };
-    }
-
-    //open new logfiles after cleaning old ones
-    let mut log1 =
-        BufWriter::new(File::create("output/logv1.txt").expect("Error creating log1 file!"));
-    let mut log2 =
-        BufWriter::new(File::create("output/logv2.txt").expect("Error creating log2 file!"));
-
-    //get number of URLS and log the count
+    //get number of URLS
     let num_urls = _urls.len();
-    write!(log1, "Number of URLs in the input file: {0}\n", num_urls)
-        .expect("Error writing to log1!");
+    simple_log::info!("Number of URLs in the input file: {0}", num_urls);
 
     //loop through urls and log their corresponding clone folder numbers
     let mut url_index = 1;
     for url in _urls {
-        write!(log2, "Folder number and url:     {} / {}\n", url_index, url)
-            .expect("Error writing to log2!");
+        simple_log::debug!("Folder number and url: {} / {}", url_index, url);
         url_index += 1;
     }
 
-    //check if the cloned repos folder is already there from a previous run, and delete it if so
-    let is_cloned_repos =
-        Path::new("output/cloned_repos/").exists();
-    if is_cloned_repos == true {
-        //cleans out old repos if theyre still there
-        let _remove_old_clones =
-            match fs::remove_dir_all("output/cloned_repos/") {
-                Ok(_remove_old_clones) => _remove_old_clones,
-                Err(..) => {
-                    println!("Error deleting old cloned repos!\n");
-                    std::process::exit(1);
-                }
-            };
-    }
 
     //run clone function to locally clone repos (pass in the input file)
     clone_repos((&filepath).to_string());
@@ -117,29 +70,16 @@ pub fn ramp_up_score(filepath: &str) {
         //get the number of lines of code and comments and log them
         let code_lines = js.code;
         let comment_lines = js.comments;
-        write!(
-            log2,
-            "\nLines of code in folder {}: {}\n",
-            folder_num, code_lines
-        )
-        .expect("Error writing to log");
-        write!(
-            log2,
-            "Lines of comments in folder {}: {}\n",
-            folder_num, comment_lines
-        )
-        .expect("Error writing to log");
 
+        simple_log::debug!("Lines of code in folder {}: {}",folder_num, code_lines);
+        simple_log::debug!("Lines of comments in folder {}: {}", folder_num, comment_lines);
+        
         //calculate rampup and log it
         let code_u32 = u32::try_from(code_lines).unwrap();
         let comment_u32 = u32::try_from(comment_lines).unwrap();
         let ramp_up = calculate_ramp_up(code_u32, comment_u32);
-        write!(
-            log2,
-            "RampUp score for repo {}: {:.2}\n\n",
-            folder_num, ramp_up
-        )
-        .expect("Error writing to log");
+    
+        simple_log::info!("RampUp score for repo {}: {:.2}",folder_num, ramp_up);
 
         //write the rampup score to the rampup_out.txt file in the output folder
         write!(out_file, "{0}\n", ramp_up).expect("Error writing rampup to output");
