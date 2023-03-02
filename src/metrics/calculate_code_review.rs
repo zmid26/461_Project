@@ -52,6 +52,8 @@ pub fn code_review_score(filepath: &str) {
 #[tokio::main]
 async fn find_cr_score(octocrab: &Octocrab, owner: &str, repo: &str) -> f64 {
     let num_pulls = 50;
+
+    // Get a list of the last num_pulls pull requests
     let page = octocrab
         .pulls(owner, repo)
         .list()
@@ -63,6 +65,7 @@ async fn find_cr_score(octocrab: &Octocrab, owner: &str, repo: &str) -> f64 {
         .expect("Error getting pull requests");
 
     let mut total_reviewed = 0.0;
+    let mut total_merged = 0.0;
     for pull in page {
         // See if the pull request has been merged
         let merged = octocrab
@@ -77,20 +80,25 @@ async fn find_cr_score(octocrab: &Octocrab, owner: &str, repo: &str) -> f64 {
                 .pulls(owner, repo)
                 .list_reviews(pull.number)
                 .await;
+            // Get the number of reviewers for the pull request
             let num_reviewers = match reviews{
                 Ok(mut reviews) => reviews.take_items().len(),
                 Err(_e) => 0
             };
             simple_log::debug!("Pull request merged with {} reviewers.", num_reviewers);
 
+            // If there are reviewers, add to the total number of reviewed pull requests
             if num_reviewers > 0 {
                 total_reviewed += 1.0;
             }
+            total_merged += 1.0;
         } else {
             simple_log::debug!("Pull request not merged.");
         }
     }
-    let score = total_reviewed / num_pulls as f64;
+
+    // Calculate the code review score
+    let score = total_reviewed / total_merged;
     simple_log::info!("Code Review Score: {}", score);
     score
 }
