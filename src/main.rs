@@ -14,8 +14,11 @@ fn main()->Result<(), String> {
     // Run the rampup calculation (calculate_RampUp)
     metrics::calculate_ramp_up::ramp_up_score(&cli_input[1]);
 
-    // Run the bus factor calculation (calculate_BusFactor)
+    // Run the bus factor calculation (calculate_bus_factor)
     metrics::calculate_bus_factor::bus_factor_score(&cli_input[1]);
+
+    // Run the code review calculation (calculate_code_review)
+    metrics::calculate_code_review::code_review_score(&cli_input[1]);
 
     //Set up logging for python scripts (verbosity.py)
     let _set_logs = Command::new("python3")
