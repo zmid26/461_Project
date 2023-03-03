@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 mkdir -p output
-export LOG_LEVEL=2
-export LOG_FILE=/Users/MyHome/Documents/GitHub/461_Project/testfile.txt
 
 if [ $1 == 'install' ]; then
     python3 src/metric_utility_functions/localclone_install.py
