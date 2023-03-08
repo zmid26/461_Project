@@ -20,6 +20,9 @@ fn main()->Result<(), String> {
     // Run the code review calculation (calculate_code_review)
     metrics::calculate_code_review::code_review_score(&cli_input[1]);
 
+    // Run the version pinning calculation (calculate_version_pinning)
+    metrics::calculate_version_pinning::version_pinning_score(&cli_input[1]);
+
     //Set up logging for python scripts (verbosity.py)
     let _set_logs = Command::new("python3")
         .arg("src/metrics/verbosity.py")

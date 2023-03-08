@@ -20,6 +20,7 @@ netscore = []
 license = []
 bus_factor = []
 code_review = []
+version_pinning = []
 
 #open the command line argument file
 input_file = open(sys.argv[1],'r')
@@ -60,6 +61,11 @@ with open("output/code_review_out.txt") as code_out:
     for line in code_out:
         code_review.append(float(line.strip()))
 
+#open code review output and add to code review list
+with open("output/version_pinning_out.txt") as code_out:
+    for line in code_out:
+        version_pinning.append(float(line.strip()))
+
 #calculate netscore for each url (chose correctness as iterator, could've been any iterator that goes for the number of urls)
 url_idx = 0
 for x in correctness:
@@ -80,6 +86,7 @@ for x in netscore:
     (output[url_idx]).update({"RESPONSIVE_MAINTAINER_SCORE":round(responsive_maintainer[url_idx], 2)})
     (output[url_idx]).update({"LICENSE_SCORE":round(license[url_idx], 2)})
     (output[url_idx]).update({"CODE_REVIEW_SCORE":round(code_review[url_idx], 2)})
+    (output[url_idx]).update({"VERSION_PINNING_SCORE":round(version_pinning[url_idx], 2)})
     url_idx += 1
 
 #sort netscore list and do the same ops to output so that output is sorted in the same way
