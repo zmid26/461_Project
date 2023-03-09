@@ -1,141 +1,289 @@
-Number of URLs in the input file: 10
-ing url #2
-finished cloning url #3
-finished cloning url #4
-finished cloning url #5
-finished cloning url #6
-finished cloning url #7
-finished cloning url #8
-finished cloning url #9
-finished cloning url #10
+Folder number and url:     1 / https://github.com/ramda/ramda
+Folder number and url:     2 / https://github.com/debug-js/debug
+Folder number and url:     3 / https://github.com/josephg/ShareJS
+Folder number and url:     4 / https://github.com/jashkenas/underscore
+Folder number and url:     5 / https://github.com/Automattic/mongoose
+Folder number and url:     6 / https://www.npmjs.com/package/express
+Folder number and url:     7 / https://www.npmjs.com/package/async
+Folder number and url:     8 / https://www.npmjs.com/package/lodash
+Folder number and url:     9 / https://www.npmjs.com/package/axios
+Folder number and url:     10 / https://www.npmjs.com/package/mocha
+
+Lines of code in folder 1: 7130
+Lines of comments in folder 1: 2243
+RampUp score for repo 1: 0.63
 
 
->>> beginning correctness metric with GraphQL api
-successful graphql api retrieval
-proper repo format
-Repo had 42 stars
+Lines of code in folder 2: 7237
+Lines of comments in folder 2: 13017
+RampUp score for repo 2: 1.00
 
 
->>> beginning correctness metric with GraphQL api
-successful graphql api retrieval
-proper repo format
-Repo had 4 stars
+Lines of code in folder 3: 1867
+Lines of comments in folder 3: 1597
+RampUp score for repo 3: 1.00
 
 
->>> beginning correctness metric with GraphQL api
-successful graphql api retrieval
-proper repo format
-Repo had 45 stars
+Lines of code in folder 4: 17904
+Lines of comments in folder 4: 13037
+RampUp score for repo 4: 1.00
 
 
->>> beginning correctness metric with GraphQL api
-successful graphql api retrieval
-proper repo format
-Repo had 159 stars
+Lines of code in folder 5: 21260
+Lines of comments in folder 5: 8942
+RampUp score for repo 5: 0.84
 
 
->>> beginning correctness metric with GraphQL api
-successful graphql api retrieval
-proper repo format
-Repo had 17 stars
+Lines of code in folder 6: 20774
+Lines of comments in folder 6: 20188
+RampUp score for repo 6: 1.00
 
 
->>> beginning correctness metric with GraphQL api
-successful graphql api retrieval
-proper repo format
-Repo had 27 stars
+Lines of code in folder 7: 14296
+Lines of comments in folder 7: 2981
+RampUp score for repo 7: 0.42
 
 
->>> beginning correctness metric with GraphQL api
-successful graphql api retrieval
-proper repo format
-Repo had 22 stars
+Lines of code in folder 8: 6774
+Lines of comments in folder 8: 2763
+RampUp score for repo 8: 0.82
 
 
->>> beginning correctness metric with GraphQL api
-successful graphql api retrieval
-proper repo format
-Repo had 53 stars
+Lines of code in folder 9: 648
+Lines of comments in folder 9: 227
+RampUp score for repo 9: 0.70
 
 
->>> beginning correctness metric with GraphQL api
-successful graphql api retrieval
-proper repo format
-Repo had 87 stars
+Lines of code in folder 10: 91094
+Lines of comments in folder 10: 18770
+RampUp score for repo 10: 0.41
 
 
->>> beginning correctness metric with GraphQL api
-successful graphql api retrieval
-proper repo format
-Repo had 16 stars
 
-
->>> beginning respmaintainer metric with REST api
-able to receive response from github
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository ramda ramda
+------------------
+successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
+Number of stars: 22792
+Number of open issues: 126
+Correctness score for repo ramda owned by ramda: 0.947614 
 
 
->>> beginning respmaintainer metric with REST api
-able to receive response from github
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository debug-js debug
+------------------
+successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
+Number of stars: 10600
+Number of open issues: 41
+Correctness score for repo debug owned by debug-js: 0.962761 
 
 
->>> beginning respmaintainer metric with REST api
-able to receive response from github
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository josephg ShareJS
+------------------
+successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
+Number of stars: 4912
+Number of open issues: 94
+Correctness score for repo ShareJS owned by josephg: 0.839371 
 
 
->>> beginning respmaintainer metric with REST api
-able to receive response from github
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository jashkenas underscore
+------------------
+successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
+Number of stars: 26889
+Number of open issues: 30
+Correctness score for repo underscore owned by jashkenas: 0.988966 
 
 
->>> beginning respmaintainer metric with REST api
-able to receive response from github
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository Automattic mongoose
+------------------
+successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
+Number of stars: 25407
+Number of open issues: 279
+Correctness score for repo mongoose owned by Automattic: 0.901053 
 
 
->>> beginning respmaintainer metric with REST api
-able to receive response from github
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository expressjs express
+------------------
+successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
+Number of stars: 60176
+Number of open issues: 103
+Correctness score for repo express owned by expressjs: 0.983172 
 
 
->>> beginning respmaintainer metric with REST api
-able to receive response from github
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository caolan async
+------------------
+successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
+Number of stars: 27835
+Number of open issues: 11
+Correctness score for repo async owned by caolan: 0.996064 
 
 
->>> beginning respmaintainer metric with REST api
-able to receive response from github
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository lodash lodash
+------------------
+successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-repo had nonzero number of issues
-number of open issues exceeded threshold
-repo was not updated today
+Number of stars: 55805
+Number of open issues: 313
+Correctness score for repo lodash owned by lodash: 0.946891 
 
 
->>> beginning respmaintainer metric with REST api
-able to receive response from github
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository axios axios
+------------------
+successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
+Number of stars: 99142
+Number of open issues: 336
+Correctness score for repo axios owned by axios: 0.967220 
 
 
->>> beginning respmaintainer metric with REST api
-able to receive response from github
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository mochajs mocha
+------------------
+successful graphQL api retrieval with code 200
 proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
+Number of stars: 21914
+Number of open issues: 251
+Correctness score for repo mocha owned by mochajs: 0.897232 
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/ramda/ramda
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-03-09 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.970000 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/debug-js/debug
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-03-08 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was not updated today, it was updated 1 days ago
+responsive maintainer score was calculated to be 0.919818 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/josephg/ShareJS
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-03-02 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was not updated today, it was updated 7 days ago
+responsive maintainer score was calculated to be 0.612669 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/jashkenas/underscore
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-03-09 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.990400 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/Automattic/mongoose
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-03-09 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.941200 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/expressjs/express
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-03-09 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.969600 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/caolan/async
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-03-08 from the api
+repo had more than 0 issues = True
+repo was not updated today, it was updated 1 days ago
+responsive maintainer score was calculated to be 0.731818 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/lodash/lodash
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-03-09 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.905600 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/axios/axios
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-03-09 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.924400 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/mochajs/mocha
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-03-09 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was updated today, i.e. day difference was 0:00:00
+responsive maintainer score was calculated to be 0.942000 with decay factor 1.100000

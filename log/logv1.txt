@@ -13,109 +13,76 @@ finished cloning url #10
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 42 stars
+Repo had 22792 stars
 
 
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 4 stars
+Repo had 10600 stars
 
 
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 45 stars
+Repo had 4912 stars
 
 
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 159 stars
+Repo had 26889 stars
 
 
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 17 stars
+Repo had 25407 stars
 
 
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 27 stars
+Repo had 60176 stars
 
 
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 22 stars
+Repo had 27835 stars
 
 
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 53 stars
+Repo had 55805 stars
 
 
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 87 stars
+Repo had 99142 stars
 
 
 >>> beginning correctness metric with GraphQL api
 successful graphql api retrieval
 proper repo format
-Repo had 16 stars
+Repo had 21914 stars
 
 
 >>> beginning respmaintainer metric with REST api
 able to receive response from github
 proper repo format - data retrieval successful
 repo had nonzero number of issues
-repo was not updated today
+number of open issues exceeded threshold
+repo was updated today
 
 
 >>> beginning respmaintainer metric with REST api
 able to receive response from github
 proper repo format - data retrieval successful
 repo had nonzero number of issues
-repo was not updated today
-
-
->>> beginning respmaintainer metric with REST api
-able to receive response from github
-proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
-
-
->>> beginning respmaintainer metric with REST api
-able to receive response from github
-proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
-
-
->>> beginning respmaintainer metric with REST api
-able to receive response from github
-proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
-
-
->>> beginning respmaintainer metric with REST api
-able to receive response from github
-proper repo format - data retrieval successful
-repo had nonzero number of issues
-repo was not updated today
-
-
->>> beginning respmaintainer metric with REST api
-able to receive response from github
-proper repo format - data retrieval successful
-repo had nonzero number of issues
+number of open issues exceeded threshold
 repo was not updated today
 
 
@@ -131,7 +98,24 @@ repo was not updated today
 able to receive response from github
 proper repo format - data retrieval successful
 repo had nonzero number of issues
-repo was not updated today
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
 
 
 >>> beginning respmaintainer metric with REST api
@@ -139,3 +123,27 @@ able to receive response from github
 proper repo format - data retrieval successful
 repo had nonzero number of issues
 repo was not updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
