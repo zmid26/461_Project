@@ -31,7 +31,7 @@ pub fn version_pinning_score(filepath: &str) {
         let repo_full_name = &git_url[19..]; // {owner}/{repo}
         let mut score = 0.0;
         let content_json;
-        let re = Regex::new(r"^[~^]?[1-9]+\.\d+.|^[~^]?\d+\.[1-9]+.").unwrap();
+        let re = Regex::new(r"^[~^]?\d+\.\d+.").unwrap();
         let mut num_depends = 0.0;
         let mut num_std_depends = 0.0;
     
