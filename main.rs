@@ -13,6 +13,7 @@ fn main(){
 
     //if the rampup calculation failed, exit 1 (error message is handled in the calculation code)
     if _run_rampup.success() == false {
+        println!("Error calculating rampup!");
         process::exit(1);
     }
 

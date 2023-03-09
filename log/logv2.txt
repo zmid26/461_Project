@@ -1,0 +1,281 @@
+Folder number and url:     1 / https://github.com/phonegap/phonegap-app-anyconference
+Folder number and url:     2 / https://github.com/ReversedK/LocateAnything
+Folder number and url:     3 / https://github.com/l3lackcurtains/graphql-boilerplate
+Folder number and url:     4 / https://github.com/vbaicu/mMusicCast
+Folder number and url:     5 / https://github.com/anychart-solutions/anystock-drawing-tools-and-annotations-demo
+Folder number and url:     6 / https://www.npmjs.com/package/url-inspector
+Folder number and url:     7 / https://www.npmjs.com/package/sharebutton
+Folder number and url:     8 / https://www.npmjs.com/package/anycontrol
+Folder number and url:     9 / https://www.npmjs.com/package/pan-zoom
+Folder number and url:     10 / https://www.npmjs.com/package/opentok-screen-sharing
+
+Lines of code in folder 1: 167
+Lines of comments in folder 1: 14
+RampUp score for repo 1: 0.17
+
+
+Lines of code in folder 2: 354
+Lines of comments in folder 2: 21
+RampUp score for repo 2: 0.12
+
+
+Lines of code in folder 3: 1467
+Lines of comments in folder 3: 32
+RampUp score for repo 3: 0.04
+
+
+Lines of code in folder 4: 14292
+Lines of comments in folder 4: 3099
+RampUp score for repo 4: 0.43
+
+
+Lines of code in folder 5: 1583
+Lines of comments in folder 5: 218
+RampUp score for repo 5: 0.28
+
+
+Lines of code in folder 6: 231
+Lines of comments in folder 6: 5
+RampUp score for repo 6: 0.04
+
+
+Lines of code in folder 7: 4397
+Lines of comments in folder 7: 160
+RampUp score for repo 7: 0.07
+
+
+Lines of code in folder 8: 310
+Lines of comments in folder 8: 4
+RampUp score for repo 8: 0.03
+
+
+Lines of code in folder 9: 19111
+Lines of comments in folder 9: 2311
+RampUp score for repo 9: 0.24
+
+
+Lines of code in folder 10: 562
+Lines of comments in folder 10: 24
+RampUp score for repo 10: 0.09
+
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository phonegap phonegap-app-anyconference
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 42
+Number of open issues: 9
+Correctness score for repo phonegap-app-anyconference owned by phonegap: 0.318182 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository ReversedK LocateAnything
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 4
+Number of open issues: 9
+Correctness score for repo LocateAnything owned by ReversedK: 0.042553 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository l3lackcurtains graphql-boilerplate
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 45
+Number of open issues: 1
+Correctness score for repo graphql-boilerplate owned by l3lackcurtains: 0.818182 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository vbaicu mMusicCast
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 159
+Number of open issues: 16
+Correctness score for repo mMusicCast owned by vbaicu: 0.498433 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository anychart-solutions anystock-drawing-tools-and-annotations-demo
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 17
+Number of open issues: 2
+Correctness score for repo anystock-drawing-tools-and-annotations-demo owned by anychart-solutions: 0.459459 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository kapouer url-inspector
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 27
+Number of open issues: 15
+Correctness score for repo url-inspector owned by kapouer: 0.152542 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository paulkinlan share-button
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 22
+Number of open issues: 4
+Correctness score for repo share-button owned by paulkinlan: 0.354839 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository KaiWedekind anycontrol
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 53
+Number of open issues: 6
+Correctness score for repo anycontrol owned by KaiWedekind: 0.469027 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository dy pan-zoom
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 87
+Number of open issues: 8
+Correctness score for repo pan-zoom owned by dy: 0.520958 
+
+
+------------------
+current analysis of correctness will be done with github GraphQL api
+beginning retrieval of information from repository opentok accelerator-screen-sharing-js
+------------------
+successful graphQL api retrieval with code 200
+proper repo format - data retrieval successful
+Number of stars: 16
+Number of open issues: 4
+Correctness score for repo accelerator-screen-sharing-js owned by opentok: 0.285714 
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/phonegap/phonegap-app-anyconference
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-01-19 from the api
+repo had more than 0 issues = True
+repo was not updated today, it was updated 49 days ago
+responsive maintainer score was calculated to be 0.057028 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/ReversedK/LocateAnything
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2022-10-14 from the api
+repo had more than 0 issues = True
+repo was not updated today, it was updated 146 days ago
+responsive maintainer score was calculated to be 0.050001 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/l3lackcurtains/graphql-boilerplate
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2020-11-02 from the api
+repo had more than 0 issues = True
+repo was not updated today, it was updated 857 days ago
+responsive maintainer score was calculated to be 0.050000 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/vbaicu/mMusicCast
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-01-29 from the api
+repo had more than 0 issues = True
+repo was not updated today, it was updated 39 days ago
+responsive maintainer score was calculated to be 0.068228 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/anychart-solutions/anystock-drawing-tools-and-annotations-demo
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2022-10-06 from the api
+repo had more than 0 issues = True
+repo was not updated today, it was updated 154 days ago
+responsive maintainer score was calculated to be 0.050000 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/kapouer/url-inspector
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-03-08 from the api
+repo had more than 0 issues = True
+repo was not updated today, it was updated 1 days ago
+responsive maintainer score was calculated to be 0.731818 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/paulkinlan/share-button
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2022-06-22 from the api
+repo had more than 0 issues = True
+repo was not updated today, it was updated 260 days ago
+responsive maintainer score was calculated to be 0.050000 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/KaiWedekind/anycontrol
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2022-12-26 from the api
+repo had more than 0 issues = True
+number of open issues exceeded threshold of 25
+repo was not updated today, it was updated 73 days ago
+responsive maintainer score was calculated to be 0.245514 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/dy/pan-zoom
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-01-09 from the api
+repo had more than 0 issues = True
+repo was not updated today, it was updated 59 days ago
+responsive maintainer score was calculated to be 0.052710 with decay factor 1.100000
+
+
+------------------
+current analysis of responsive maintainer metric will be done with github REST api
+beginning retrieval of information from repository https://github.com/opentok/accelerator-screen-sharing-js
+------------------
+able to receive response code 200 from github
+proper repo format - retrieved 2023-01-20 from the api
+repo had more than 0 issues = True
+repo was not updated today, it was updated 48 days ago
+responsive maintainer score was calculated to be 0.057731 with decay factor 1.100000
