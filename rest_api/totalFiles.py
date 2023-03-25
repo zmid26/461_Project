@@ -2,6 +2,7 @@ from github import Github
 import urllib.request as url
 import re
 import sys
+import os
 
 def getGithubURLs(repo):
     webUrl = url.urlopen(repo)
@@ -25,12 +26,7 @@ def main():
     else:
         gitURL = givenUrl
 
-    env_file = open('.env')
-    vars = env_file.readlines()
-    for v in vars:
-        if v.find("GITHUB_TOKEN") != -1:
-            github_token = v.split("GITHUB_TOKEN=")[1]
-            github_token = github_token.replace('\n','')
+    github_token = os.environ.get('GITHUB_TOKEN')
 
     try:
         token = Github(github_token)
