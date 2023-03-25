@@ -15,6 +15,13 @@ fn main(){
     if _run_rampup.success() == false {
         process::exit(1);
     }
+    
+    //run the bus factor calculation
+    let _run_busfactor = Command::new("./target/debug/calculate_bus_factor").arg(&cli_input[1]).status().expect("Err"); //runs the rust executable "calculate_BusFactor" with the CLI input file
+    
+    if _run_rampup.success() == false {
+    	process::exit(1);
+    }
 
     //run the correctness calculation (calculate_Correctness)
     let _run_correctness = Command::new("python3").arg("graphql_api/calculate_Correctness.py").arg(&cli_input[1]).status().expect("Err");
