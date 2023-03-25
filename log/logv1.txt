@@ -1,0 +1,149 @@
+Number of URLs in the input file: 10
+ing url #2
+finished cloning url #3
+finished cloning url #4
+finished cloning url #5
+finished cloning url #6
+finished cloning url #7
+finished cloning url #8
+finished cloning url #9
+finished cloning url #10
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 22792 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 10600 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 4912 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 26889 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 25407 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 60176 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 27835 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 55805 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 99142 stars
+
+
+>>> beginning correctness metric with GraphQL api
+successful graphql api retrieval
+proper repo format
+Repo had 21914 stars
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was not updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was not updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+repo was not updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today
+
+
+>>> beginning respmaintainer metric with REST api
+able to receive response from github
+proper repo format - data retrieval successful
+repo had nonzero number of issues
+number of open issues exceeded threshold
+repo was updated today

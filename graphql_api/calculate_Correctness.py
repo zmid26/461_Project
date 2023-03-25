@@ -7,12 +7,8 @@ devnull = open('/dev/null', 'w')
 sys.stdout = devnull
 sys.stderr = devnull
 
-env_file = open('.env')
-vars = env_file.readlines()
-for v in vars:
-  if v.find('GITHUB_TOKEN') != -1:
-    github_token = v.split('GITHUB_TOKEN=')[1]
-    github_token = github_token.replace('\n','')
+
+github_token = os.environ.get('GITHUB_TOKEN')
 
 with open(sys.argv[1],'r') as f: # open file containing urls
   urls = f.readlines() 

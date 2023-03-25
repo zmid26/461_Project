@@ -81,6 +81,7 @@ net_and_out_sorted = sorted(net_and_out, reverse=True)
 sorted_output = [x[1] for x in net_and_out_sorted]
 
 #print the sorted output
+
 for x in sorted_output:
     print(json.dumps(x, separators=(', ', ':')))
 
