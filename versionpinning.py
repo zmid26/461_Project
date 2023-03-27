@@ -2,16 +2,15 @@
 #   Name: Jack Kwan
 #   File: versionpinning.py
 #   Last modified: 3/25/2023
-#   Description: This file takes a given package    
-
+#   Description: This file takes a given package, searches for 
+#   a version, and pins dependencies to that version. From this, it will output a score. 
+###############################################################    
 
 import subprocess
 import re
 
-package_name = 'example_package'
-required_version = '{1-9}.{1-9}'
-
 def versionpinning(package_name):
+    required_version = '{1-9}.{1-9}'
     # Get the installed version of the package
     cmd = f'pip show {package_name}'
     result = subprocess.run(cmd, stdout=subprocess.PIPE, shell=True)
@@ -64,4 +63,4 @@ def versionpinning(package_name):
 package = "numpy"
 score = versionpinning(package)
 
-print(f'The score for {package_name} is {score:.2f}')
+#print(f'The score for {package_name} is {score:.2f}')
