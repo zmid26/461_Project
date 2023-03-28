@@ -19,6 +19,7 @@ responsive_maintainer = []
 netscore = []
 license = []
 bus_factor = []
+updated_code = []
 
 #open the command line argument file
 input_file = open(sys.argv[1],'r')
@@ -54,10 +55,14 @@ with open("output/license_out.txt") as lic_out:
     for line in lic_out:
         license.append(float(line.strip()))
 
+with open("output/updatedcode_out.txt") as up_out:
+    for line in up_out:
+        updated_code.append(float(line.strip()))
+
 #calculate netscore for each url (just chose correctness as iterator because lazy..couldve been any iterator that goes for the number of urls)
 url_idx = 0
 for x in correctness:
-    netscore.append( ((bus_factor[url_idx] * 5.0) + (responsive_maintainer[url_idx] * 4.0) + (correctness[url_idx] * 3.0) + (rampup[url_idx] * 2.0) + (license[url_idx])) / 15.0)
+    netscore.append( ((bus_factor[url_idx] * 5.0) + (responsive_maintainer[url_idx] * 4.0) + (correctness[url_idx] * 3.0) + (rampup[url_idx] * 2.0) + (updated_code[url_idx] * 2.0) + (license[url_idx])) / 17.0)
     
     url_idx += 1
 
@@ -69,6 +74,7 @@ for x in netscore:
     (output[url_idx]).update({"URL":urls[url_idx]})
     (output[url_idx]).update({"NET_SCORE":round(netscore[url_idx], 2)})
     (output[url_idx]).update({"RAMP_UP_SCORE":round(rampup[url_idx], 2)})
+    (output[url_idx]).update({"UPDATED_CODE_SCORE":round(updated_code[url_idx], 2)})
     (output[url_idx]).update({"CORRECTNESS_SCORE":round(correctness[url_idx], 2)})
     (output[url_idx]).update({"BUS_FACTOR_SCORE":round(bus_factor[url_idx], 2)})
     (output[url_idx]).update({"RESPONSIVE_MAINTAINER_SCORE":round(responsive_maintainer[url_idx], 2)})

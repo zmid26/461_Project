@@ -25,6 +25,14 @@ fn main(){
     	process::exit(1);
     }
 
+    //run the updated code score calculation
+    let _run_updated_code = Command::new("./target/debug/calculate_updated_code").arg(&cli_input[1]).status().expect("Err"); //runs the rust executable "calculate_UpdatedCode" with the CLI input file
+    
+    if _run_updated_code.success() == false {
+        println!("Error calculating updated code score!");
+    	process::exit(1);
+    }
+
     //run the correctness calculation (calculate_Correctness)
     let _run_correctness = Command::new("python3").arg("graphql_api/calculate_Correctness.py").arg(&cli_input[1]).status().expect("Err");
 

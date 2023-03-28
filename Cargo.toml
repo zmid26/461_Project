@@ -19,3 +19,7 @@ path = "local_cloning/calculate_ramp_up.rs"
 [[bin]]
 name = "calculate_bus_factor"
 path = "rest_api/calculate_bus_factor.rs"
+
+[[bin]]
+name = "calculate_updated_code"
+path = "rest_api/calculate_updated_code.rs"
