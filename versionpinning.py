@@ -1,10 +1,20 @@
-###############################################################
+##################################################################################
 #   Name: Jack Kwan
 #   File: versionpinning.py
 #   Last modified: 3/25/2023
-#   Description: This file takes a given package, searches for 
-#   a version, and pins dependencies to that version. From this, it will output a score. 
-###############################################################    
+#   Description: 
+#   This is a Python function that takes in the name of a package as input and 
+#   returns a score based on the percentage of its dependencies that are pinned to specific versions. 
+#   The function performs the following steps:
+#       1. Uses the subprocess module to run a command to get the installed version of the package.
+#       2. Extracts the major and minor version numbers from the installed version of the package and writes it to a requirements.txt file.
+#       3. Uses another command to get the list of dependencies for the package and extracts their names.
+#       4. Loops over the dependencies, using the subprocess module to get the installed version of each dependency.
+#       5. Extracts the major and minor version numbers from the installed version of each dependency 
+#          and checks if it matches a required version pattern ({1-9}.{1-9}). If it does, it increments a counter of pinned dependencies.
+#       6. Calculates a score based on the fraction of pinned dependencies out of the total number of dependencies.
+#       7. Returns the score.
+##################################################################################    
 
 import subprocess
 import re
@@ -62,5 +72,4 @@ def versionpinning(package_name):
 
 package = "numpy"
 score = versionpinning(package)
-
-#print(f'The score for {package_name} is {score:.2f}')
+print(f'The score for {package} is {score:.2f}')
