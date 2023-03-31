@@ -1,0 +1,43 @@
+name: Deploy To GCP
+
+on:
+  pull_request:
+    branches:
+    - main
+    types: [closed]
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJ_ID }}
+  GCP_INSTANCE: 
+  GCP_INSTANCE_ZONE:
+
+
+jobs:
+  build_publish_deploy:
+    name: Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        service_account_email: ${{ secrets.GCP_EMAIL }}
+        service_account_key: ${{ secrets.GCP_KEY }}
+        export_default_credentials: true
+        
+    - name: Configure Docker
+      run: |
+        gcloud auth configure-docker
+    
+    - name: Build & Publish
+      run: |
+        gcloud config set project ${{ secrets.GCP_PROJ_ID }}
+        gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJ_ID }}/${{ secrets.GCP_APPLICATION }}
+        gcloud config set run/region us-central1
+      
+    - name: Deploy
+      run: |
+        gcloud run deploy ${{ secrets.GCP_APPLICATION }} --image gcr.io/${{ secrets.GCP_PROJ_ID }}/${{ secrets.GCP_APPLICATION }} \
+        --platform managed \
+        --allow-unauthenticated \
+        --memory 512M
