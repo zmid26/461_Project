@@ -20,7 +20,7 @@ import subprocess
 import re
 
 def versionpinning(package_name):
-    required_version = '{1-9}.{1-9}'
+    #required_version = '{1-9}.{1-9}'
     # Get the installed version of the package
     cmd = f'pip show {package_name}'
     result = subprocess.run(cmd, stdout=subprocess.PIPE, shell=True)
@@ -58,9 +58,7 @@ def versionpinning(package_name):
         output = result.stdout.decode()
         match = re.search(r'Version: (\d+\.\d+)', output)
         if match:
-            dependency_version = match.group(1)
-            if dependency_version.startswith(required_version):
-                num_pinned += 1
+            num_pinned += 1
 
     # Calculate the score based on the fraction of pinned dependencies
     if len(dependencies) == 0:
