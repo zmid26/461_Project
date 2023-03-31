@@ -6,12 +6,6 @@ on:
     - main
     types: [closed]
 
-env:
-  PROJECT_ID: ${{ secrets.GCP_PROJ_ID }}
-  GCP_INSTANCE: 
-  GCP_INSTANCE_ZONE:
-
-
 jobs:
   build_publish_deploy:
     name: Build, Publish, and Deploy
