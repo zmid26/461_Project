@@ -67,7 +67,3 @@ def versionpinning(package_name):
         score = num_pinned / len(dependencies)
 
     return score
-
-package = "numpy"
-score = versionpinning(package)
-print(f'The score for {package} is {score:.2f}')
