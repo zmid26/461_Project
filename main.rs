@@ -13,7 +13,24 @@ fn main(){
 
     //if the rampup calculation failed, exit 1 (error message is handled in the calculation code)
     if _run_rampup.success() == false {
+        println!("Error calculating rampup!");
         process::exit(1);
+    }
+    
+    //run the bus factor calculation
+    let _run_busfactor = Command::new("./target/debug/calculate_bus_factor").arg(&cli_input[1]).status().expect("Err"); //runs the rust executable "calculate_BusFactor" with the CLI input file
+    
+    if _run_busfactor.success() == false {
+        println!("Error calculating bus factor!");
+    	process::exit(1);
+    }
+
+    //run the updated code score calculation
+    let _run_updated_code = Command::new("./target/debug/calculate_updated_code").arg(&cli_input[1]).status().expect("Err"); //runs the rust executable "calculate_UpdatedCode" with the CLI input file
+    
+    if _run_updated_code.success() == false {
+        println!("Error calculating updated code score!");
+    	process::exit(1);
     }
 
     //run the correctness calculation (calculate_Correctness)

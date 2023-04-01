@@ -7,8 +7,11 @@ sys.stderr = devnull
 if not os.system("pip3 install GitPython"): #install gitpython
     os.system("pip3 install GitPython") #install gitpython with pip3
 
-if not os.system("pip3 install requests"): #install requests
-    os.system("pip3 install requests") #install requests with pip3
+if not os.system("pip3 install PyGithub"): #install PyGithub
+    os.system("pip3 install PyGithub")
+
+if not os.system("pip3 install requests"): #install gitpython
+    os.system("pip3 install requests") #install gitpython with pip3
 
 os.system("cargo update -p ignore --precise 0.4.18")
 
