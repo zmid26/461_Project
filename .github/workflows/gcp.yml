@@ -8,7 +8,7 @@ jobs:
     name: Build and Push to GCP
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: AuthAPI
+      IMAGE_NAME: auth-api
       PROJECT_ID: ece461-project
     steps:
     - name: Checkout
