@@ -4,19 +4,17 @@ name: GCP Cloud Build
 #   release:
 #     types: [published]
 
-#on:
-#  push:
-#    branches:
-#      - Github-Actions
-      
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - Github-Actions
 
-jobs:
+job:
   job_id:
     name: Trigger Google Cloud Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
 
     - id: 'auth'
       uses: 'google-github-actions/auth@v0'
