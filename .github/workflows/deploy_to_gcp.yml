@@ -1,12 +1,14 @@
 name: Deploy To GCP
 
 on:
-  push:
-    branches:
+  pull_request:
+    branches: 
       - main
+    types: [closed]
 
 jobs:
   build_publish_deploy:
+    if: ${{ github.event.pull_request.merged }}
     name: Build, Publish, and Deploy
     runs-on: ubuntu-latest
     steps:
