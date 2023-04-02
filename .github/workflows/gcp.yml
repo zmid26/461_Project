@@ -10,7 +10,7 @@ jobs:
     env:
       IMAGE_NAME: auth-api
       PROJECT_ID: ece461-project
-    steps:
+    steps: 
     - name: Checkout
       uses: actions/checkout@v2
  
