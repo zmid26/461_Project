@@ -1,4 +1,4 @@
-FROM rust:1.49
+FROM rust:1.67
 FROM ubuntu
 COPY . /app
 WORKDIR /app
@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+RUN cargo install --path
 RUN ./run install
 RUN ./run build
 
