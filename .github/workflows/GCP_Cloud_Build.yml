@@ -4,12 +4,14 @@ name: GCP Cloud Build
 #   release:
 #     types: [published]
 
-on:
-  push:
-    branches:
-      - Github-Actions
+#on:
+#  push:
+#    branches:
+#      - Github-Actions
+      
+on: [workflow_dispatch]
 
-job:
+jobs:
   job_id:
     name: Trigger Google Cloud Build
     runs-on: ubuntu-latest
