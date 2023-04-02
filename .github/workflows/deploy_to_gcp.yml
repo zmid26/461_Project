@@ -7,7 +7,6 @@ on:
 
 jobs:
   build_publish_deploy:
-    if: ${{ github.event.pull_request.merged }}
     name: Build, Publish, and Deploy
     runs-on: ubuntu-latest
     steps:
