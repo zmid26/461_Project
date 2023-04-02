@@ -22,9 +22,9 @@ elif [ $1 == 'tempclean' ]; then
 elif [ $1 == 'test' ]; then
     python3 test_suite/test_suite_script.py
 elif [ $1 == 'score' ]; then
-    # ./target/debug/main "$@";
+    ./target/debug/main "$@";
     # echo "Link/file: $2"
-    python3 output/print_results.py $2
+
 else
     echo "Invalid Input";
     exit 5

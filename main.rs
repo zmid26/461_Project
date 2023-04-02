@@ -9,7 +9,7 @@ fn main(){
     let cli_input: Vec<String> = env::args().collect(); 
 
     //run the rampup calculation (calculate_RampUp)
-    let _run_rampup = Command::new("./target/debug/calculate_ramp_up").arg(&cli_input[1]).status().expect("Err"); //runs the rust executable "calculate_RampUp" with the CLI input file
+    let _run_rampup = Command::new("./target/debug/calculate_ramp_up").arg(&cli_input[2]).status().expect("Err"); //runs the rust executable "calculate_RampUp" with the CLI input file
 
     //if the rampup calculation failed, exit 1 (error message is handled in the calculation code)
     if _run_rampup.success() == false {
@@ -18,7 +18,7 @@ fn main(){
     }
     
     //run the bus factor calculation
-    let _run_busfactor = Command::new("./target/debug/calculate_bus_factor").arg(&cli_input[1]).status().expect("Err"); //runs the rust executable "calculate_BusFactor" with the CLI input file
+    let _run_busfactor = Command::new("./target/debug/calculate_bus_factor").arg(&cli_input[2]).status().expect("Err"); //runs the rust executable "calculate_BusFactor" with the CLI input file
     
     if _run_busfactor.success() == false {
         println!("Error calculating bus factor!");
@@ -26,7 +26,7 @@ fn main(){
     }
 
     //run the updated code score calculation
-    let _run_updated_code = Command::new("./target/debug/calculate_updated_code").arg(&cli_input[1]).status().expect("Err"); //runs the rust executable "calculate_UpdatedCode" with the CLI input file
+    let _run_updated_code = Command::new("./target/debug/calculate_updated_code").arg(&cli_input[2]).status().expect("Err"); //runs the rust executable "calculate_UpdatedCode" with the CLI input file
     
     if _run_updated_code.success() == false {
         println!("Error calculating updated code score!");
@@ -34,7 +34,7 @@ fn main(){
     }
 
     //run the correctness calculation (calculate_Correctness)
-    let _run_correctness = Command::new("python3").arg("graphql_api/calculate_Correctness.py").arg(&cli_input[1]).status().expect("Err");
+    let _run_correctness = Command::new("python3").arg("graphql_api/calculate_Correctness.py").arg(&cli_input[2]).status().expect("Err");
 
     //if the correctness script didnt return success, exit 1 and print error
     if _run_correctness.success() == false {
@@ -43,7 +43,7 @@ fn main(){
     }
 
     //run the responsive maintainer calculation (calculate_ResponsiveMaintainer.py)
-    let _run_responsivemaintainer = Command::new("python3").arg("rest_api/calculate_ResponsiveMaintainer.py").arg(&cli_input[1]).status().expect("Err");
+    let _run_responsivemaintainer = Command::new("python3").arg("rest_api/calculate_ResponsiveMaintainer.py").arg(&cli_input[2]).status().expect("Err");
 
     //if the responsive maintainer script didnt return success, exit 1 and print error
     if _run_responsivemaintainer.success() == false {
@@ -52,7 +52,7 @@ fn main(){
     }
 
     //run the license calculation (license.py)
-    let _run_license = Command::new("python3").arg("local_cloning/license.py").arg(&cli_input[1]).status().expect("Err");
+    let _run_license = Command::new("python3").arg("local_cloning/license.py").arg(&cli_input[2]).status().expect("Err");
 
     //if the license script didnt return success, exit 1 and print error
     if _run_license.success() == false {
@@ -61,7 +61,7 @@ fn main(){
     }
 
     //print the results (print_results.py)
-    let _print_results = Command::new("python3").arg("output/print_results.py").arg(&cli_input[1]).status().expect("Err");
+    let _print_results = Command::new("python3").arg("output/print_results.py").arg(&cli_input[2]).status().expect("Err");
 
     //if printing results didnt return success, exit 1 and print error
     if _print_results.success() == false {
@@ -70,7 +70,7 @@ fn main(){
     }
     
     //do logging 
-    let _set_logs = Command::new("python3").arg("verbosity.py").arg(&cli_input[1]).status().expect("Err");
+    let _set_logs = Command::new("python3").arg("verbosity.py").arg(&cli_input[2]).status().expect("Err");
 
     //if verbosity didnt return success, exit 1 and print error
     if _print_results.success() == false {
