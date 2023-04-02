@@ -1,14 +1,12 @@
 name: Deploy To GCP
 
 on:
-  pull_request:
-    branches: 
+  push:
+    branches:
       - main
-    types: [closed]
 
 jobs:
   build_publish_deploy:
-    if: ${{ github.event.pull_request.merged }}
     name: Build, Publish, and Deploy
     runs-on: ubuntu-latest
     steps:
@@ -20,7 +18,14 @@ jobs:
         service_account_email: ${{ secrets.GCP_EMAIL }}
         service_account_key: ${{ secrets.GCP_KEY }}
         export_default_credentials: true
-        
+    
+    - name: Google Authorization
+      id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        token_format: 'access_token'
+        service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+         
     - name: Configure Docker
       run: |
         gcloud auth configure-docker
