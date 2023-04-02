@@ -13,10 +13,10 @@ for url in urls:
     # create a new file for each url
     with open("test_suite/newTest.txt", "w") as newTestFile:
         newTestFile.write(url.strip())
-
+        
     # run each individual script for metric calculation
     printed_result = str(subprocess.run(['./run', 'test_suite/newTest.txt'], stdout=subprocess.PIPE).stdout)
-   
+    
     # extract net_score value from output
     try:
         net_print = printed_result.split('"NET_SCORE":')[1]

@@ -1,16 +1,24 @@
-FROM rust:1.67
 FROM ubuntu
-COPY . /app
-WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3.5 \
-    python3-pip \
-    && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-RUN cargo install --path
+#Check for Ubuntu update
+RUN apt-get update
+
+#Installs Ubuntu
+RUN apt-get install -y \
+    build-essential \
+    curl
+
+#Install Python and Rust
+RUN apt-get install -y python3 python3-pip
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+
+WORKDIR /usr/src/app
+COPY . .
+
 RUN ./run install
 RUN ./run build
 
-CMD ./run Sample.txt
+
+CMD ./run 
