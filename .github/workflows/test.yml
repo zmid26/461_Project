@@ -1,8 +1,9 @@
 name: cloudrun-deploy
-on:
-  push:
-    branches:
-      - main
+
+on: [workflow_dispatch]
+  # push:
+  #   branches:
+  #     - main
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
@@ -11,7 +12,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
 
-    # Setup gcloud CLI
+    Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         service_account_email: ${{ secrets.GCP_EMAIL }}
