@@ -12,7 +12,7 @@ RUN apt-get install -y \
 RUN apt-get install -y python3 python3-pip
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
-
+EXPOSE 8080
 
 WORKDIR /usr/src/app
 COPY . .
