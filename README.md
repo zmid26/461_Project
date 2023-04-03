@@ -22,3 +22,6 @@ Functionality:
     -this command runs a test suite consisting of 20 separate test cases
     -10 good and 10 bad urls are included in this test suite
     -number of passed tests and line coverage % are printed to output
+
+*May be wrong, I have no idea how tf this code works*
+"./run score * file containing Github/npm link *" will score any particular Github or npm link

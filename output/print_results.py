@@ -18,6 +18,8 @@ correctness = []
 responsive_maintainer = []
 netscore = []
 license = []
+bus_factor = []
+updated_code = []
 
 #open the command line argument file
 input_file = open(sys.argv[1],'r')
@@ -32,6 +34,11 @@ output_file_locations = Path('metric_out_files/')
 with open("output/rampup_out.txt") as ramp_out:
     for line in ramp_out:
         rampup.append(float(line.strip()))
+
+#open bus factor output and add to bus factor list
+with open("output/busfactor_out.txt") as bus_out:
+    for line in bus_out:
+        bus_factor.append(float(line.strip()))
 
 #open correctness output and add to correctness list
 with open("output/correctness_out.txt") as correct_out:
@@ -48,10 +55,14 @@ with open("output/license_out.txt") as lic_out:
     for line in lic_out:
         license.append(float(line.strip()))
 
+with open("output/updatedcode_out.txt") as up_out:
+    for line in up_out:
+        updated_code.append(float(line.strip()))
+
 #calculate netscore for each url (just chose correctness as iterator because lazy..couldve been any iterator that goes for the number of urls)
 url_idx = 0
 for x in correctness:
-    netscore.append( ((responsive_maintainer[url_idx] * 4.0) + (correctness[url_idx] * 3.0) + (rampup[url_idx] * 2.0) + (license[url_idx])) / 10.0)
+    netscore.append( ((bus_factor[url_idx] * 5.0) + (responsive_maintainer[url_idx] * 4.0) + (correctness[url_idx] * 3.0) + (rampup[url_idx] * 2.0) + (updated_code[url_idx] * 2.0) + (license[url_idx])) / 17.0)
     
     url_idx += 1
 
@@ -63,8 +74,9 @@ for x in netscore:
     (output[url_idx]).update({"URL":urls[url_idx]})
     (output[url_idx]).update({"NET_SCORE":round(netscore[url_idx], 2)})
     (output[url_idx]).update({"RAMP_UP_SCORE":round(rampup[url_idx], 2)})
+    (output[url_idx]).update({"UPDATED_CODE_SCORE":round(updated_code[url_idx], 2)})
     (output[url_idx]).update({"CORRECTNESS_SCORE":round(correctness[url_idx], 2)})
-    (output[url_idx]).update({"BUS_FACTOR_SCORE":-1})
+    (output[url_idx]).update({"BUS_FACTOR_SCORE":round(bus_factor[url_idx], 2)})
     (output[url_idx]).update({"RESPONSIVE_MAINTAINER_SCORE":round(responsive_maintainer[url_idx], 2)})
     (output[url_idx]).update({"LICENSE_SCORE":round(license[url_idx], 2)})
     url_idx += 1
@@ -75,6 +87,7 @@ net_and_out_sorted = sorted(net_and_out, reverse=True)
 sorted_output = [x[1] for x in net_and_out_sorted]
 
 #print the sorted output
+
 for x in sorted_output:
     print(json.dumps(x, separators=(', ', ':')))
 

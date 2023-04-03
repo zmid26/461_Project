@@ -20,13 +20,8 @@ def getResponsiveScore(githubRepoURL):
     # we want to get the number of open and closed issues in the repo
 
     openURL = 'https://api.github.com/repos/' + repoDir
-
-    env_file = open('.env')
-    vars = env_file.readlines()
-    for v in vars:
-        if v.find('GITHUB_TOKEN') != -1:
-            github_token = v.split('GITHUB_TOKEN=')[1]
-            github_token = github_token.replace('\n','')
+    
+    github_token = os.getenv('GITHUB_TOKEN')
 
     
     file_v2 = open('log/logv1.txt','a+')
