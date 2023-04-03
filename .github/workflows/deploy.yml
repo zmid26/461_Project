@@ -1,5 +1,9 @@
 name: cloudrun-deploy
-on: [workflow_dispatch]
+on: 
+  push:
+    branches:
+      main
+      
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
