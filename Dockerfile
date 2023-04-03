@@ -1,9 +1,13 @@
-FROM python:3.10-slim-buster
+FROM python:3.8-slim-buster
 
 WORKDIR /app
 
-COPY requirements_gcp.txt requirements_gcp.txt
+COPY requirements.txt .
 
-RUN pip3 install -r requirements_gcp.txt
+RUN pip install --no-cache-dir -r requirements_gcp.txt
 
-CMD [ "python3", "-m", "flask", "run", "--host=0.0.0.0"]
+COPY . .
+
+EXPOSE 8080
+
+CMD [ "python", "./app.py" ]
