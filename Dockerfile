@@ -10,5 +10,4 @@ EXPOSE 8080
 
 COPY app.py .
 
-
 CMD [ "python3", "app.py"]
