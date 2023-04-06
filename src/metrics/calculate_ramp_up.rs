@@ -6,7 +6,6 @@ use std::process::Command; //library to run processes in rust
 use tokei::{Config, LanguageType, Languages};
 
 pub fn ramp_up_score(filepath: &str) {
-
     //take the contents of the file and save into a single string
     let data = match fs::read_to_string(filepath) {
         Ok(data) => data,
@@ -30,19 +29,17 @@ pub fn ramp_up_score(filepath: &str) {
         url_index += 1;
     }
 
-
     //run clone function to locally clone repos (pass in the input file)
     clone_repos((&filepath).to_string());
 
     //open up the directory with all the cloned repos
-    let cloned_folders =
-        match fs::read_dir("output/cloned_repos/") {
-            Ok(cloned_folders) => cloned_folders,
-            Err(..) => {
-                println!("Error opening up cloned repos directory!\n");
-                std::process::exit(1);
-            }
-        };
+    let cloned_folders = match fs::read_dir("output/cloned_repos/") {
+        Ok(cloned_folders) => cloned_folders,
+        Err(..) => {
+            println!("Error opening up cloned repos directory!\n");
+            std::process::exit(1);
+        }
+    };
 
     //initialize a counter for the current folder number
     let mut folder_num = 1;
@@ -71,15 +68,19 @@ pub fn ramp_up_score(filepath: &str) {
         let code_lines = js.code;
         let comment_lines = js.comments;
 
-        simple_log::debug!("Lines of code in folder {}: {}",folder_num, code_lines);
-        simple_log::debug!("Lines of comments in folder {}: {}", folder_num, comment_lines);
-        
+        simple_log::debug!("Lines of code in folder {}: {}", folder_num, code_lines);
+        simple_log::debug!(
+            "Lines of comments in folder {}: {}",
+            folder_num,
+            comment_lines
+        );
+
         //calculate rampup and log it
         let code_u32 = u32::try_from(code_lines).unwrap();
         let comment_u32 = u32::try_from(comment_lines).unwrap();
         let ramp_up = calculate_ramp_up(code_u32, comment_u32);
-    
-        simple_log::info!("RampUp score for repo {}: {:.2}",folder_num, ramp_up);
+
+        simple_log::info!("RampUp score for repo {}: {:.2}", folder_num, ramp_up);
 
         //write the rampup score to the rampup_out.txt file in the output folder
         write!(out_file, "{0}\n", ramp_up).expect("Error writing rampup to output");
@@ -115,7 +116,7 @@ fn clone_repos(filepath: String) {
 
     //if the clone script didnt return success, exit 1 and print error
     if _run_clone_script.success() == false {
-        println!("Error cloning repos!");
+        println!("Error cloning metric repos! (called from rampup.rs)");
         std::process::exit(1);
     }
 }

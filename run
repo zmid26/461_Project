@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+old_pwd="$PWD"
+cd $(dirname $0)
+rm -r -f output
 mkdir -p output
 
 if [ $1 == 'install' ]; then
@@ -12,5 +16,8 @@ elif [ $1 == 'tempclean' ]; then
 elif [ $1 == 'test' ]; then
     python3 test/test_suite_script.py
 else
+    export $(cat .env | xargs)
     cargo run "$@"
 fi
+
+cd $old_pwd

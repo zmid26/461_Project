@@ -22,7 +22,6 @@ os.mkdir("output/cloned_repos/")
 
 #loops through all of the URLs
 for url in urls:
-
     #if it was a git URL, clone it
     if "github" in url:
         
