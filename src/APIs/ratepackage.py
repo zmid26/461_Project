@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # Connect to the database
 cnx = mysql.connector.connect(
-    user='root', password='Pushpop1170', host='localhost', database='461db')
+    user='root', password='password1234', host='localhost', database='461db')
 
 
 # Main page (currently just redirects to rate package with id 100)
