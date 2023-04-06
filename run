@@ -2,6 +2,7 @@
 
 old_pwd="$PWD"
 cd $(dirname $0)
+rm -r -f output
 mkdir -p output
 
 if [ $1 == 'install' ]; then

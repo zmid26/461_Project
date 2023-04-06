@@ -35,16 +35,18 @@ def rate_package(id):
         package_url = package_url[0]
 
     # Set the relative path to the CLI from the directory the server was started from **update this**
-    # Currently assumes the server is started from the project_461 directory 
+    # Currently assumes the server is started from the project_461 directory
     clipath = "./run"
 
     # ./run "package_url" from and return the results
     rating = subprocess.check_output(
         "{} {}".format(clipath, package_url), shell=True)
+    
+    # If the rating returns an error, return a 500
+    result = rating.decode("utf-8")
+    if len(result) < 174:
+        return "Error: Could not get rating for package {} with error = {}".format(id,result), 500
     rating = json.loads(rating)
-    print(rating)
-    print(type(rating["Correctness"]))
-    print(rating["BusFactor"])
 
     # Insert the results into the database
     # See if ID is already in PackageRating
@@ -57,12 +59,14 @@ def rate_package(id):
         # Insert the rating into the database
         print("Inserting rating into database")
         query = "INSERT INTO PackageRating (ID, BusFactor, Correctness, RampUp, ResponsiveMaintainer, LicenseScore, GoodPinningPractice, PullRequest, NetScore) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        cursor.execute(query, (id, rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"], rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"]))
+        cursor.execute(query, (id, rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
+                       rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"]))
     else:
         # Update the rating in the database
         print("Updating rating in database")
         query = "UPDATE PackageRating SET BusFactor = %s, Correctness = %s, RampUp = %s, ResponsiveMaintainer = %s, LicenseScore = %s, GoodPinningPractice = %s, PullRequest = %s, NetScore = %s WHERE ID = %s"
-        cursor.execute(query, (rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"], rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"], id))
+        cursor.execute(query, (rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
+                       rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"], id))
     cnx.commit()
     cursor.close()
 
