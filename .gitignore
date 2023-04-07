@@ -7,3 +7,4 @@ url_file.txt
 output
 log_file.log
 __pycache__
+react_app/node_modules

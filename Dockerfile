@@ -8,6 +8,6 @@ RUN pip3 install -r requirements_gcp.txt
 
 EXPOSE 8080
 
-COPY app.py .
+COPY src/APIs/app.py app.py
 
 CMD [ "python3", "app.py"]
