@@ -71,6 +71,7 @@ def get_package_by_name(Name):
 
 
 # Deletes all instances of a packages with name = Name from the database
+# Deletes entries in PackageEntryHistory, Package, PackageRating
 @app.route('/package/byname/<string:Name>', methods=['DELETE'])
 def delete_package_by_name(Name):
     # TODO: If header information is incorrect or auth token is invalid, return 400
