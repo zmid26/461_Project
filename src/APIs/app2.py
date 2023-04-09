@@ -7,7 +7,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 @app.route('/api/first')
 def my_python_function():
     # Define your Python function here
-    result = 42
+    result = 8080
     return jsonify(result=result)
 
 app.run(host='localhost', port=8080)
