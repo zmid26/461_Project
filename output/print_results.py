@@ -20,6 +20,7 @@ netscore = []
 license = []
 bus_factor = []
 updated_code = []
+version_pinning = []
 
 #open the command line argument file
 input_file = open(sys.argv[1],'r')
@@ -58,6 +59,10 @@ with open("output/license_out.txt") as lic_out:
 with open("output/updatedcode_out.txt") as up_out:
     for line in up_out:
         updated_code.append(float(line.strip()))
+        
+with open("output/versionpinning.txt") as ver_pin:
+    for line in ver_pin:
+        version_pinning.append(float(line.strip()))
 
 #calculate netscore for each url (just chose correctness as iterator because lazy..couldve been any iterator that goes for the number of urls)
 url_idx = 0

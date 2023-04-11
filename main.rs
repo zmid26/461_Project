@@ -77,6 +77,9 @@ fn main(){
         println!("Error in verbosity script!");
         std::process::exit(1);
     }
+    
+    //Calculate version pinning score
+    let _version_pinning_score = Command::new("python3").arg("versionpinning.py").arg(&cli_input[2].status.expect("Err"))
 
     //this will remove output files and locally cloned repos
     clean_up();

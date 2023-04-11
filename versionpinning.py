@@ -18,6 +18,7 @@
 
 import subprocess
 import re
+import sys
 
 def versionpinning(package_name):
     #required_version = '{1-9}.{1-9}'
@@ -67,3 +68,12 @@ def versionpinning(package_name):
         score = num_pinned / len(dependencies)
 
     return score
+
+def main():
+    version_pinning_score = versionpinning(sys.argv[1])
+    with open('output/versionpining.txt', 'w') as f:
+        f.write(str(version_pinning_score))
+        f.write('\n')
+        f.close()
+if __name__ == "__main__":
+    main()
