@@ -5,7 +5,7 @@ use std::process::Command; //library to run processes in rust
 
 fn main() {
     //save the command line argument
-    let cli_input: Vec<String> = env::args().collect(); 
+    let cli_input: Vec<String> = env::args().collect();
 
     //Obtain flag from ./run (-s or -p)
     let flag: &String = &cli_input[3];
@@ -45,7 +45,11 @@ fn main() {
     }
 
     //run the correctness calculation (calculate_Correctness)
-    let _run_correctness = Command::new("python3").arg("graphql_api/calculate_Correctness.py").arg(&cli_input[2]).status().expect("Err");
+    let _run_correctness = Command::new("python3")
+        .arg("graphql_api/calculate_Correctness.py")
+        .arg(&cli_input[2])
+        .status()
+        .expect("Err");
 
     //if the correctness script didnt return success, exit 1 and print error
     if _run_correctness.success() == false {
@@ -55,10 +59,10 @@ fn main() {
 
     //run the responsive maintainer calculation (calculate_ResponsiveMaintainer.py)
     let _run_responsivemaintainer = Command::new("python3")
-    .arg("rest_api/calculate_ResponsiveMaintainer.py")
-    .arg(&cli_input[2])
-    .status()
-    .expect("Err");
+        .arg("rest_api/calculate_ResponsiveMaintainer.py")
+        .arg(&cli_input[2])
+        .status()
+        .expect("Err");
 
     //if the responsive maintainer script didnt return success, exit 1 and print error
     if _run_responsivemaintainer.success() == false {
@@ -67,7 +71,11 @@ fn main() {
     }
 
     //run the license calculation (license.py)
-    let _run_license = Command::new("python3").arg("local_cloning/license.py").arg(&cli_input[2]).status().expect("Err");
+    let _run_license = Command::new("python3")
+        .arg("local_cloning/license.py")
+        .arg(&cli_input[2])
+        .status()
+        .expect("Err");
 
     //if the license script didnt return success, exit 1 and print error
     if _run_license.success() == false {
@@ -75,7 +83,7 @@ fn main() {
         std::process::exit(1);
     }
 
-    //do logging 
+    //do logging
     let _set_logs = Command::new("python3")
         .arg("verbosity.py")
         .arg(&cli_input[2])
