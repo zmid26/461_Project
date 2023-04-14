@@ -5,7 +5,7 @@
     -does this straight from bash script
 
 
-"./run build" will run the command "cargo build" 
+"./run build" will run the command "cargo build"
 
     -this command builds "main.rs" as well as "calculate_ramp_up.rs" at the same time 
     -this command also installs dependencies that are needed for the rust code. these are specified 'Cargo.toml' file
@@ -15,7 +15,7 @@
 
     -this command runs the executable from the "main.rs" rust file
     -will not print net score nor metric scores, but will save scores to .txt files in the /output directory
-    
+
 "./run showscore URL_FILE" will run the command "./target/debug/main showscore URL_FILE -p"
 
     -this command runs the exectuable from the "main.rs" rust file
