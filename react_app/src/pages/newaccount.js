@@ -43,6 +43,7 @@ function NewAccount() {
               required
             />
           </div>
+          <br></br>
           <div>
             <label>Confirm Password: </label>
             <input 
