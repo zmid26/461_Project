@@ -17,7 +17,7 @@ function LogIn() {
     console.log('Email:', username);
     console.log('Password:', password);
     setAuth(true);
-    fetch('https://localhost:3000', requestOptions)
+    fetch('https://localhost:8080', requestOptions)
       .then(response => response.json())
       .then(data => {
         setAuth(true)

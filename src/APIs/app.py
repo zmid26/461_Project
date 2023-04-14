@@ -2,8 +2,10 @@ from flask import Flask, request, jsonify, make_response, request, render_templa
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config['SECRET_KEY'] = 'c43a444c6857419e969677cc155210ab'
 
@@ -62,7 +64,16 @@ def login():
 @app.route('/logout', methods=['POST'])
 def logout():
     pass
-# your code goes here
+
+@app.route('/andrew', methods=['GET'])
+def my_python_function():
+    message = {'message': 'HELLO'}
+    return jsonify(message)
+
+@app.route('/andrew/packages', methods=['POST'])
+def get_packages():
+    message = {'packages': 'packages`'}
+    return jsonify(message)
 
 if __name__ == "__main__":
     app.run(host='localhost', port=8080)
