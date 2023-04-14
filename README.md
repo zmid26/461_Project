@@ -1,4 +1,4 @@
-Functionality:
+# Functionality:
 
 "./run install" will run the python script called "localclone_installer.py" in the 'install' directory
 

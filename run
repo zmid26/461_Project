@@ -1,31 +1,30 @@
 #!/usr/bin/env bash
 
-if [ $1 == 'install' ]; then
+if [ "$1" == 'install' ]; then
     # python3 install/localclone_install.py         Redundent file
     pip3 install gitpython
     pip3 install PyGithub
     pip3 install requests
     # cargo update -p -depth = 1 ignore --precise 0.4.18                   
     echo "Install Complete!"
-elif [ $1 == 'build' ]; then 
+elif [ "$1" == 'build' ]; then 
     cargo build;
-elif [ $1 == 'clean' ]; then 
+elif [ "$1" == 'clean' ]; then 
     rm log_file.txt; 
     rm -r -f target; 
     cd local_cloning && rm -r -f cloned_repos;
     cd ../output && rm *.txt;
     cd ../log && rm *.txt;
-elif [ $1 == 'tempclean' ]; then 
+elif [ "$1" == 'tempclean' ]; then 
     rm testfile.txt;
     cd output && rm *.txt;
     cd ../log && rm *.txt;
-elif [ $1 == 'test' ]; then
+elif [ "$1" == 'test' ]; then
     python3 test_suite/test_suite_script.py
-elif [ $1 == 'score' ]; then
+elif [ "$1" == 'score' ]; then
     ./target/debug/main "$@" -s;
-elif [ $1 == 'showscore' ]; then
+elif [ "$1" == 'showscore' ]; then
     ./target/debug/main "$@" -p;
-
 else
     echo "Invalid Input";
     exit 5

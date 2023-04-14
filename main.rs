@@ -3,7 +3,7 @@ use std::process::Command; //library to run processes in rust
 use std::fs; //rust file library
 use std::process;
 
-fn main(){
+fn main() {
 
     //save the command line argument
     let cli_input: Vec<String> = env::args().collect(); 
