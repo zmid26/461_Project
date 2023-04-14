@@ -8,6 +8,9 @@ fn main(){
     //save the command line argument
     let cli_input: Vec<String> = env::args().collect(); 
 
+    //Obtain flag from ./run (-s or -p)
+    let flag: &String = &cli_input[3];
+
     //run the rampup calculation (calculate_RampUp)
     let _run_rampup = Command::new("./target/debug/calculate_ramp_up").arg(&cli_input[2]).status().expect("Err"); //runs the rust executable "calculate_RampUp" with the CLI input file
 
@@ -59,27 +62,31 @@ fn main(){
         println!("Error calculating license!");
         std::process::exit(1);
     }
-
-    //print the results (print_results.py)
-    let _print_results = Command::new("python3").arg("output/print_results.py").arg(&cli_input[2]).status().expect("Err");
-
-    //if printing results didnt return success, exit 1 and print error
-    if _print_results.success() == false {
-        println!("Error printing results!");
-        std::process::exit(1);
-    }
     
     //do logging 
     let _set_logs = Command::new("python3").arg("verbosity.py").arg(&cli_input[2]).status().expect("Err");
 
-    //if verbosity didnt return success, exit 1 and print error
-    if _print_results.success() == false {
-        println!("Error in verbosity script!");
-        std::process::exit(1);
-    }
 
-    //this will remove output files and locally cloned repos
-    clean_up();
+    //Print results and clean files on -p, save results and not print on -s
+    if flag == "-p" {
+        //print the results (print_results.py)
+        let _print_results = Command::new("python3").arg("output/print_results.py").arg(&cli_input[2]).status().expect("Err");
+
+        //if printing results didnt return success, exit 1 and print error
+        if _print_results.success() == false {
+            println!("Error printing results!");
+            std::process::exit(1);
+        }
+
+        //if verbosity didnt return success, exit 1 and print error
+        if _print_results.success() == false {
+            println!("Error in verbosity script!");
+            std::process::exit(1);
+        }
+
+        //this will remove output files and locally cloned repos
+        clean_up();
+    }
 
     //exit 0 on success
     process::exit(0);
