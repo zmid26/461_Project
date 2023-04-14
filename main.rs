@@ -122,6 +122,22 @@ fn clean_up(){
         }
     };
 
+    let _clean_busfactor = match fs::remove_file("output/busfactor_out.txt"){
+        Ok(_clean_rampup) => _clean_rampup,
+        Err(..) => {
+            println!("Error cleaning busfactor output!\n");
+            std::process::exit(1);
+        }
+    };
+
+    let _clean_updatedcode = match fs::remove_file("output/updatedcode_out.txt"){
+        Ok(_clean_rampup) => _clean_rampup,
+        Err(..) => {
+            println!("Error cleaning updatedcode output!\n");
+            std::process::exit(1);
+        }
+    };
+
     let _clean_respmain = match fs::remove_file("output/resp_maintain_out.txt"){
         Ok(_clean_respmain) => _clean_respmain,
         Err(..) => {
