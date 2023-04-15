@@ -10,6 +10,8 @@ import LogIn from './pages/login';
 import Upload from './pages/upload';
 import NewAccount from './pages/newaccount';
 import GetHistory from './pages/packageHistory';
+import DeleteRegistry from './pages/deleteRegistry';
+import PackageSearch from './pages/packageSearch';
 
 function App() {
 return (
@@ -22,7 +24,9 @@ return (
 		<Route path='/rating' element={<Rating/>} />
 		<Route path='/login' element={<LogIn/>} />
     	<Route path='/newaccount' element={<NewAccount/>} />
-		<Route path='/package-history' element={<GetHistory/>} />
+		<Route path='/packages/history' element={<GetHistory/>} />
+		<Route path='/delete' element={<DeleteRegistry/>} />
+		<Route path='/packages/search' element={<PackageSearch/>} />'
 	</Routes>
 	</Router>
 );

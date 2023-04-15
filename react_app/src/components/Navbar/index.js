@@ -23,6 +23,9 @@ return (
 		<NavLink to="/login">
 			Log In Here
 		</NavLink>
+		<NavLink to="/delete">
+			Delete
+		</NavLink>
 		</NavMenu>
 	</Nav>
 	</>

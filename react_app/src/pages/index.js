@@ -19,9 +19,10 @@ const handleClick = () => {
 };
 
 const getPackages = () => {
+	let token = sessionStorage.getItem("auth_token");
 	const request_body = {
 		PackageQuery: { Version: version, Name: pack_name },
-		headers: { 'X-Authorization': 'auth_token' },
+		headers: { 'X-Authorization': token, 'Content-Type': 'application/json' },
 	}
 	axios.post('http://localhost:8080/andrew/packages', request_body)
 	.then(response => {
