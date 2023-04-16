@@ -8,7 +8,6 @@ import requests
 
 class BadRequest(Exception):
     '''Define bad request exception'''
-    pass
 
 def getGithubURLs(repo):
     '''Transform npm links to github links'''
@@ -38,7 +37,7 @@ def count_pinned_dependencies(repo_url):
     token = os.environ.get('GITHUB_TOKEN')
     headers = {'Authorization': f'token {token}'}
     api_url = f'https://api.github.com/repos/{owner}/{repo_name}/contents/package.json'
-    response = requests.get(api_url, headers=headers)
+    response = requests.get(api_url, headers=headers, timeout=120)
     if response.status_code != 200:
         if response.status_code == 401:
             raise BadRequest('Failed to authenticate with GitHub API. Please check your personal access token.')
