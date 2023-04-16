@@ -18,11 +18,13 @@ file_v3 = open('log/logv2.txt','a+')
 
 repositories = []
 for x in range(len(urls)): # extract owner and name of each repository
+  file_v2.write(f'\n\n>>> Extracting information for url {urls[x]}\n')
 
   repoName = urls[x].partition('github.com/')[2] # extract "owner/repo"
 
   if not repoName: # if github.com/ is not found, extract as npmjs package
-    with open('local_cloning/cloned_repos/' + str(x+1) + '/package.json') as json_File:
+    url = os.path.basename(urls[x].strip('\n'))
+    with open(f'local_cloning/cloned_repos/{url}/package.json') as json_File:
       npmsRepo = json.load(json_File) # load json file containing repo info
     repoName = npmsRepo['repository'] # extract repo info
 

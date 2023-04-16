@@ -102,7 +102,6 @@ fn main(){
 
     //loop through all folders in "cloned_repos"
     for folder in cloned_folders {
-
         //get the path of the current folder
         let _folder_path = (folder.unwrap().path().display()).to_string(); 
 
