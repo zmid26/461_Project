@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const PackageSearch = () => {
@@ -8,7 +8,6 @@ const PackageSearch = () => {
   const token = sessionStorage.getItem('auth_token');
   const handleSubmit = (event) => {
     event.preventDefault();
-    useEffect(() => {
         axios.put(`https://localhost:8080/package/${id}`, {
           headers: {
             'Content-Type': 'application/json',
@@ -22,12 +21,14 @@ const PackageSearch = () => {
           .catch(error => {
             console.log(error);
           });
-        }, []);
     };
 
   return (
     <div>
+      <h1>Use this to search for a Package by ID</h1>
+      <br></br>
       <form onSubmit={handleSubmit}>
+        <label>Enter Package ID: </label>
         <input
           type="text"
           placeholder="Search packages"

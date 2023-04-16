@@ -5,13 +5,16 @@ import { BrowserRouter as Router, Routes, Route}
 	from 'react-router-dom';
 import Home from './pages';
 import Packages from './pages/packages';
-import Rating from './pages/rating';
 import LogIn from './pages/login';
 import Upload from './pages/upload';
 import NewAccount from './pages/newaccount';
 import GetHistory from './pages/packageHistory';
 import DeleteRegistry from './pages/deleteRegistry';
 import PackageSearch from './pages/packageSearch';
+import DeletePackage from './pages/packageDelete';
+import RatePackage from './pages/ratePackage';
+import UploadPackage from './pages/uploadPackage';
+import UpdatePackage from './pages/updatePackage';
 
 function App() {
 return (
@@ -21,12 +24,16 @@ return (
 		<Route exact path='/' element={<Home />} />
 		<Route path='/packages' element={<Packages/>} />
 		<Route path='/upload' element={<Upload/>} />
-		<Route path='/rating' element={<Rating/>} />
 		<Route path='/login' element={<LogIn/>} />
     	<Route path='/newaccount' element={<NewAccount/>} />
-		<Route path='/packages/history' element={<GetHistory/>} />
+		<Route path='/package-history' element={<GetHistory/>} />
 		<Route path='/delete' element={<DeleteRegistry/>} />
-		<Route path='/packages/search' element={<PackageSearch/>} />'
+		<Route path='/package-search' element={<PackageSearch/>} />
+		<Route path='/package-delete' element={<DeletePackage/>} />
+		<Route path='/rating' element={<RatePackage/>} />
+		<Route path='/upload-package' element={<UploadPackage/>} />
+		<Route path='/update-package' element={<UpdatePackage/>} />
+
 	</Routes>
 	</Router>
 );

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-function LogIn() {
+const LogIn = () => { 
   const [username, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authed, setAuth] = useState(false);
@@ -21,7 +21,6 @@ function LogIn() {
     }
     
 
-    useEffect(() => {
     axios.put('https://localhost:8080/authenticate', { data }, {
       headers: {
         'Content-Type': 'application/json'
@@ -34,7 +33,6 @@ function LogIn() {
       .catch(error => {
         console.log(error);
       });
-    }, []);
   };
 
   return (

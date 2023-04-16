@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-function NewAccount() {
+const NewAccount = () => {
   const [username, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confpassword, setConfirm] = useState('');
+  const [newaccconf, setNewAccConf] = useState(false);
+  const [matchpassword, setPassMatch] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -11,15 +15,38 @@ function NewAccount() {
     if(password === confpassword) {
         console.log('Email:', username);
         console.log('Password:', password);
+        const data = {
+          "User": {
+            "name": {username},
+            "isAdmin": true
+          },
+          "Secret": {
+            "password": {password}
+          }
+        }
+        
+    
+        axios.put('https://localhost:8080/newuser', { data }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(response => {
+            setNewAccConf(true);
+          })
+          .catch(error => {
+            console.log(error);
+          });
     }
     else {
+        setPassMatch(true);
         console.log("passwords do not match");
     }
   };
 
   return (
     <div>
-      <div>
+      {!newaccconf && <div>
         <h1>Create a New Account:</h1>
         <form onSubmit={handleSubmit}>
           <div>
@@ -56,7 +83,12 @@ function NewAccount() {
           </div>
           <button type="submit">Sign In</button>
         </form>
-      </div>
+      </div>}
+      {newaccconf && <div><p>New Account Created!</p>
+      <Link to="/login">
+			Click here to Login </Link>
+      </div>}
+      {matchpassword && <div><p>those passwords do not match! Try Again</p></div>}
     </div>
   );
 }
