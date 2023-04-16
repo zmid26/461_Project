@@ -71,7 +71,7 @@ def main():
     else:
         gitURL = urlInput
     count_dep = count_pinned_dependencies(gitURL)
-    print(count_dep)
+    print(f'Pinning score: {count_dep}')
 if __name__ == "__main__":
     main()
     

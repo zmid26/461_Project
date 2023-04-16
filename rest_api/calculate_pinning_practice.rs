@@ -61,7 +61,7 @@ fn main(){
     //open new logfiles after cleaning old ones
     let mut log2 = BufWriter::new(File::create("log/logv2.txt").expect("Error creating log2 file!"));
 
-    let mut output_text = BufWriter::new(File::create("output/pinningpractice.txt").expect("Error opening output for pinning practice metric."));
+    let mut output_text = BufWriter::new(File::create("output/pinningpractice_out.txt").expect("Error opening output for pinning practice metric."));
 
     for url in _urls {
         let pinningpractice_inst = Command::new("python3").arg("rest_api/versionpinning.py").arg(url).output().expect("Err");
