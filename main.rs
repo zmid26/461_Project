@@ -22,6 +22,19 @@ fn main() {
         process::exit(1);
     }
 
+    //run the correctness calculation (calculate_Correctness)
+    let _run_correctness = Command::new("python3")
+        .arg("graphql_api/calculate_Correctness.py")
+        .arg(&cli_input[2])
+        .status()
+        .expect("Err");
+
+    //if the correctness script didnt return success, exit 1 and print error
+    if _run_correctness.success() == false {
+        println!("Error calculating correctness!");
+        std::process::exit(1);
+    }
+
     //run the bus factor calculation
     let _run_busfactor = Command::new("./target/debug/calculate_bus_factor")
         .arg(&cli_input[2])
@@ -42,19 +55,6 @@ fn main() {
     if _run_updated_code.success() == false {
         println!("Error calculating updated code score!");
         process::exit(1);
-    }
-
-    //run the correctness calculation (calculate_Correctness)
-    let _run_correctness = Command::new("python3")
-        .arg("graphql_api/calculate_Correctness.py")
-        .arg(&cli_input[2])
-        .status()
-        .expect("Err");
-
-    //if the correctness script didnt return success, exit 1 and print error
-    if _run_correctness.success() == false {
-        println!("Error calculating correctness!");
-        std::process::exit(1);
     }
 
     //run the responsive maintainer calculation (calculate_ResponsiveMaintainer.py)

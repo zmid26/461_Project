@@ -30,7 +30,10 @@ fn main(){
     };
     
     //now, chop this string into a vector at every newline since the URLS are newline delimited
-    let _urls: Vec<&str> = data.split('\n').collect();
+    let mut _urls: Vec<&str> = data.split('\n').collect();
+
+    //Remove last blank newline character after splitting
+    _urls.pop();
 
     //if the logfiles exist from a previous run, delete them
     let is_logv1 = Path::new("log/logv1.txt").exists();

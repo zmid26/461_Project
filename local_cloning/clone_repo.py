@@ -30,11 +30,11 @@ for url in urls:
     if "github" in url:
         
         #clone the current git URL into a directory named after the current url_num value
-        Repo.clone_from(url, "local_cloning/cloned_repos/" + str(url_num) + "/") #i.e. first URL will be put in a directory called '1', second URL will be put in '2', etc.
+        Repo.clone_from(url, "local_cloning/cloned_repos/" + os.path.basename(url) + "/") #i.e. first URL will be put in a directory called '1', second URL will be put in '2', etc.
         
         #print status update
         #print("finished cloning url #" + str(url_num))
-        log1.write("finished cloning url #" + str(url_num) + "\n")
+        log1.write("finished cloning url #" + str(os.path.basename(url)) + "\n")
 
         #increment the url number
         url_num = url_num + 1
@@ -47,10 +47,10 @@ for url in urls:
 
         #clone the current npm URL into 'local_cloning/cloned_repos' directory
         subprocess.run(["npm v " + package_name + " dist.tarball | xargs curl | tar -xz"], shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
-        subprocess.run(["mv package/ local_cloning/cloned_repos/" + str(url_num)], shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
+        subprocess.run(["mv package/ local_cloning/cloned_repos/" + os.path.basename(url)], shell=True, executable='/bin/bash', stdout=DEVNULL, stderr=DEVNULL)
 
         #print status update
-        log1.write("finished cloning url #" + str(url_num) + "\n")
+        log1.write("finished cloning url #" + os.path.basename(url) + "\n")
 
         #increment the url number
         url_num = url_num + 1
