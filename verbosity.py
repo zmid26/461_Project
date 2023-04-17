@@ -32,4 +32,3 @@ except:
 
 for t in logInfo:
     log_true.write(t)
-    
