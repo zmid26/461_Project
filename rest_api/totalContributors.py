@@ -31,11 +31,16 @@ def main():
     github_token = os.environ.get("GITHUB_TOKEN")
     try:
         token = Github(github_token)
-        repo = token.get_repo(gitURL.split("github.com/", 1)[1])       # Obtain the repo from rest API
-        numContributors = repo.get_contributors(anon="true")        # Get the list of contributors using PyGithub
-        print(f"{numContributors.totalCount}")                           # Return the total count of contributors
+        repo = token.get_repo(
+            gitURL.split("github.com/", 1)[1]
+        )  # Obtain the repo from rest API
+        numContributors = repo.get_contributors(
+            anon="true"
+        )  # Get the list of contributors using PyGithub
+        print(f"{numContributors.totalCount}")  # Return the total count of contributors
     except:
         print("0")
 
+
 if __name__ == "__main__":
-    main();
+    main()
