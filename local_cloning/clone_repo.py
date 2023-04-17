@@ -5,7 +5,7 @@ import subprocess
 from subprocess import DEVNULL
 
 # open the command line argument file
-input_file = open(sys.argv[1], "r") 
+input_file = open(sys.argv[1], "r")
 
 # read the file and split at the newlines, giving a list of all the URLs
 url = input_file.readline()
@@ -33,8 +33,20 @@ else:
     package_name = url[url.find("/package/") + 9 :]
 
     # clone the current npm URL into 'local_cloning/cloned_repos' directory
-    subprocess.run(["npm v " + package_name + " dist.tarball | xargs curl | tar -xz"], shell=True, executable="/bin/bash", stdout=DEVNULL, stderr=DEVNULL)
-    subprocess.run(["mv package/ local_cloning/cloned_repos/" + os.path.basename(url)], shell=True, executable="/bin/bash", stdout=DEVNULL, stderr=DEVNULL)
+    subprocess.run(
+        ["npm v " + package_name + " dist.tarball | xargs curl | tar -xz"],
+        shell=True,
+        executable="/bin/bash",
+        stdout=DEVNULL,
+        stderr=DEVNULL
+    )
+    subprocess.run(
+        ["mv package/ local_cloning/cloned_repos/" + os.path.basename(url)],
+        shell=True,
+        executable="/bin/bash",
+        stdout=DEVNULL,
+        stderr=DEVNULL
+    )
 
     # print status update
     log1.write("finished cloning url #" + os.path.basename(url) + "\n")
