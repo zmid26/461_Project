@@ -62,9 +62,12 @@ def main():
         }
       }
     }
-    """ % (names[0], names[1])
+    """ % (
+	names[0],
+	names[1]
+    )
 
-    json = { "query" : query }
+    json = {"query": query}
 
     response = requests.post(url="https://api.github.com/graphql", json=json, headers=headers)
     if response.status_code == 200:
@@ -73,12 +76,15 @@ def main():
             totalCommits = 0
             for pull in response.json()["data"]["repository"]["pullRequests"]["nodes"]:
                 newCode += pull["additions"]
-            for commit in response.json()["data"]["repository"]["commitComments"]["nodes"]:
+            for commit in response.json()["data"]["repository"]["commitComments"][
+		    "nodes"
+	    ]:
                 totalCommits += commit["commit"]["additions"]
         except:
             newCode = 0
             totalCommits = 1
         print(f"{round(newCode/(newCode + totalCommits), 2)}")
+
 
 if __name__ == "__main__":
     main()
