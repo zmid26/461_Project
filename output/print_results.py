@@ -62,7 +62,7 @@ with open("output/updatedcode_out.txt") as up_out:
 # calculate netscore for each url (just chose correctness as iterator because lazy..couldve been any iterator that goes for the number of urls)
 url_idx = 0
 for x in correctness:
-    netscore.append( 
+    netscore.append(
         (
             (bus_factor[url_idx] * 5.0)
             + (responsive_maintainer[url_idx] * 4.0)
@@ -87,7 +87,9 @@ for x in netscore:
     (output[url_idx]).update({"UPDATED_CODE_SCORE": round(updated_code[url_idx], 2)})
     (output[url_idx]).update({"CORRECTNESS_SCORE": round(correctness[url_idx], 2)})
     (output[url_idx]).update({"BUS_FACTOR_SCORE": round(bus_factor[url_idx], 2)})
-    (output[url_idx]).update({"RESPONSIVE_MAINTAINER_SCORE": round(responsive_maintainer[url_idx], 2)})
+    (output[url_idx]).update(
+        {"RESPONSIVE_MAINTAINER_SCORE": round(responsive_maintainer[url_idx], 2)}
+    )
     (output[url_idx]).update({"LICENSE_SCORE": round(license[url_idx], 2)})
     url_idx += 1
 
