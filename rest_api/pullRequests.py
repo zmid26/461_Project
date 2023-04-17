@@ -7,7 +7,6 @@ Name: Matthew Nale
 	Details: Using the PyGithub API, obtains the needed information for the total commit changes from pull requests over the total number of changes
 
 """
-
 import requests
 import urllib.request as url
 import re
@@ -42,10 +41,10 @@ def main():
     github_token = os.environ.get('GITHUB_TOKEN')
     names = (gitURL.split('github.com/', 1)[1]).split('/')
 
-    headers = {'Authorization': 'token ' + github_token}
+    headers = {'Authorization': f"Bearer {github_token}"}
 
     query = '''
-    query {
+    {
       repository(owner: "%s", name: "%s") {
         pullRequests(states: MERGED, last: 100) {
           nodes {
@@ -66,7 +65,6 @@ def main():
     json = { 'query' : query }
 
     response = requests.post(url='https://api.github.com/graphql', json=json, headers=headers)
-
     if response.status_code == 200:
         try:
             newCode = 0
@@ -78,8 +76,7 @@ def main():
         except:
             newCode = 0
             totalCommits = 1
-
-    print(f'{round(newCode/(newCode + totalCommits), 2)}')
+        print(f'{round(newCode/(newCode + totalCommits), 2)}')
 
 if __name__ == "__main__":
     main()

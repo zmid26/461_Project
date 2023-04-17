@@ -5,10 +5,6 @@ import json
 import datetime as dt
 import os
 
-devnull = open('/dev/null', 'w')
-sys.stdout = devnull
-sys.stderr = devnull
-
 MAXNUMOPEN = 1000
 UPDATEDECAY = 1.1
 
@@ -35,11 +31,10 @@ def getResponsiveScore(githubRepoURL):
     file_v3.write('------------------\n')
 
 
-    headers = {'Authorization': 'token ' + github_token} # build the header for authentication
+    headers = {'Authorization': f'token {github_token}'} # build the header for authentication
    
    # get a response using the REST API
     openResp = (rq.get(url=openURL,headers=headers))
-
     # if the response is successful, get the issue numbers
     if openResp.status_code == 200:
         file_v2.write('able to receive response from github\n')
@@ -98,6 +93,9 @@ def getResponsiveScore(githubRepoURL):
         score += 0.75 * (UPDATEDECAY ** (-1 * elapsedTime))
 
         file_v3.write('responsive maintainer score was calculated to be %f with decay factor %f\n' % (score,UPDATEDECAY))
+        
+        file_v2.close()
+        file_v3.close()
 
         return score
     
@@ -107,7 +105,9 @@ def getResponsiveScore(githubRepoURL):
         #print('openResp.status_code: ',openResp.status_code)
         file_v2.write('failed to resolve repository\n')
         file_v3.write('failed to resolve repository with response code %d from github\n' % openResp.status_code)
-
+        
+        file_v2.close()
+        file_v3.close()
         return -1
 
 

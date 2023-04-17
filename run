@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
 if [ "$1" == 'install' ]; then
-    # python3 install/localclone_install.py         Redundent file
-    pip3 install gitpython
+    pip3 install GitPython
     pip3 install PyGithub
-    pip3 install requests
-    # cargo update -p -depth = 1 ignore --precise 0.4.18                   
+    pip3 install requests             
     echo "Install Complete!"
 elif [ "$1" == 'build' ]; then 
     cargo build;

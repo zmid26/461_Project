@@ -3,23 +3,18 @@ import sys # import sys to use command line arguments
 import json # import json to parse json file
 import os
 
-devnull = open('/dev/null', 'w')
-sys.stdout = devnull
-sys.stderr = devnull
-
-
-github_token = os.environ.get('GITHUB_TOKEN')
+github_token = os.getenv('GITHUB_TOKEN')
 
 with open(sys.argv[1],'r') as f: # open file containing urls
   urls = f.readlines() 
 
-file_v2 = open('log/logv1.txt','a+')
-file_v3 = open('log/logv2.txt','a+')
+file_v2 = open('log/logv1.txt','w')
+file_v3 = open('log/logv2.txt','w')
 
 repositories = []
 for x in range(len(urls)): # extract owner and name of each repository
   file_v2.write(f'\n\n>>> Extracting information for url {urls[x]}\n')
-
+  
   repoName = urls[x].partition('github.com/')[2] # extract "owner/repo"
 
   if not repoName: # if github.com/ is not found, extract as npmjs package
@@ -35,8 +30,7 @@ for x in range(len(urls)): # extract owner and name of each repository
   repositories.append((repoName.partition('/')[0],repoName.partition('/')[2].replace('\n',''))) # append (owner, repo)
 
 url = 'https://api.github.com/graphql' # graphql url
-headers = {'Authorization': 'token ' + github_token} # build the header
-
+headers = {"Authorization" : f"Bearer {github_token}"} # build the header
 # run requests
 with open('output/correctness_out.txt', 'w') as f:
   for repository in repositories:
@@ -47,19 +41,9 @@ with open('output/correctness_out.txt', 'w') as f:
     file_v3.write('beginning retrieval of information from repository %s %s\n' % (repository[0],repository[1]))
     file_v3.write('------------------\n')
     # build the query to retrieve needed info using from the given repo
-    query = '''
-    query {
-      repository(owner: "%s", name: "%s") {
-        stargazerCount
-        openIssues: issues(states: OPEN) {
-          totalCount
-        }
-      }
-    }
-    ''' % (repository[0], repository[1])
-    json = { 'query' : query }
-
-    response = requests.post(url=url, json=json, headers=headers)
+    query = f'''{{repository(owner: "{repository[0]}", name: "{repository[1]}") {{stargazerCount openIssues: issues(states: OPEN) {{totalCount}}}}}}'''
+    response = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
+    
     if response.status_code == 200: # extract the result from the response
       file_v2.write('successful graphql api retrieval\n')
       file_v3.write('successful graphQL api retrieval with code %d\n' % response.status_code)
@@ -92,3 +76,6 @@ with open('output/correctness_out.txt', 'w') as f:
       #print("Failed to retrieve response using GraphQL by returning code {}.".format(response.status_code))
       file_v2.write('Failed to retrieve response')
       file_v3.write('Failed to retrieve response with code %d\n' % response.status_code)
+
+file_v2.close()
+file_v3.close()
