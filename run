@@ -3,7 +3,9 @@
 if [ "$1" == 'install' ]; then
     pip3 install GitPython
     pip3 install PyGithub
-    pip3 install requests             
+    pip3 install requests
+    pip3 install flask
+
     echo "Install Complete!"
 elif [ "$1" == 'build' ]; then 
     cargo build;
