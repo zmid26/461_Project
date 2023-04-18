@@ -52,7 +52,6 @@ def count_pinned_dependencies(repo_url):
     pinned = 0
     if 'dependencies' in contents:
         for dep, version in contents['dependencies'].items():
-            print(dep, version)
             count += 1
             if re.match(r'^\^\d+\.\d+\.+', version) or re.match(r'^\d+\.\d+\.+', version) or re.match(r'^~\d+\.\d+\.+', version):
                 pinned += 1
