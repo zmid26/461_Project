@@ -2,9 +2,9 @@ FROM python:3.10-slim-buster
 
 WORKDIR /app
 
-COPY requirements_gcp.txt .
+COPY src/APIs/requirements.txt .
 
-RUN pip3 install -r requirements_gcp.txt
+RUN pip3 install -r requirements.txt
 
 EXPOSE 8080
 
