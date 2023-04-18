@@ -2,10 +2,10 @@ from flask import Flask, request, jsonify, make_response, request, render_templa
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
-from flask_cors import CORS
+# from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+# app = Flask(__name__) Flask-Cors==3.0.10
+# CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config['SECRET_KEY'] = 'c43a444c6857419e969677cc155210ab'
 
