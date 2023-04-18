@@ -33,6 +33,14 @@ fn main(){
     	process::exit(1);
     }
 
+    //run the good pinning practice score calculation
+    let _run_pinning_practice = Command::new("./target/debug/calculate_pinning_practice").arg(&cli_input[2]).status().expect("Err"); //runs the rust executable "calculate_pinning_practice" with the CLI input file
+    
+    if _run_pinning_practice.success() == false{
+        println!("Error calculating pinning practice score!");
+        process::exit(1)
+    }
+    
     //run the correctness calculation (calculate_Correctness)
     let _run_correctness = Command::new("python3").arg("graphql_api/calculate_Correctness.py").arg(&cli_input[2]).status().expect("Err");
 
@@ -77,7 +85,7 @@ fn main(){
         println!("Error in verbosity script!");
         std::process::exit(1);
     }
-
+    
     //this will remove output files and locally cloned repos
     clean_up();
 
