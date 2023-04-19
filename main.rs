@@ -75,7 +75,6 @@ fn main() {
     if _run_correctness.success() == false {
         println!("Error calculating correctness!");
         std::process::exit(1);
-        process::exit(1);
     }
 
     //run the responsive maintainer calculation (calculate_ResponsiveMaintainer.py)
