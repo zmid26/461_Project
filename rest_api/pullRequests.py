@@ -7,26 +7,27 @@ Name: Matthew Nale
 	Details: Using the PyGithub API, obtains the needed information for the total commit changes from pull requests over the total number of changes
 
 """
-
 import requests
 import urllib.request as url
 import re
 import sys
 import os
 
+
 def getGithubURLs(repo):
     webUrl = url.urlopen(repo)
-    if(webUrl.getcode() == 200):
+    if webUrl.getcode() == 200:
         html_cont = webUrl.read().decode("utf-8")
         r1 = r'<span id="repository-link">(.*?)<\/span>'
         try:
             reg_out = re.search(r1, html_cont)
-            gitLink = ("https://" + reg_out.group(1))
+            gitLink = "https://" + reg_out.group(1)
         except:
             raise Exception("Valid GitHub link not found.\n")
     else:
         raise Exception("npm url not able to connect.\n")
     return gitLink
+
 
 def main():
     givenUrl = sys.argv[1]
@@ -38,14 +39,14 @@ def main():
         gitURL = getGithubURLs(givenUrl)
     else:
         gitURL = givenUrl
-    
-    github_token = os.environ.get('GITHUB_TOKEN')
-    names = (gitURL.split('github.com/', 1)[1]).split('/')
 
-    headers = {'Authorization': 'token ' + github_token}
+    github_token = os.environ.get("GITHUB_TOKEN")
+    names = (gitURL.split("github.com/", 1)[1]).split("/")
 
-    query = '''
-    query {
+    headers = {"Authorization": f"Bearer {github_token}"}
+
+    query = """
+    {
       repository(owner: "%s", name: "%s") {
         pullRequests(states: MERGED, last: 100) {
           nodes {
@@ -61,25 +62,29 @@ def main():
         }
       }
     }
-    ''' % (names[0], names[1])
+    """ % (
+	names[0],
+	names[1]
+    )
 
-    json = { 'query' : query }
+    json = {"query": query}
 
-    response = requests.post(url='https://api.github.com/graphql', json=json, headers=headers)
-
+    response = requests.post(url="https://api.github.com/graphql", json=json, headers=headers)
     if response.status_code == 200:
         try:
             newCode = 0
             totalCommits = 0
             for pull in response.json()["data"]["repository"]["pullRequests"]["nodes"]:
                 newCode += pull["additions"]
-            for commit in response.json()["data"]["repository"]["commitComments"]["nodes"]:
+            for commit in response.json()["data"]["repository"]["commitComments"][
+		    "nodes"
+	    ]:
                 totalCommits += commit["commit"]["additions"]
         except:
             newCode = 0
             totalCommits = 1
+        print(f"{round(newCode/(newCode + totalCommits), 2)}")
 
-    print(f'{round(newCode/(newCode + totalCommits), 2)}')
 
 if __name__ == "__main__":
     main()
