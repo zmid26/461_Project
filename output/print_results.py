@@ -1,14 +1,14 @@
 from pathlib import Path
 from collections import Counter
-from git import Repo #import git library 
-import sys #import sys to use command line arguments
+from git import Repo  # import git library 
+import sys  # import sys to use command line arguments
 import os
 import json
 
-devnull = open('/dev/null', 'w')
+devnull = open("/dev/null", "w")
 sys.stderr = devnull
 
-#keep track of which index of the array we are at
+# keep track of which index of the array we are at
 url_idx = 0
 
 #list of dictionaries, where each dictionary is 
@@ -22,14 +22,14 @@ bus_factor = []
 updated_code = []
 version_pinning = []
 
-#open the command line argument file
-input_file = open(sys.argv[1],'r')
+# open the command line argument file
+input_file = open(sys.argv[1], "r")
 
 #read the file and split at the newlines, giving a list of all the URLs
 urls = input_file.read().splitlines() 
 
 #set the directory with the metric output files
-output_file_locations = Path('metric_out_files/')
+output_file_locations = Path("metric_out_files/")
 
 #open rampup output and add to rampup list
 with open("output/rampup_out.txt") as ramp_out:
@@ -64,16 +64,27 @@ with open("output/pinningpractice_out.txt") as ver_pin:
     for line in ver_pin:
         version_pinning.append(float(line.strip()))
 
-#calculate netscore for each url (just chose correctness as iterator because lazy..couldve been any iterator that goes for the number of urls)
+# calculate netscore for each url (just chose correctness as iterator because lazy..couldve been any iterator that goes for the number of urls)
 url_idx = 0
 for x in correctness:
-    netscore.append( ((bus_factor[url_idx] * 5.0) + (responsive_maintainer[url_idx] * 4.0) + (correctness[url_idx] * 3.0) + (rampup[url_idx] * 2.0) + (updated_code[url_idx] * 2.0) + (version_pinning[url_idx] * 2.0) + (license[url_idx])) / 19.0)
-    
+    netscore.append(
+        (
+            (bus_factor[url_idx] * 5.0)
+            + (responsive_maintainer[url_idx] * 4.0)
+            + (correctness[url_idx] * 3.0)
+            + (rampup[url_idx] * 2.0)
+            + (updated_code[url_idx] * 2.0)
+            + (version_pinning[url_idx] * 2.0)
+            + (license[url_idx])
+            )
+            / 19.0
+        )
+
     url_idx += 1
 
 url_idx = 0
 
-#loop through all the netscores and put the appropriate metrics in the appropriate dictionaries
+# loop through all the netscores and put the appropriate metrics in the appropriate dictionaries
 for x in netscore:
     output.append({})
     (output[url_idx]).update({"URL":urls[url_idx]})
@@ -83,16 +94,18 @@ for x in netscore:
     (output[url_idx]).update({"PINNING_PRACTICE_SCORE":round(version_pinning[url_idx], 2)})
     (output[url_idx]).update({"CORRECTNESS_SCORE":round(correctness[url_idx], 2)})
     (output[url_idx]).update({"BUS_FACTOR_SCORE":round(bus_factor[url_idx], 2)})
-    (output[url_idx]).update({"RESPONSIVE_MAINTAINER_SCORE":round(responsive_maintainer[url_idx], 2)})
+    (output[url_idx]).update(
+        {"RESPONSIVE_MAINTAINER_SCORE":round(responsive_maintainer[url_idx], 2)}
+    )
     (output[url_idx]).update({"LICENSE_SCORE":round(license[url_idx], 2)})
     url_idx += 1
 
-#sort netscore list and do the same ops to output so that output is sorted in the same way
+# sort netscore list and do the same ops to output so that output is sorted in the same way
 net_and_out = list(zip(netscore, output))
 net_and_out_sorted = sorted(net_and_out, reverse=True)
 sorted_output = [x[1] for x in net_and_out_sorted]
 
-#print the sorted output
+# print the sorted output
 
 for x in sorted_output:
     print(json.dumps(x, separators=(', ', ':')))

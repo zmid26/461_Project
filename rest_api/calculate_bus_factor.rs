@@ -43,7 +43,7 @@ fn main(){
     };
     
     //now, chop this string into a vector at every newline since the URLS are newline delimited
-    let _urls: Vec<&str> = data.split('\n').collect();
+    let mut _urls: Vec<&str> = data.split('\n').collect();
 
     //if the logfiles exist from a previous run, delete them
     let is_logv1 = Path::new("log/logv1.txt").exists();
@@ -81,11 +81,11 @@ fn main(){
     //Call information with rest_api functions for each url
     for url in _urls {
         let numcommits = Command::new("python3").arg("rest_api/totalCommits.py").arg(url).output().expect("Err");
-        write!(log2, "\nNumber of commits for url {}: {:?}\n", url, &numcommits.stdout).expect("Error writing to log");
+        write!(log2, "\nNumber of commits for url {}: {:?}\n", url, numcommits.stdout).expect("Error writing to log");
         let numcontributors = Command::new("python3").arg("rest_api/totalContributors.py").arg(url).output().expect("Err");
-        write!(log2, "\nNumber of contributors for url {}: {:?}\n", url, &numcontributors.stdout).expect("Error writing to log");
+        write!(log2, "\nNumber of contributors for url {}: {:?}\n", url, numcontributors.stdout).expect("Error writing to log");
         let numfiles = Command::new("python3").arg("rest_api/totalFiles.py").arg(url).output().expect("Err");
-        write!(log2, "\nNumber of files for url {}: {:?}\n", url, &numfiles.stdout).expect("Error writing to log");
+        write!(log2, "\nNumber of files for url {}: {:?}\n", url, numfiles.stdout).expect("Error writing to log");
 
 	let mut num_commits = String::from_utf8(numcommits.stdout).unwrap();
 	num_commits.pop();
