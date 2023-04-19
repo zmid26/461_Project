@@ -65,13 +65,13 @@ fn main(){
 
     for url in _urls {
         let pinningpractice_inst = Command::new("python3").arg("rest_api/versionpinning.py").arg(url).output().expect("Err");
-        write!(log2, "\nFraction of dependencies pinned to a major and minor version {}: {:?}\n", url, &pinningpractice_inst.stdout).expect("Error writing to log");
+        write!(log2, "\nFraction of dependencies pinned to a major and minor version for url {}: {:?}\n", url, pinningpractice_inst.stdout).expect("Error writing to log");
     
-        let mut pinningpractice_str = String::from_utf8(pinningpractice_isnt).unwrap();
+        let mut pinningpractice_str = String::from_utf8(pinningpractice_inst.stdout).unwrap();
         pinningpractice_str.pop();
         let version_pinning_full : f64 = pinningpractice_str.parse().unwrap();
 
         write!(log2, "Good Pinning Practice score for url {}: {:.2}\n\n", url, version_pinning_full).expect("Error writing to log");
-        write!(outfile, "{0}\n", version_pinning_full).expect("Error writing version pinning score to output");
+        write!(output_text, "{0}\n", version_pinning_full).expect("Error writing version pinning score to output");
     }
 }
