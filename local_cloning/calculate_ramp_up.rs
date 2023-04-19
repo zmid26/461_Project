@@ -6,6 +6,7 @@ use std::io::BufWriter;
 use tokei::{Config, Languages, LanguageType};
 use std::path::Path;
 use std::io::Write;
+use std::panic;
 
 fn main(){
     
@@ -113,24 +114,32 @@ fn main(){
         //configure the tokei language to be javascript 
         let mut languages = Languages::new();
         languages.get_statistics(paths, excluded, &config);
-        let js = &languages[&LanguageType::JavaScript];
+        panic::set_hook(Box::new(|_info| {}));
+        let js = panic::catch_unwind(|| &languages[&LanguageType::JavaScript]);
 
-        //get the number of lines of code and comments and log them
-        let code_lines = js.code;
-        let comment_lines = js.comments;
-        write!(log2, "\nLines of code in folder {}: {}\n", folder_num, code_lines).expect("Error writing to log");
-        write!(log2, "Lines of comments in folder {}: {}\n", folder_num, comment_lines).expect("Error writing to log");
+        if js.is_ok(){
+            //get the number of lines of code and comments and log them
+            let result = js.unwrap();
+            let code_lines = result.code;
+            let comment_lines = result.comments;
+            write!(log2, "\nLines of code in folder {}: {}\n", folder_num, code_lines).expect("Error writing to log");
+            write!(log2, "Lines of comments in folder {}: {}\n", folder_num, comment_lines).expect("Error writing to log");
         
 
-        //calculate rampup and log it
-        let code_u32 = u32::try_from(code_lines).unwrap();
-        let comment_u32 = u32::try_from(comment_lines).unwrap();
-        let ramp_up = calculate_ramp_up(code_u32, comment_u32);
-        write!(log2, "RampUp score for repo {}: {:.2}\n\n", folder_num, ramp_up).expect("Error writing to log");
+            //calculate rampup and log it
+            let code_u32 = u32::try_from(code_lines).unwrap();
+            let comment_u32 = u32::try_from(comment_lines).unwrap();
+            let ramp_up = calculate_ramp_up(code_u32, comment_u32);
+            write!(log2, "RampUp score for repo {}: {:.2}\n\n", folder_num, ramp_up).expect("Error writing to log");
         
-        //write the rampup score to the rampup_out.txt file in the output folder
-        write!(out_file, "{0}\n", ramp_up).expect("Error writing rampup to output");
-
+            //write the rampup score to the rampup_out.txt file in the output folder
+            write!(out_file, "{0}\n", ramp_up).expect("Error writing rampup to output");
+        }
+        else{
+            write!(log2, "\nNo Javascript in folder {}\n", folder_num).expect("Error writing to log");
+            
+            write!(out_file, "0.0\n").expect("Error writing rampup to output");
+        }
         //increment the folder counter
         folder_num+=1;
     }

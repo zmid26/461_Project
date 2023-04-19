@@ -23,3 +23,7 @@ path = "rest_api/calculate_bus_factor.rs"
 [[bin]]
 name = "calculate_updated_code"
 path = "rest_api/calculate_updated_code.rs"
+
+[[bin]]
+name = "calculate_pinning_practice"
+path = "rest_api/calculate_pinning_practice.rs"

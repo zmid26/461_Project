@@ -39,13 +39,15 @@ def count_pinned_dependencies(repo_url):
     api_url = f'https://api.github.com/repos/{owner}/{repo_name}/contents/package.json'
     response = requests.get(api_url, headers=headers, timeout=120)
     if response.status_code != 200:
+        return 0.0
+        """
         if response.status_code == 401:
             raise BadRequest('Failed to authenticate with GitHub API. Please check your personal access token.')
         elif response.status_code == 403:
             raise BadRequest('Failed to access repository. Please ensure your personal access token has the necessary permissions.')
         else:
             raise BadRequest(f'Failed to fetch package.json. Error {response.status_code}: {response.reason}')
-
+        """
     # Parse the contents of package.json and count the number of pinned dependencies
     contents = json.loads(base64.b64decode(response.json()['content']).decode('utf-8'))
     count = 0
@@ -56,7 +58,6 @@ def count_pinned_dependencies(repo_url):
             if re.match(r'^\^\d+\.\d+\.+', version) or re.match(r'^\d+\.\d+\.+', version) or re.match(r'^~\d+\.\d+\.+', version):
                 pinned += 1
     else:
-        print("No dependencies found, returning 1.0")
         return 1.0
     if pinned == 0:
         return 1.0
@@ -70,7 +71,7 @@ def main():
     else:
         gitURL = urlInput
     count_dep = count_pinned_dependencies(gitURL)
-    print(f'Pinning score: {count_dep}')
+    print(f'{count_dep}')
 if __name__ == "__main__":
     main()
     
