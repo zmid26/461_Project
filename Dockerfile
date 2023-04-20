@@ -1,5 +1,5 @@
 # Flask App
-FROM python:3.10-slim-buster
+FROM python:3.11-slim-bullseye
 WORKDIR /flask-app
 COPY src/APIs/requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
