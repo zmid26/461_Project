@@ -9,6 +9,7 @@ if [ "$1" == 'install' ]; then
     python3 -m pip install PyMySQL
     pip install SQLAlchemy
     echo "Install Complete!"
+    
 elif [ "$1" == 'build' ]; then 
     cargo build;
 elif [ "$1" == 'clean' ]; then 

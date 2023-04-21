@@ -6,7 +6,6 @@ Name: Elijah Klein
     Details: checkTitle searches the repo title via native re regex package
         checkRM searches the according readMe for the given name 
 """
-
 import re
 import sys
 from google.cloud.sql.connector import Connector
@@ -14,12 +13,12 @@ import pymysql
 import sqlalchemy
 
 def checkTitle(repo_name, name): #TODO confirm repo type
-    if(re.search(name.lower(), repo_name.lower())):      #Check the README contains the name via re regex package
+    if (re.search(name.lower(), repo_name.lower())):      #Check the README contains the name via re regex package
         return 1
     return 0
 
 def checkReadMe(readme, name):
-    if(re.search(name.lower(), readme.lower())):      #Check the README contains the name via re regex package
+    if (re.search(name.lower(), readme.lower())):      #Check the README contains the name via re regex package
         return 1
     return 0
 connector = Connector()
@@ -35,7 +34,7 @@ def getconn() -> pymysql.connections.Connection:
     )
     return conn
 
-def main():
+def main ():
     name = sys.argv[1]
     # create connection pool
     pool = sqlalchemy.create_engine(
@@ -48,9 +47,7 @@ def main():
         # query database
         t = sqlalchemy.text("SELECT * FROM Packages")
         result = db_conn.execute(t)
-
         # Do something with the results
-        
         for row in result:
             if checkTitle(row[0], name) or checkReadMe(row[9], name):
                 foundNames.append(1)
@@ -59,5 +56,4 @@ def main():
     return foundNames       
 
 
-found = main()     
-print(found)                                  
+main()
