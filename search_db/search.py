@@ -1,7 +1,7 @@
 """
 Name: Elijah Klein
     Date of Last Edit: 4/20/2023
-    
+
     Purpose: Back End for Search Function in web api
     Details: checkTitle searches the repo title via native re regex package
         checkRM searches the according readMe for the given name
@@ -17,7 +17,7 @@ from google.cloud.sql.connector import Connector
 def checkTitle(repo_name, name):
     if re.search(
         name.lower(), repo_name.lower()
-    ):  # Check the Repo Name contains the name via re regex package    
+    ):  # Check the Repo Name contains the name via re regex package
         return 1
     return 0
 
