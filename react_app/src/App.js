@@ -15,6 +15,13 @@ import DeletePackage from './pages/packageDelete';
 import RatePackage from './pages/ratePackage';
 import UploadPackage from './pages/uploadPackage';
 import UpdatePackage from './pages/updatePackage';
+import NameSearch from './pages/nameSearch';
+
+// import {
+// 	BrowserRouter as Router,
+// 	Routes,
+// 	Route,
+// }
 
 function App() {
 return (
@@ -33,6 +40,7 @@ return (
 		<Route path='/rating' element={<RatePackage/>} />
 		<Route path='/upload-package' element={<UploadPackage/>} />
 		<Route path='/update-package' element={<UpdatePackage/>} />
+		<Route path='/package-search-by-name' element={<NameSearch/>} />
 
 	</Routes>
 	</Router>

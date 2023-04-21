@@ -21,7 +21,7 @@ return (
 		</Link>
 		<br></br>
 		<Link to="/package-search-by-name">
-			Search for a package by name
+			Search for a package by Regex
 		</Link>
 	</div>
 	</div>
