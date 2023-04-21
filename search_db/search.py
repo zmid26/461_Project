@@ -8,20 +8,23 @@ Name: Elijah Klein
 """
 import re
 import sys
-from google.cloud.sql.connector import Connector
 import pymysql
 import sqlalchemy
+from google.cloud.sql.connector import Connector
 
-def checkTitle(repo_name, name): #TODO confirm repo type
-    if (re.search(name.lower(), repo_name.lower())):      #Check the README contains the name via re regex package
+
+def checkTitle(repo_name, name):
+    if (re.search(name.lower(), repo_name.lower())):      # Check the Repo Name contains the name via re regex package
         return 1
     return 0
 
+
 def checkReadMe(readme, name):
-    if (re.search(name.lower(), readme.lower())):      #Check the README contains the name via re regex package
+    if (re.search(name.lower(), readme.lower())):      # Check the README contains the name via re regex package
         return 1
     return 0
 connector = Connector()
+
 
 # function to return the database connection
 def getconn() -> pymysql.connections.Connection:
@@ -34,7 +37,8 @@ def getconn() -> pymysql.connections.Connection:
     )
     return conn
 
-def main ():
+
+def main():
     name = sys.argv[1]
     # create connection pool
     pool = sqlalchemy.create_engine(
@@ -53,7 +57,7 @@ def main ():
                 foundNames.append(1)
             else:
                 foundNames.append(0)
-    return foundNames       
+    return foundNames
 
 
 main()
