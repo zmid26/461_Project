@@ -7,14 +7,19 @@ This file contains the following api calls:
 '''
 from flask import Flask, request, abort
 import mysql.connector
+from ..metrics.verbosity import setup_logging
+
 
 app = Flask(__name__)
 # Keeps the JSON output in the same order as the database
-app.config['JSON_SORT_KEYS'] = False
+app.json.sort_keys = False
+
+# Set up logging
+setup_logging()
 
 # Connect to the database
 cnx = mysql.connector.connect(
-    user='root', password='Pushpop1170', host='localhost', database='461db')
+    user='root', password='password1234', host='localhost', database='461db')
 
 
 # Returns all packages with name = Name from the database
@@ -22,17 +27,14 @@ cnx = mysql.connector.connect(
 def get_package_by_name(Name):
     # TODO: If header information is incorrect or auth token is invalid, return a 400
     # As is this will return a 400 as no token is provided
-    # token = request.headers.get('X-Authorization')
+    # token = request.headers.get('Authorization')
     # if token is None:
     #     abort(400)
 
     # Get all ids with name = Name
     cursor = cnx.cursor()
-    query = "SELECT ID FROM Package WHERE Name = %s"
-    cursor.execute(query, (Name,))
-    ids = cursor.fetchall()
-    print("got id with name = Name")
-
+    ids = get_ids(Name, cursor)
+    
     # If the package doesn't exist, return a 404
     if len(ids) == 0:
         print("package does not exist, returning 404")
@@ -42,21 +44,14 @@ def get_package_by_name(Name):
     # For each id, get the package entry history from PackageEntryHistory
     package_entry_history = []
     packageshistory = []
-    query = "SELECT * FROM PackageEntryHistory WHERE ID = %s"
     for id in ids:
         id = id[0]
-        cursor.execute(query, (id,))
-        package_entry_history.append(cursor.fetchall())
-
+        package_entry_history.append(get_package_entry(cursor, id))
+        # print(package_entry_history)
         # Get user data for each package entry
         for i in range(len(package_entry_history[-1])):
-            query = "SELECT name, isAdmin FROM User WHERE name = %s"
-            cursor.execute(query, (package_entry_history[-1][i][1],))
-            userdata = cursor.fetchall()
-
-            query = "SELECT Version FROM Package WHERE ID = %s"
-            cursor.execute(query, (package_entry_history[-1][i][0],))
-            version = cursor.fetchone()
+            userdata = get_user_data(cursor, package_entry_history, i)
+            version = get_version(cursor, package_entry_history, i)
 
             # Combine the user data with the package entry history in correct format
             user = {"name": userdata[0][0], "isAdmin": userdata[0][1]}
@@ -69,6 +64,32 @@ def get_package_by_name(Name):
 
     return ((packageshistory))
 
+# Functions used to interact with the database
+def get_version(cursor, package_entry_history, i):
+    query = "SELECT Version FROM Package WHERE ID = %s"
+    cursor.execute(query, (package_entry_history[-1][i][0],))
+    version = cursor.fetchone()
+    # print(f"version is {version}")
+    return version
+
+def get_user_data(cursor, package_entry_history, i):
+    query = "SELECT name, isAdmin FROM User WHERE name = %s"
+    cursor.execute(query, (package_entry_history[-1][i][1],))
+    userdata = cursor.fetchall()
+    return userdata
+
+def get_package_entry(cursor, id):
+    query = "SELECT * FROM PackageEntryHistory WHERE ID = %s"
+    cursor.execute(query, (id,))
+    return cursor.fetchall()
+
+def get_ids(Name, cursor):
+    query = "SELECT ID FROM Package WHERE Name = %s"
+    cursor.execute(query, (Name,))
+    ids = cursor.fetchall()
+    # print(f"got id with name = {Name}")
+    return ids
+
 
 # Deletes all instances of a packages with name = Name from the database
 # Deletes entries in PackageEntryHistory, Package, PackageRating
@@ -76,16 +97,14 @@ def get_package_by_name(Name):
 def delete_package_by_name(Name):
     # TODO: If header information is incorrect or auth token is invalid, return 400
     # As is this will return a 400 as no token is provided
-    token = request.headers.get('X-Authorization')
-    if token is None:
-        abort(400)
+    # token = request.headers.get('X-Authorization')
+    # if token is None:
+    #     abort(400)
 
     cursor = cnx.cursor()
 
     # Get all ids with name = Name
-    query = "SELECT ID FROM Package WHERE Name = %s"
-    cursor.execute(query, (Name,))
-    ids = cursor.fetchall()
+    ids = get_ids(Name, cursor)
 
     # If the package doesn't exist, return a 404
     if len(ids) == 0:
@@ -97,24 +116,34 @@ def delete_package_by_name(Name):
     for id in ids:
         id = id[0]
         print(id)
-        print("Deleting id = {} from PackageRating".format(id))
-        query = "DELETE FROM PackageRating WHERE ID = %s"
-        cursor.execute(query, (id,))
+        delete_from_PackageRating(cursor, id)
 
         # Delete all instances where id = id from PackageEntryHistory
         print("Deleting id = {} from PackageEntryHistory".format(id))
-        query = "DELETE FROM PackageEntryHistory WHERE ID = %s"
-        cursor.execute(query, (id,))
-
-        cnx.commit()
+        delete_from_PackageEntryHistory(cursor, id)
 
     # Delete all instances where name = Name from Package
     print("delete from Package where Name = %s", Name)
+    delete_from_Package(Name, cursor)
+    cursor.close()
+    return '', 200
+
+# Functions used to interact with the database
+def delete_from_Package(Name, cursor):
     query = "DELETE FROM Package WHERE Name = %s"
     cursor.execute(query, (Name,))
     cnx.commit()
-    cursor.close()
-    return '', 200
+
+def delete_from_PackageEntryHistory(cursor, id):
+    query = "DELETE FROM PackageEntryHistory WHERE ID = %s"
+    cursor.execute(query, (id,))
+    cnx.commit()
+
+def delete_from_PackageRating(cursor, id):
+    print("Deleting id = {} from PackageRating".format(id))
+    query = "DELETE FROM PackageRating WHERE ID = %s"
+    cursor.execute(query, (id,))
+    cnx.commit()
 
 
 # Run the app
