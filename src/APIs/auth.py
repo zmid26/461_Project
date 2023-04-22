@@ -1,15 +1,12 @@
-from flask import Flask, request, jsonify
-# import mysql.connector
+from flask import request, jsonify
 import datetime
 import jwt
-import json
 import jsonschema
 from jsonschema import validate
-from flask_cors import CORS
+from flask.blueprints import Blueprint
+from database import db_connect
 
-app = Flask(__name__)
-CORS(app)
-# cnx = mysql.connector.connect(user='root', password='Cocorello2002!', host='localhost', database='testBed')
+bp = Blueprint('auth', __name__)
 
 input_schema = {
   "type": "object",
@@ -60,8 +57,9 @@ def jwt_required(func):
         return func(current_user, *args, **kwargs)
     return wrapper
 
-@app.route('/authenticate', methods=['PUT'])
+@bp.route('/authenticate', methods=['PUT'])
 def generate_token():
+    cnx = db_connect()
     if request.is_json:
         try:
             validate(request.json, input_schema)
@@ -71,9 +69,7 @@ def generate_token():
 
             cnx.reconnect()
             cur = cnx.cursor()
-            query = ("SELECT * FROM User WHERE name = %s AND isAdmin = %s AND password = %s")
-            cur.execute(query, (username, isAdmin, password))
-            result = cur.fetchone()
+            result = select_user(username, isAdmin, password, cur)
             cnx.commit()
             cur.close()
             cnx.close()
@@ -103,14 +99,10 @@ def generate_token():
             return jsonify({"error": "There is missing field(s) in the AuthenticationRequest or it is formed improperly."}), 400
     else:
         return jsonify({"error": "This system does not support authentication."}), 501
-    
-@app.route("/")
-def hello_world():
-    return "1234"
 
-@app.route("/andrew")
-def andrew():
-    return jsonify({"message": "i hope this works!"})
-
-if __name__ == '__main__':
-    app.run()
+# Function to interact with database
+def select_user(username, isAdmin, password, cur):
+    query = ("SELECT * FROM User WHERE name = %s AND isAdmin = %s AND password = %s")
+    cur.execute(query, (username, isAdmin, password))
+    result = cur.fetchone()
+    return result

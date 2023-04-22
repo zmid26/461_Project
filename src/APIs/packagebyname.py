@@ -6,25 +6,16 @@ This file contains the following api calls:
     **Until authentication token is provided, both calls will return a 400**
 '''
 from flask import Flask, request, abort
-import mysql.connector
-from ..metrics.verbosity import setup_logging
+from flask.blueprints import Blueprint
+from database import db_connect
 
-
-app = Flask(__name__)
-# Keeps the JSON output in the same order as the database
-app.json.sort_keys = False
-
-# Set up logging
-setup_logging()
-
-# Connect to the database
-cnx = mysql.connector.connect(
-    user='root', password='password1234', host='localhost', database='461db')
-
+bp = Blueprint('packagebyname', __name__)
 
 # Returns all packages with name = Name from the database
-@app.route('/package/byname/<string:Name>', methods=['GET'])
+@bp.route('/package/byname/<string:Name>', methods=['GET'])
 def get_package_by_name(Name):
+    cnx = db_connect()
+
     # TODO: If header information is incorrect or auth token is invalid, return a 400
     # As is this will return a 400 as no token is provided
     # token = request.headers.get('Authorization')
@@ -93,8 +84,10 @@ def get_ids(Name, cursor):
 
 # Deletes all instances of a packages with name = Name from the database
 # Deletes entries in PackageEntryHistory, Package, PackageRating
-@app.route('/package/byname/<string:Name>', methods=['DELETE'])
+@bp.route('/package/byname/<string:Name>', methods=['DELETE'])
 def delete_package_by_name(Name):
+    cnx = db_connect()
+
     # TODO: If header information is incorrect or auth token is invalid, return 400
     # As is this will return a 400 as no token is provided
     # token = request.headers.get('X-Authorization')
@@ -125,6 +118,7 @@ def delete_package_by_name(Name):
     # Delete all instances where name = Name from Package
     print("delete from Package where Name = %s", Name)
     delete_from_Package(Name, cursor)
+    cnx.commit()
     cursor.close()
     return '', 200
 
@@ -132,20 +126,12 @@ def delete_package_by_name(Name):
 def delete_from_Package(Name, cursor):
     query = "DELETE FROM Package WHERE Name = %s"
     cursor.execute(query, (Name,))
-    cnx.commit()
 
 def delete_from_PackageEntryHistory(cursor, id):
     query = "DELETE FROM PackageEntryHistory WHERE ID = %s"
     cursor.execute(query, (id,))
-    cnx.commit()
 
 def delete_from_PackageRating(cursor, id):
     print("Deleting id = {} from PackageRating".format(id))
     query = "DELETE FROM PackageRating WHERE ID = %s"
     cursor.execute(query, (id,))
-    cnx.commit()
-
-
-# Run the app
-if __name__ == "__main__":
-    app.run()

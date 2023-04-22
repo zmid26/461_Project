@@ -35,6 +35,8 @@ pub fn bus_factor_score(filepath: &str) {
         let git_url;
 
         // If the url is from npm, get the github url
+        //log url
+        simple_log::info!("url = {}", url);
         if &url[0..22] == "https://www.npmjs.com/" {
             git_url = get_github_url_for_npm(&url).unwrap();
         } else {
