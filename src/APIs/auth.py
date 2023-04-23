@@ -91,7 +91,7 @@ def generate_token():
                 'iat': datetime.datetime.utcnow(),
                 'payload': payload
                 },
-            'c43a444c6857419e969677cc155210ab',
+            'X-Authorization',
             algorithm='HS256'
             )
             
