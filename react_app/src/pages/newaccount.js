@@ -8,6 +8,9 @@ const NewAccount = () => {
   const [confpassword, setConfirm] = useState('');
   const [newaccconf, setNewAccConf] = useState(false);
   const [matchpassword, setPassMatch] = useState(false);
+  const [errormsg, setError] = useState('');
+  const [errorcode, setCode] = useState('');
+  const [errorbool, setErrorbool] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,9 +36,12 @@ const NewAccount = () => {
         })
           .then(response => {
             setNewAccConf(true);
+            console.log(response.data);
           })
           .catch(error => {
-            console.log(error);
+            setError(error.message);
+            setCode(error.code);
+            setErrorbool(true);
           });
     }
     else {
@@ -88,6 +94,9 @@ const NewAccount = () => {
       <Link to="/login">
 			Click here to Login </Link>
       </div>}
+      {errorbool && <div>
+            <p>Error {errorcode}: {errormsg}</p>
+            </div>}
       {matchpassword && <div><p>those passwords do not match! Try Again</p></div>}
     </div>
   );

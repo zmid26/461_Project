@@ -4,6 +4,9 @@ import axios from 'axios';
 const DeletePackage = () => {
     const [id, setId] = useState('');
     const [name, setName] = useState('');
+    const [errormsg, setError] = useState('');
+    const [errorcode, setCode] = useState('');
+    const [errorbool, setErrorbool] = useState(false);
 
   const deletePackageId = async () => {
     await axios.delete(`http://localhost:8080/package/${id}`,{
@@ -16,7 +19,9 @@ const DeletePackage = () => {
         console.log(response);
       })
       .catch(error => {
-        console.log(error);
+        setError(error.message);
+        setCode(error.code);
+        setErrorbool(true);
       })
     };
 
@@ -31,7 +36,9 @@ const DeletePackage = () => {
             console.log(response);
           })
           .catch(error => {
-            console.log(error);
+            setError(error.message);
+            setCode(error.code);
+            setErrorbool(true);
           });
   }
 
@@ -59,6 +66,9 @@ const DeletePackage = () => {
       />
       <button onClick={deletePackageName}>Delete Package</button>
     </div>
+    {errorbool && <div>
+            <p>Error {errorcode}: {errormsg}</p>
+            </div>}
     </div>
   );
 }

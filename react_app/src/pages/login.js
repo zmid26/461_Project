@@ -6,6 +6,9 @@ const LogIn = () => {
   const [username, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authed, setAuth] = useState(false);
+  const [errormsg, setError] = useState('');
+  const [errorcode, setCode] = useState('');
+  const [errorbool, setErrorbool] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,7 +34,9 @@ const LogIn = () => {
         setAuth(true);
       })
       .catch(error => {
-        console.log(error);
+        setError(error.message);
+        setCode(error.code);
+        setErrorbool(true);
       });
   };
 
@@ -75,6 +80,9 @@ const LogIn = () => {
         </Link>
       </div>
       </div>}
+      {errorbool && <div>
+        <p>Error {errorcode}: {errormsg}</p>
+        </div>}
       {authed && <div>
         <p>You Are now logged in!!</p>
         <p> Authentication Token: {sessionStorage.getItem("auth_token")}</p>

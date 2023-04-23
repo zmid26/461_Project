@@ -7,6 +7,9 @@ const [result, setResult] = useState(null);
 const [version, setVersion] = useState('');
 const [pack_name, setPackName] = useState('');
 const [packages, setPackages] = useState(null);
+const [errormsg, setError] = useState('');
+const [errorcode, setCode] = useState('');
+const [errorbool, setErrorbool] = useState(false);
 
 const handleClick = () => {
 	axios.get('http://localhost:8080/andrew')
@@ -14,7 +17,9 @@ const handleClick = () => {
 		setResult(response.data);
 	})
 	.catch(error => {
-		console.error(error);
+		setError(error.message);
+		setCode(error.code);
+		setErrorbool(true);
 	});
 };
 
@@ -65,6 +70,9 @@ return (
 			<button type="submit">Get Packages</button>
 		</form>
 		{packages}
+		{errorbool && <div>
+            <p>Error {errorcode}: {errormsg}</p>
+            </div>}
 	</div>
 );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-const About = () => {
+const Packages = () => {
 return (
 	<div>
 	<h1>
@@ -21,11 +21,11 @@ return (
 		</Link>
 		<br></br>
 		<Link to="/package-search-by-name">
-			Search for a package by name
+			Search for a package by Regex
 		</Link>
 	</div>
 	</div>
 );
 };
 
-export default About;
+export default Packages;

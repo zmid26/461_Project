@@ -5,6 +5,9 @@ const RatePackage = () => {
     const [id, setId] = useState('');
     const [rating, setRating] = useState('');
     const [israted, setRated] = useState(false);
+    const [errormsg, setError] = useState('');
+    const [errorcode, setCode] = useState('');
+    const [errorbool, setErrorbool] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,7 +22,9 @@ const RatePackage = () => {
                 setRated(true);
             })
             .catch(error => {
-                console.log(error);
+                setError(error.message);
+                setCode(error.code);
+                setErrorbool(true);
             }
             );
         }
@@ -43,6 +48,9 @@ const RatePackage = () => {
                 <p>Rating:{rating.map(post => (
           <li key={post.id}>{post.title}</li>
         ))}</p>
+            </div>}
+            {errorbool && <div>
+            <p>Error {errorcode}: {errormsg}</p>
             </div>}
         </div>
     );

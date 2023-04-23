@@ -3,6 +3,9 @@ import axios from 'axios';
 
 const DeleteRegistry = () => {
     const [isDeleted, setValue] = useState(false);
+    const [errormsg, setError] = useState('');
+    const [errorcode, setCode] = useState('');
+    const [errorbool, setErrorbool] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -12,13 +15,15 @@ const DeleteRegistry = () => {
                 
                 console.log(res.data);
             })
-            .catch(err => {
-                console.log(err);
+            .catch(error => {
+                setError(error.message);
+                setCode(error.code);
+                setErrorbool(true);
             })
     }
 
     return (
-        //create a button to delete the registry
+        <div>
         <div>
             <h1>Delete Registry</h1>
             <strong><h3>Make sure you want to delete this registry. Must be an admin to delete.
@@ -28,6 +33,10 @@ const DeleteRegistry = () => {
             </form>
             {isDeleted && <p>Registry Deleted</p>}
         </div>   
+        {errorbool && <div>
+            <p>Error {errorcode}: {errormsg}</p>
+            </div>}
+        </div>
     )
 }
 
