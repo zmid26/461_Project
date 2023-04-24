@@ -5,6 +5,9 @@ const GetHistory = () => {
     const [packageName, setPackage] = useState('');
     const [packageHistory, setPackageHistory] = useState('');
     const [recieveData, setRecieveData] = useState(false);
+    const [errormsg, setError] = useState('');
+    const [errorcode, setCode] = useState('');
+    const [errorbool, setErrorbool] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -22,7 +25,9 @@ const GetHistory = () => {
             
         })
         .catch(error => {
-            console.log(error);
+            setError(error.message);
+            setCode(error.code);
+            setErrorbool(true);
           });
         };
     return(
@@ -44,6 +49,9 @@ const GetHistory = () => {
                 <button type="submit">Submit</button>
             </form>
         </div>
+        {errorbool && <div>
+            <p>Error {errorcode}: {errormsg}</p>
+            </div>}
         {recieveData &&
             <div>
                 <p>Package History:{" "}{packageHistory.packageHistory}</p>

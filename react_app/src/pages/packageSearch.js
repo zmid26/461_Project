@@ -5,6 +5,10 @@ const PackageSearch = () => {
   const [id, setId] = useState('');
   const [search, setSearch] = useState(false);
   const [packagedata, setPackagedata] = useState([]);
+  const [errormsg, setError] = useState('');
+  const [errorcode, setCode] = useState('');
+  const [errorbool, setErrorbool] = useState(false);
+
   const token = sessionStorage.getItem('auth_token');
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,7 +23,9 @@ const PackageSearch = () => {
             setSearch(true);
           })
           .catch(error => {
-            console.log(error);
+            setError(error.message);
+            setCode(error.code);
+            setErrorbool(true);
           });
     };
 
@@ -44,6 +50,9 @@ const PackageSearch = () => {
         ))}
       </ul>}
       </div>
+      {errorbool && <div>
+            <p>Error {errorcode}: {errormsg}</p>
+            </div>}
     </div>
   );
 }

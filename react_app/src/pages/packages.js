@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-const About = () => {
+const Packages = () => {
 return (
 	<div>
 	<h1>
@@ -28,4 +28,4 @@ return (
 );
 };
 
-export default About;
+export default Packages;

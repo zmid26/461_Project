@@ -3,6 +3,9 @@ import axios from 'axios';
 
 const UpdatePackage = () => {
     const [id, setId] = useState('');
+    const [errormsg, setError] = useState('');
+    const [errorcode, setCode] = useState('');
+    const [errorbool, setErrorbool] = useState(false);
 
     const data = {
         "metadata": {
@@ -27,8 +30,10 @@ const UpdatePackage = () => {
         .then(res => {
             console.log(res.data);
         })
-        .catch(err => {
-            console.log(err);
+        .catch(error => {
+            setError(error.message);
+            setCode(error.code);
+            setErrorbool(true);
         })
     }
     return (
@@ -45,6 +50,9 @@ const UpdatePackage = () => {
                 />
                 <button type="submit">Search</button>
             </form>
+            {errorbool && <div>
+            <p>Error {errorcode}: {errormsg}</p>
+            </div>}
         </div>
     );
 }

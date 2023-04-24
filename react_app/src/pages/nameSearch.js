@@ -5,6 +5,9 @@ import axios from 'axios';
 const NameSearch = () => {
     const [regex, setRegex] = useState("");
     const [result, setResult] = useState("");
+    const [errormsg, setError] = useState('');
+    const [errorcode, setCode] = useState('');
+    const [errorbool, setErrorbool] = useState(false);
 
     const eventHandler = (e) => {
         e.preventDefault();
@@ -18,7 +21,9 @@ const NameSearch = () => {
             setResult(response.data);
         })
         .catch(error => {
-            console.log(error);
+            setError(error.message);
+            setCode(error.code);
+            setErrorbool(true);
         });
     }
     return (
@@ -34,6 +39,9 @@ const NameSearch = () => {
                     <button type="submit">Search</button>
                 </form>
             </div>
+            {errorbool && <div>
+            <p>Error {errorcode}: {errormsg}</p>
+            </div>}
         {result}
         </div>
     )

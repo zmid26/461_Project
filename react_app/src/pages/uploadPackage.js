@@ -5,6 +5,9 @@ const UploadPackage = () => {
     const [file, setFile] = useState('');
     const [url, setUrl] = useState('');
     const [data, setData] = useState('');
+    const [errormsg, setError] = useState('');
+    const [errorcode, setCode] = useState('');
+    const [errorbool, setErrorbool] = useState(false);
 
     const createBase64 = (e) => {
         const reader = new FileReader();
@@ -29,8 +32,10 @@ const UploadPackage = () => {
             console.log(res.data);
             setData(res.data);
         })
-        .catch(err => {
-            console.log(err);
+        .catch(error => {
+            setError(error.message);
+            setCode(error.code);
+            setErrorbool(true);
         })
     };
     return (
@@ -60,6 +65,9 @@ const UploadPackage = () => {
                 <button type="submit">Upload</button>
                 </form>
                 </div>
+                {errorbool && <div>
+                <p>Error {errorcode}: {errormsg}</p>
+                </div>}
                 {data}
         </div>
     );
