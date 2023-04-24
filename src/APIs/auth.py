@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-import mysql.connector
+# import mysql.connector
 import datetime
 import jwt
 import json
@@ -7,7 +7,7 @@ import jsonschema
 from jsonschema import validate
 
 app = Flask(__name__)
-cnx = mysql.connector.connect(user='root', password='Cocorello2002!', host='localhost', database='testBed')
+# cnx = mysql.connector.connect(user='root', password='Cocorello2002!', host='localhost', database='testBed')
 
 input_schema = {
   "type": "object",
@@ -101,6 +101,10 @@ def generate_token():
             return jsonify({"error": "There is missing field(s) in the AuthenticationRequest or it is formed improperly."}), 400
     else:
         return jsonify({"error": "This system does not support authentication."}), 501
+    
+@app.route("/")
+def hello_world():
+    return "1234"
 
 if __name__ == '__main__':
     app.run()
