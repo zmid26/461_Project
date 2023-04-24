@@ -5,8 +5,10 @@ import jwt
 import json
 import jsonschema
 from jsonschema import validate
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 # cnx = mysql.connector.connect(user='root', password='Cocorello2002!', host='localhost', database='testBed')
 
 input_schema = {
@@ -105,6 +107,10 @@ def generate_token():
 @app.route("/")
 def hello_world():
     return "1234"
+
+@app.route("/andrew")
+def andrew():
+    return jsonify({"message": "i hope this works!"})
 
 if __name__ == '__main__':
     app.run()
