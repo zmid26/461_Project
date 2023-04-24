@@ -1,11 +1,14 @@
 # Flask App
-FROM python:3.11-slim-bullseye
+FROM python:3.10-slim-bullseye
 WORKDIR /flask-app
-COPY src/APIs/requirements.txt requirements.txt
+COPY gcp.txt requirements.txt
 RUN pip3 install -r requirements.txt
 EXPOSE 8080
-COPY src/APIs/app.py app.py
-CMD [ "python3", "app.py"]
+COPY app.py .
+CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=8080"]
+# CMD ["python", "app.py"]
+# COPY src/APIs/requirements.txt requirements.txt
+# COPY src/APIs/app.py app.py
 
 # React App
 # FROM node:14-alpine
