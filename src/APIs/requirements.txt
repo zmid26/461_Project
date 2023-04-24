@@ -1,6 +1,7 @@
 # TODO THIS YOURSELF RUN THE COMMAND:
     # pipreqs --savepath=requirements.in && pip-compile
     # note that cmd will erase this message in this file bc it overrides the file
+    # Flask-cors and gunicorn do not get auto put in here but they need to be here
 #
 attrs==23.1.0
     # via jsonschema

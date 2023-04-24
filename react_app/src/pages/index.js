@@ -12,7 +12,7 @@ const [errorcode, setCode] = useState('');
 const [errorbool, setErrorbool] = useState(false);
 
 const handleClick = () => {
-	axios.get('http://localhost:8080/andrew')
+	axios.get('https://project461-web-fgnl7r7dtq-uc.a.run.app/andrew')
 	.then(response => {
 		setResult(response.data);
 	})
