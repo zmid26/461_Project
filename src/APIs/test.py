@@ -14,13 +14,8 @@ zip_file_io = io.BytesIO(zip_file_bytes)
 # Create a ZipFile object from the BytesIO object
 zip_file = zipfile.ZipFile(zip_file_io)
 
-# Get a list of all the files in the zip file
-file_names = zip_file.namelist()
-
-# Loop through the file names and extract each file
-for file_name in file_names:
-    # Extract the file from the zip file
-    zip_file.extract(file_name)
+# Extract all the files to the current directory
+zip_file.extractall(path="./src/APIs")
 
 # Close the ZipFile object
 zip_file.close()
