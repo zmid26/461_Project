@@ -12,7 +12,7 @@ const PackageSearch = () => {
   const token = sessionStorage.getItem('auth_token');
   const handleSubmit = (event) => {
     event.preventDefault();
-        axios.put(`https://localhost:8080/package/${id}`, {
+        axios.put(process.env.REACT_APP_SERVER_URL + ':' + process.env.REACT_APP_PORT_NUM + `/package/${id}`, {
           headers: {
             'Content-Type': 'application/json',
             'X-Authorization': token

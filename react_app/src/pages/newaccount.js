@@ -29,7 +29,7 @@ const NewAccount = () => {
         }
         
     
-        axios.put('https://localhost:8080/newuser', { data }, {
+        axios.put(process.env.REACT_APP_SERVER_URL + ':' + process.env.REACT_APP_PORT_NUM + '/newuser', { data }, {
           headers: {
             'Content-Type': 'application/json'
           }

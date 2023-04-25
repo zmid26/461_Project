@@ -22,7 +22,7 @@ const UploadPackage = () => {
         const body = {
             content: file
         }
-        axios.post(`http://localhost:8080/package`, { body }, {
+        axios.post(process.env.REACT_APP_SERVER_URL + ':' + process.env.REACT_APP_PORT_NUM + '/package', { body }, {
             headers: {
                 'Content-Type': 'application/json',
                 'X-Authorization': sessionStorage.getItem('token')

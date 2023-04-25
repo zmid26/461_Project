@@ -8,3 +8,4 @@ output
 log_file.log
 __pycache__
 react_app/node_modules
+react_app/src/.env

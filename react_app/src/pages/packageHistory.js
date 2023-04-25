@@ -13,7 +13,7 @@ const GetHistory = () => {
         event.preventDefault();
         // Here you can add code to submit the form to your backend
         console.log('Package:', packageName);
-        axios.get(`http://localhost:8080/package/byName/${packageName}`,{
+        axios.get(process.env.REACT_APP_SERVER_URL + ':' + process.env.REACT_APP_PORT_NUM + `/package/byName/${packageName}`,{
             headers: {
                 'Content-Type': 'application/json',
                 'X-Authorization': sessionStorage.getItem('token')
