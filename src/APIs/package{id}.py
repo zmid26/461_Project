@@ -64,11 +64,10 @@ def package():
               for index, file_path in enumerate(fileList):
                 if 'package.json' in file_path:
                   zip_file.extract(fileList[index], path='src')
+                  os.rename('src/' + fileList[index], 'src/APIs/cur_package.json')
                 else:
                   zero = 0
                   #return error 
-
-            os.rename('src/fecha/package.json', 'src/APIs/cur_package.json')
 
             with open('src/APIs/cur_package.json') as file:
               data = json.load(file)
