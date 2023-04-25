@@ -3,6 +3,10 @@ import json
 import jsonschema
 from jsonschema import validate
 import mysql.connector
+import base64
+import io
+import zipfile
+
 
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
@@ -17,17 +21,12 @@ input_schema = {
     "Content": {
       "type": "string"
     },
-    "URL": {
-      "type": "string",
-      "format": "uri"
-    },
     "JSProgram": {
       "type": "string"
     }
   },
   "required": [
     "Content",
-    "URL",
     "JSProgram"
   ]
 }
@@ -42,15 +41,31 @@ def package():
         try:
             validate(request.json, input_schema)
             
-            name = request.json["Content"]
             content = request.json["Content"]
-            url = request.json["URL"]
             jsprog = request.json["JSProgram"]
             cnx.reconnect()
             cur = cnx.cursor()
 
-            insert_query = "INSERT INTO Package (ID, Name, Version, Content, URL, JSProgram) VALUES (%s, %s, %s, %s, %s, %s)"
-            values = (idvalue, name, 2.0, 'fsddf', url, jsprog)
+            zip_file_bytes = base64.b64decode(content)
+            zip_file_io = io.BytesIO(zip_file_bytes)
+
+            # Create a ZipFile object from the BytesIO object
+            zip_file = zipfile.ZipFile(zip_file_io)
+
+            # Extract all the files to the current directory
+            zip_file.extractall(path="./src/APIs/package")
+
+            # Close the ZipFile object
+            zip_file.close()
+
+            with open('src/APIs/package/package.json') as f:
+              data = json.load(f)
+
+            name = data['name']
+            version = data['version']
+
+            insert_query = "INSERT INTO Package (ID, Name, Version, Content, JSProgram) VALUES (%s, %s, %s, %s, %s)"
+            values = (idvalue, name, version, content, jsprog)
             cur.execute(insert_query, values)
 
             cnx.commit()
