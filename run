@@ -15,7 +15,7 @@ elif [ $1 == 'tempclean' ]; then
     rm testfile.txt && cd output && rm *.txt && cd ../log && rm *.txt;
 elif [ $1 == 'test' ]; then
     export $(cat .env | xargs)
-    python3 -m pytest -s
+    python3 -m pytest #-s
 else
     export $(cat .env | xargs)
     cargo run "$@"

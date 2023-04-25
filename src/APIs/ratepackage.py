@@ -7,36 +7,33 @@ This file contains the following api call:
 
 '''
 
-from flask import Flask, request, jsonify, abort
-import mysql.connector
+from flask import jsonify
 import subprocess
 import json
 from datetime import datetime 
+from flask.blueprints import Blueprint
+from database import db_connect 
 
-app = Flask(__name__)
-app.config['JSON_SORT_KEYS'] = False # Keeps the JSON output in the same order as the database
-
-# Connect to the database
-cnx = mysql.connector.connect(user='root', password='password123', host='localhost', database='461db')
+bp = Blueprint('ratepackage', __name__)
 
 # Rates a package if it exists and stores the rating in PackageRating table
-@app.route('/package/<int:id>/rate', methods=['GET'])
+@bp.route('/package/<int:id>/rate', methods=['GET'])
 def rate_package(id):
+    cnx = db_connect()
+
     # TODO: If header information is incorrect or auth token is invalid, return a 400
     # ****As is code will return a 400 as no token is provided***
-    token = request.headers.get('X-Authorization')
-    if token is None:
-        abort(400)
+    # token = request.headers.get('X-Authorization')
+    # if token is None:
+    #     abort(400)
         
     # Get the package url from the database
-    cursor = cnx.cursor()
-    query = "SELECT URL FROM Package where ID= %s"
-    cursor.execute(query, (id,))
-    package_url = cursor.fetchone()
-    cursor.close()
+    package_url = get_package_url(id, cnx)
+    print(package_url)
 
     # If the package doesn't exist, return a 404
     if package_url is None:
+        print("package does not exist, returning 404")
         return "Package {} not found".format(id), 404
     else:
         package_url = package_url[0]
@@ -46,50 +43,78 @@ def rate_package(id):
     clipath = "./run"
 
     # ./run "package_url" from and return the results
-    rating = subprocess.check_output(
-        "{} {}".format(clipath, package_url), shell=True)
+    rating = run_cli(package_url, clipath)
     
     # If the rating returns an error, return a 500
     result = rating.decode("utf-8")
     if len(result) < 174:
         return "Error: Could not get rating for package {} with error = {}".format(id,result), 500
     rating = json.loads(rating)
+    # print(rating)
 
     # Insert the results into the database
     # See if ID is already in PackageRating
     cursor = cnx.cursor()
-    query = "SELECT * FROM PackageRating WHERE ID = %s"
-    cursor.execute(query, (id,))
-    package_rating = cursor.fetchone()
+    package_rating = get_package_rating(id, cursor)
 
     if package_rating is None:
         # Insert the rating into the database
         print("Inserting rating into database")
-        query = "INSERT INTO PackageRating (ID, BusFactor, Correctness, RampUp, ResponsiveMaintainer, LicenseScore, GoodPinningPractice, PullRequest, NetScore) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        cursor.execute(query, (id, rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
-                       rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"]))
+        insert_rating(id, rating, cursor)
         
         # Add time package was rated in PackageEntryHistory
-        print("Marking id = {} as deleted in PackageEntryHistory".format(id))
-        query = "INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (%s, %s, %s, %s)"
-        cursor.execute(query, (id, "placeholder", datetime.now(), "RATE"))
+        print(f"Marking package with id = {id} as rated in PackageEntryHistory")
+        mark_as_rated(id, cursor)
     else:
         # Update the rating in the database
         print("Updating rating in database")
-        query = "UPDATE PackageRating SET BusFactor = %s, Correctness = %s, RampUp = %s, ResponsiveMaintainer = %s, LicenseScore = %s, GoodPinningPractice = %s, PullRequest = %s, NetScore = %s WHERE ID = %s"
-        cursor.execute(query, (rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
-                       rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"], id))
+        update_rating(id, rating, cursor)
         
         # Add time package was updated in PackageEntryHistory
-        print("Marking id = {} as deleted in PackageEntryHistory".format(id))
-        query = "INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (%s, %s, %s, %s)"
-        cursor.execute(query, (id, "placeholder", datetime.now(), "UPDATE"))
+        print("Marking id = {} as updated in PackageEntryHistory".format(id))
+        mark_as_updated(id, cursor)
 
     cnx.commit()
     cursor.close()
 
     return jsonify(rating)
 
+# Functions to interact with the database
+def mark_as_updated(id, cursor):
+    query = "INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (%s, %s, %s, %s)"
+    cursor.execute(query, (id, "placeholder", datetime.now(), "UPDATE"))
 
-if __name__ == '__main__':
-    app.run()
+def update_rating(id, rating, cursor):
+    query = "UPDATE PackageRating SET BusFactor = %s, Correctness = %s, RampUp = %s, ResponsiveMaintainer = %s, LicenseScore = %s, GoodPinningPractice = %s, PullRequest = %s, NetScore = %s WHERE ID = %s"
+    cursor.execute(query, (rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
+                       rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"], id))
+
+def mark_as_rated(id, cursor):
+    query = "INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (%s, %s, %s, %s)"
+    cursor.execute(query, (id, "placeholder", datetime.now(), "RATE"))
+
+def insert_rating(id, rating, cursor):
+    query = "INSERT INTO PackageRating (ID, BusFactor, Correctness, RampUp, ResponsiveMaintainer, LicenseScore, GoodPinningPractice, PullRequest, NetScore) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    cursor.execute(query, (id, rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
+                       rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"]))
+
+def get_package_rating(id, cursor):
+    query = "SELECT * FROM PackageRating WHERE ID = %s"
+    cursor.execute(query, (id,))
+    package_rating = cursor.fetchone()
+    # print(f"package rating = {package_rating}")
+    return package_rating
+
+def run_cli(package_url, clipath):
+    rating = subprocess.check_output(
+        "{} {}".format(clipath, package_url), shell=True)
+    
+    return rating
+
+def get_package_url(id, cnx):
+    cursor = cnx.cursor()
+    query = "SELECT URL FROM Package where ID= %s"
+    cursor.execute(query, (id,))
+    package_url = cursor.fetchone()
+    cursor.close()
+    return package_url

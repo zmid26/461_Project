@@ -1,19 +1,16 @@
-from flask import Flask, request, jsonify
+from flask import request, jsonify
 import json
 import jsonschema
 from jsonschema import validate
-import mysql.connector
 import base64
 import io
 import zipfile
 import json
 import os
+from flask.blueprints import Blueprint
+from database import db_connect
 
-
-app = Flask(__name__)
-app.config['JSON_SORT_KEYS'] = False
-
-cnx = mysql.connector.connect(user='root', password='Cocorello2002!', host='localhost', database='testBed')
+bp = Blueprint('packageid', __name__)
 
 idvalue = 0
 
@@ -40,8 +37,11 @@ base64_string = "UEsDBBQAAAAIAFRtmFb+YTyDbQAAAJIAAAAfAAAAZmVjaGEvbm90ZXNfZnJvbV9
 #TESTING
 
 
-@app.route('/package', methods=['POST'])
+@bp.route('/package', methods=['POST'])
 def package():
+    # Connect to database
+    cnx = db_connect()
+
     global idvalue
     idvalue += 1
     # Expect JSON input
@@ -104,8 +104,10 @@ def package():
         return jsonify({"error": "Package is not uploaded due to the disqualified rating."}), 424
 
 
-@app.route('/package/<int:id>', methods=['GET'])
+@bp.route('/package/<int:id>', methods=['GET'])
 def get_package(id):
+  # Connect to database
+  cnx = db_connect()
 
   cnx.reconnect()
   cur = cnx.cursor()
@@ -179,8 +181,11 @@ input_schema2 = {
   ]
 }
 
-@app.route('/package/<int:id>', methods=['PUT'])
+@bp.route('/package/<int:id>', methods=['PUT'])
 def put_package(id):
+  # Connect to database
+  cnx = db_connect()
+
   if request.is_json:
     try:
       validate(request.json, input_schema2)
@@ -221,8 +226,10 @@ def put_package(id):
         return jsonify({"error": "NEEDS TO BE REPLACED OR DESTROYED"}), 424
 
 
-@app.route('/package/<int:id>', methods=['DELETE'])
+@bp.route('/package/<int:id>', methods=['DELETE'])
 def delete_package(id):
+  # Connect to database
+  cnx = db_connect()
 
   cnx.reconnect()
   cur = cnx.cursor()
@@ -241,7 +248,3 @@ def delete_package(id):
   cur.close()
   cnx.close()
   return jsonify({"message": "Package is deleted."}), 200
-
-
-if __name__ == '__main__':
-    app.run()
