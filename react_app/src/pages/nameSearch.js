@@ -11,7 +11,7 @@ const NameSearch = () => {
 
     const eventHandler = (e) => {
         e.preventDefault();
-        axios.post(process.env.REACT_APP_SERVER_URL + ':' + process.env.REACT_APP_PORT_NUM + '/package/byRegex',{ regex }, {
+        axios.post(process.env.REACT_APP_SERVER_URL + '/package/byRegex',{ regex }, {
             headers: {
                 'Content-Type': 'application/json',
                 'X-Authorization': sessionStorage.getItem('token')

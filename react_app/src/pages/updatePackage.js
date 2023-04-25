@@ -21,7 +21,7 @@ const UpdatePackage = () => {
       }
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(process.env.REACT_APP_SERVER_URL + ':' + process.env.REACT_APP_PORT_NUM + `/package/${id}`, { data }, {
+        axios.put(process.env.REACT_APP_SERVER_URL + `/package/${id}`, { data }, {
             headers: {
                 'Content-Type': 'application/json',
                 'X-Authorization': sessionStorage.getItem('token')

@@ -9,7 +9,7 @@ const DeleteRegistry = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.delete(process.env.REACT_APP_SERVER_URL + ':' + process.env.REACT_APP_PORT_NUM + '/reset')
+        axios.delete(process.env.REACT_APP_SERVER_URL + '/reset')
             .then(res => {
                 setValue(true);
                 

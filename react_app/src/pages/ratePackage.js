@@ -11,7 +11,7 @@ const RatePackage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.get(process.env.REACT_APP_SERVER_URL + ':' + process.env.REACT_APP_PORT_NUM + `/${id}/rate`, {
+        axios.get(process.env.REACT_APP_SERVER_URL + `/${id}/rate`, {
             headers: {
                 'Content-Type': 'application/json',
                 'X-Authorization': sessionStorage.getItem('token')

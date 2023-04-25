@@ -24,7 +24,7 @@ const LogIn = () => {
     }
     
 
-    axios.put(process.env.REACT_APP_SERVER_URL + ':' + process.env.REACT_APP_PORT_NUM + '/authenticate', { data }, {
+    axios.put(process.env.REACT_APP_SERVER_URL + '/authenticate', { data }, {
       headers: {
         'Content-Type': 'application/json'
       }
