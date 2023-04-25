@@ -74,12 +74,15 @@ def package():
 
             name = data['name']
             version = data['version']
+            url = data['repository']['url']
+            
 
             os.remove("src/APIs/cur_package.json")
             os.rmdir("src/" + name)
 
-            insert_query = "INSERT INTO Package (ID, Name, Version, Content, JSProgram) VALUES (%s, %s, %s, %s, %s)"
-            values = (idvalue, name, version, content, jsprog)
+            insert_query = "INSERT INTO Package (ID, Name, Version, Content, URL, JSProgram) VALUES (%s, %s, %s, %s, %s, %s)"
+            values = (idvalue, name, version, content, url, jsprog)
+            #print((insert_query, values))
             cur.execute(insert_query, values)
 
             cnx.commit()
@@ -126,7 +129,7 @@ def get_package(id):
     "ID": package[0]
   }
   data = {
-    "URL": package[4],
+    "Content": package[3],
     "JSProgram": package[5]
   }
   response = {"metadata": metadata, "data": data}
@@ -248,3 +251,18 @@ def delete_package(id):
   cur.close()
   cnx.close()
   return jsonify({"message": "Package is deleted."}), 200
+
+
+@bp.route('/reset', methods=['DELETE'])
+def reset_package():
+  cnx = db_connect()
+
+  cnx.reconnect()
+  cur = cnx.cursor()
+  cur.execute("DELETE FROM Package")
+  cnx.commit()
+  cur.close()
+  cnx.close()
+
+  return jsonify({'message': 'Registry is reset'}), 200
+

@@ -5,5 +5,5 @@ import mysql.connector
 
 def db_connect():
     if "cnx" not in g:
-        g.cnx = mysql.connector.connect(user='root', password='Pushpop1170', host='localhost', database='461db')
+        g.cnx = mysql.connector.connect(user='root', password='Cocorello2002!', host='localhost', database='testbed')
     return g.cnx
