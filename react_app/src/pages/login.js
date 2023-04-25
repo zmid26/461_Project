@@ -24,13 +24,14 @@ const LogIn = () => {
     }
     
 
-    axios.put('https://localhost:8080/authenticate', { data }, {
+    axios.put(process.env.REACT_APP_SERVER_URL + '/authenticate', { data }, {
       headers: {
         'Content-Type': 'application/json'
       }
     })
       .then(response => {
         sessionStorage("auth_token",response.data);
+        console.log(response.data);
         setAuth(true);
       })
       .catch(error => {

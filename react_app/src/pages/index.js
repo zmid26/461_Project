@@ -12,7 +12,7 @@ const [errorcode, setCode] = useState('');
 const [errorbool, setErrorbool] = useState(false);
 
 const handleClick = () => {
-	axios.get('https://project461-web-fgnl7r7dtq-uc.a.run.app/andrew')
+	axios.get(process.env.REACT_APP_SERVER_URL + '/andrew')
 	.then(response => {
 		setResult(response.data);
 	})
@@ -29,12 +29,14 @@ const getPackages = () => {
 		PackageQuery: { Version: version, Name: pack_name },
 		headers: { 'X-Authorization': token, 'Content-Type': 'application/json' },
 	}
-	axios.post('http://localhost:8080/andrew/packages', request_body)
+	axios.post(process.env.REACT_APP_SERVER_URL + '/packages', request_body)
 	.then(response => {
 		setPackages(response.data);
 	})
 	.catch(error => {
-		console.error(error);
+		setError(error.message);
+        setCode(error.code);
+        setErrorbool(true);
 	});
 };
 

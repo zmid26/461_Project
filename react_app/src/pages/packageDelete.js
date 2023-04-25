@@ -26,7 +26,7 @@ const DeletePackage = () => {
     };
 
   const deletePackageName = async () => {
-    await axios.delete(`http://localhost:8080/package/${name}`,{
+    await axios.delete(process.env.REACT_APP_SERVER_URL + `package/${name}`,{
         headers: {
             'Content-Type': 'application/json',
             'X-Authorization': sessionStorage.getItem('token')
