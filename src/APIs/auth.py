@@ -99,6 +99,16 @@ def generate_token():
             return jsonify({"error": "There is missing field(s) in the AuthenticationRequest or it is formed improperly."}), 400
     else:
         return jsonify({"error": "This system does not support authentication."}), 501
+    
+# helpful function for knowing flask app is up
+@bp.route('/')
+def hello():
+    return "Hello there"
+
+# helpfful function for knowing the react app can access the flask app
+@bp.route("/andrew")
+def andrew():
+    return jsonify({"message": "flask app connected"})
 
 # Function to interact with database
 def select_user(username, isAdmin, password, cur):
