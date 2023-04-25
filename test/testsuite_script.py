@@ -10,12 +10,8 @@ with open('test/bad_urls.txt') as bad_urls:
     urls.extend(bad_urls.readlines())
 
 for url in urls:
-    # create a new file for each url
-    with open("test/newTest.txt", "w") as newTestFile:
-        newTestFile.write(url.strip())
-
     # run each individual script for metric calculation
-    printed_result = str(subprocess.run(['./run', 'test/newTest.txt'], stdout=subprocess.PIPE).stdout)
+    printed_result = str(subprocess.run(['./run', url], stdout=subprocess.PIPE).stdout)
    
     # extract net_score value from output
     try:
