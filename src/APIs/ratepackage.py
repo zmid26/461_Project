@@ -17,8 +17,7 @@ app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False # Keeps the JSON output in the same order as the database
 
 # Connect to the database
-cnx = mysql.connector.connect(
-    user='root', password='password123', host='localhost', database='461db')
+cnx = mysql.connector.connect(user='root', password='password123', host='localhost', database='461db')
 
 # Rates a package if it exists and stores the rating in PackageRating table
 @app.route('/package/<int:id>/rate', methods=['GET'])
