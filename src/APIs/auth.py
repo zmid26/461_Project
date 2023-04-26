@@ -4,7 +4,7 @@ import jwt
 import jsonschema
 from jsonschema import validate
 from flask.blueprints import Blueprint
-from database import db_connect
+from .database import db_connect
 
 bp = Blueprint('auth', __name__)
 
@@ -62,13 +62,15 @@ def generate_token():
     cnx = db_connect()
     if request.is_json:
         try:
+            print(type(request.json))
+            print(request.json)
             validate(request.json, input_schema)
             username = request.json["User"]["name"]
             isAdmin = request.json["User"]["isAdmin"]
             password = request.json["Secret"]["password"]
 
             cnx.reconnect()
-            cur = cnx.cursor()
+            cur = cnx.cursor(buffered = True)
             result = select_user(username, isAdmin, password, cur)
             cnx.commit()
             cur.close()

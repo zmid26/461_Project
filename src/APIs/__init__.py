@@ -1,9 +1,9 @@
 from flask import Flask
-import ratepackage, packagebyname, auth, packageid
+from . import ratepackage, packagebyname, auth, packageid
 import mysql.connector
 
 app = Flask(__name__)
-app.config['JSON_SORT_KEYS'] = False # Keeps the JSON output in the same order as the database
+app.json.sort_keys = False  # Keeps the JSON output in the same order as the database
 app.register_blueprint(ratepackage.bp)
 app.register_blueprint(packagebyname.bp)
 app.register_blueprint(auth.bp)
