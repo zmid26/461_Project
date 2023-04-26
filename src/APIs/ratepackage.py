@@ -12,7 +12,7 @@ import subprocess
 import json
 from datetime import datetime 
 from flask.blueprints import Blueprint
-from database import db_connect 
+from .database import db_connect 
 
 bp = Blueprint('ratepackage', __name__)
 
@@ -29,7 +29,7 @@ def rate_package(id):
         
     # Get the package url from the database
     package_url = get_package_url(id, cnx)
-    print(package_url)
+    #print(package_url)
 
     # If the package doesn't exist, return a 404
     if package_url is None:
@@ -44,13 +44,13 @@ def rate_package(id):
 
     # ./run "package_url" from and return the results
     rating = run_cli(package_url, clipath)
-    
+    print(rating)
+    print(type(rating))
     # If the rating returns an error, return a 500
     result = rating.decode("utf-8")
     if len(result) < 174:
         return "Error: Could not get rating for package {} with error = {}".format(id,result), 500
     rating = json.loads(rating)
-    # print(rating)
 
     # Insert the results into the database
     # See if ID is already in PackageRating

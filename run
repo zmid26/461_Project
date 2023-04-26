@@ -16,6 +16,9 @@ elif [ $1 == 'tempclean' ]; then
 elif [ $1 == 'test' ]; then
     export $(cat .env | xargs)
     python3 -m pytest #-s
+elif [ $1 == 'server' ]; then
+    export $(cat .env | xargs)
+    python3 -m src.APIs.__init__
 else
     export $(cat .env | xargs)
     cargo run "$@"

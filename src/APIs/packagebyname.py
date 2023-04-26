@@ -5,9 +5,9 @@ This file contains the following api calls:
 
     **Until authentication token is provided, both calls will return a 400**
 '''
-from flask import Flask, request, abort
+from flask import abort
 from flask.blueprints import Blueprint
-from database import db_connect
+from .database import db_connect
 
 bp = Blueprint('packagebyname', __name__)
 
