@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import PackageList from '../components/packageList';
 
 const Home = () => {
 
@@ -10,6 +11,7 @@ const [packages, setPackages] = useState(null);
 const [errormsg, setError] = useState('');
 const [errorcode, setCode] = useState('');
 const [errorbool, setErrorbool] = useState(false);
+const [valid, setValid] = useState(false);
 
 const handleClick = () => {
 	axios.get(process.env.REACT_APP_SERVER_URL + '/andrew')
@@ -32,6 +34,7 @@ const getPackages = () => {
 	axios.post(process.env.REACT_APP_SERVER_URL + '/packages', request_body)
 	.then(response => {
 		setPackages(response.data);
+		setValid(true);
 	})
 	.catch(error => {
 		setError(error.message);
@@ -53,6 +56,7 @@ return (
 		<button onClick={handleClick}>Click me</button>
     	{result && <p>Succesfully connected to Flask with message: {result.message}</p>}
 
+		<br />
 		<form onSubmit={getPackages}>
 			<label>Version: </label>
             <input
@@ -71,7 +75,9 @@ return (
             />
 			<button type="submit">Get Packages</button>
 		</form>
-		{packages}
+		{valid && <div>
+			<PackageList packages={packages} />
+			</div>}
 		{errorbool && <div>
             <p>Error {errorcode}: {errormsg}</p>
             </div>}

@@ -16,6 +16,7 @@ import RatePackage from './pages/ratePackage';
 import UploadPackage from './pages/uploadPackage';
 import UpdatePackage from './pages/updatePackage';
 import NameSearch from './pages/nameSearch';
+import TestPage from './pages/testPage';
 
 // import {
 // 	BrowserRouter as Router,
@@ -41,6 +42,7 @@ return (
 		<Route path='/upload-package' element={<UploadPackage/>} />
 		<Route path='/update-package' element={<UpdatePackage/>} />
 		<Route path='/package-search-by-name' element={<NameSearch/>} />
+		<Route path='/test' element={<TestPage/>} />
 
 	</Routes>
 	</Router>
