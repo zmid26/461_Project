@@ -1,5 +1,5 @@
 import pytest
-from src.APIs.packagebyname import app
+from src.APIs.__init__ import app
 
 # Create client
 @pytest.fixture

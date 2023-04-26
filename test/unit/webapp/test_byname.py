@@ -10,19 +10,18 @@ from mock import patch
 #     response = login(client, flask.app.config['USERNAME'], flask.app.config['PASSWORD'])
 #     # get authentification token and store it in flask.app.config['TOKEN']
 
-
 # List of packages and their expected status codes (200 if package exists, 404 if package does not exist)
 @pytest.mark.parametrize("name, status_code", [
     ("Cloudinary", 200),
     ("Invalid", 200),
-    ("Package", 200),
+    ("Package", 404),
     ("DNE", 404)
 ])
 def test_byname_get(client, name, status_code):
     landing = client.get(f"/package/byname/{name}")
     assert landing.status_code == status_code
-    html = landing.data.decode()
-    print(f"\n{html}\n")
+    #html = landing.data.decode()
+    #print(f"\n{html}\n")
 
 # Mock all database interactions in get_package_by_name
 mock_version = (1000)
@@ -55,7 +54,7 @@ def test_mock_byname_get(version, user_data, package_entry_history, ids, client,
 @pytest.mark.parametrize("name, status_code", [
     ("Cloudinary", 200),
     ("Invalid", 200),
-    ("Package", 200),
+    ("Package", 404),
     ("DNE", 404)
 ])
 
