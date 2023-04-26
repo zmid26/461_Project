@@ -21,6 +21,12 @@ import NameSearch from './pages/nameSearch';
 // 	BrowserRouter as Router,
 // 	Routes,
 // 	Route,
+// }'
+
+// import {
+// 	BrowserRouter as Router,
+// 	Routes,
+// 	Route,
 // }
 
 function App() {

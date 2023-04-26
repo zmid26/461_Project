@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, {useState} from "react";
+import HistoryList from "../components/historyList";
 
 const GetHistory = () => {
     const [packageName, setPackage] = useState('');
@@ -54,7 +55,8 @@ const GetHistory = () => {
             </div>}
         {recieveData &&
             <div>
-                <p>Package History:{" "}{packageHistory.packageHistory}</p>
+                <p>Package History:</p>
+                <HistoryList data={packageHistory}/>
                 </div>}
         </div>
     );

@@ -29,7 +29,7 @@ const NewAccount = () => {
         }
         
     
-        axios.put(process.env.REACT_APP_SERVER_URL + '/newuser', { data }, {
+        axios.post(process.env.REACT_APP_SERVER_URL + '/newuser', { data }, {
           headers: {
             'Content-Type': 'application/json'
           }

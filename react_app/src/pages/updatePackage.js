@@ -6,21 +6,33 @@ const UpdatePackage = () => {
     const [errormsg, setError] = useState('');
     const [errorcode, setCode] = useState('');
     const [errorbool, setErrorbool] = useState(false);
+    const [name, setName] = useState('');
+    const [version, setVersion] = useState('');
+    const [url, seturl] = useState('');
+    const [file, setFile] = useState('');
 
-    const data = {
+    const createBase64 = (e) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(e);
+        reader.onload = () => {
+            setFile(reader.result);
+        }
+    }
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = {
         "metadata": {
-          "Name": "string",
-          "Version": "1.2.3",
-          "ID": "string"
+          "Name": {name},
+          "Version": {version},
+          "ID": {id}
         },
         "data": {
           "Content": "string",
-          "URL": "string",
+          "URL": {url},
           "JSProgram": "string"
         }
       }
-    const handleSubmit = (e) => {
-        e.preventDefault();
         axios.put(process.env.REACT_APP_SERVER_URL + `/package/${id}`, { data }, {
             headers: {
                 'Content-Type': 'application/json',
@@ -41,6 +53,22 @@ const UpdatePackage = () => {
             <h1>Use this to retrieve a package's rating</h1>
             <br></br>
             <form onSubmit={handleSubmit}>
+                <label>Enter Package Name: </label>
+                <input
+                type="text"
+                placeholder="package name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                />
+                <br/>
+                <label>Enter Package Version: </label>
+                <input
+                type="text"
+                placeholder="package version"
+                value={version}
+                onChange={(e) => setVersion(e.target.value)}
+                />
+                <br/>
                 <label>Enter Package ID: </label>
                 <input
                 type="text"
@@ -48,6 +76,25 @@ const UpdatePackage = () => {
                 value={id}
                 onChange={(e) => setId(e.target.value)}
                 />
+                <br/>
+                <label>Enter Package URL: </label>
+                <input
+                type="text"
+                placeholder="package url"
+                value={url}
+                onChange={(e) => seturl(e.target.value)}
+                />
+                <br/>
+                <br/>
+                <label>Upload Package zip file: </label>
+                <input
+                type="file"
+                accept=".zip"
+                placeholder="Search packages"
+                value={file}
+                onChange={(e) => createBase64(e.target.value)}
+                />
+                <br/>
                 <button type="submit">Search</button>
             </form>
             {errorbool && <div>

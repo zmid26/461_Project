@@ -76,7 +76,7 @@ return (
 			<button type="submit">Get Packages</button>
 		</form>
 		{valid && <div>
-			<PackageList packages={packages} />
+			<PackageList data={packages} />
 			</div>}
 		{errorbool && <div>
             <p>Error {errorcode}: {errormsg}</p>

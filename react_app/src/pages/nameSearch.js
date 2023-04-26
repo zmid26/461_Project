@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import PackageList from '../components/packageList';
 
 
 const NameSearch = () => {
     const [regex, setRegex] = useState("");
     const [result, setResult] = useState("");
+    const [valid, setValid] = useState(false);
     const [errormsg, setError] = useState('');
     const [errorcode, setCode] = useState('');
     const [errorbool, setErrorbool] = useState(false);
@@ -19,6 +21,7 @@ const NameSearch = () => {
         })
         .then(response => {
             setResult(response.data);
+            setValid(true);
         })
         .catch(error => {
             setError(error.message);
@@ -42,7 +45,7 @@ const NameSearch = () => {
             {errorbool && <div>
             <p>Error {errorcode}: {errormsg}</p>
             </div>}
-        {result}
+        {valid && <PackageList packages={result}/>}
         </div>
     )
 }
