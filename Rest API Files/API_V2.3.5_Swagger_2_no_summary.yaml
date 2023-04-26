@@ -4,10 +4,8 @@ definitions:
     properties:
       Secret:
         $ref: '#/definitions/UserAuthenticationInfo'
-        description: ''
       User:
         $ref: '#/definitions/User'
-        description: ''
     required:
       - User
       - Secret
@@ -26,10 +24,8 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/PackageData'
-        description: ''
       metadata:
         $ref: '#/definitions/PackageMetadata'
-        description: ''
     required:
       - metadata
       - data
@@ -84,10 +80,8 @@ definitions:
         type: string
       PackageMetadata:
         $ref: '#/definitions/PackageMetadata'
-        description: ''
       User:
         $ref: '#/definitions/User'
-        description: ''
     required:
       - User
       - Date
@@ -135,10 +129,8 @@ definitions:
     properties:
       Name:
         $ref: '#/definitions/PackageName'
-        description: ''
       Version:
         $ref: '#/definitions/SemverRange'
-        description: ''
     required:
       - Name
     type: object
@@ -252,7 +244,7 @@ info:
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
   termsOfService: 'http://swagger.io/terms/'
   title: ECE 461 - Spring 2023 - Project 2
-  version: 2.3.3
+  version: 2.3.5
 paths:
   /authenticate:
     description: >-
@@ -294,7 +286,6 @@ paths:
           description: The user or password is invalid.
         '501':
           description: This system does not support authentication.
-    summary: Authenticate this user -- get an access token.
   /package:
     parameters:
       - description: >-
@@ -353,7 +344,6 @@ paths:
             it is formed improperly, or the AuthenticationToken is invalid.
         '404':
           description: Package does not exist.
-      summary: Delete all versions of this package.
     get:
       description: Return the history of this package (all versions).
       operationId: PackageByNameGet
@@ -455,7 +445,6 @@ paths:
             it is formed improperly, or the AuthenticationToken is invalid.
         '404':
           description: No package found under this regex.
-      summary: Get any packages fitting the regular expression.
   '/package/{id}':
     delete:
       operationId: PackageDelete
@@ -474,7 +463,6 @@ paths:
             is formed improperly, or the AuthenticationToken is invalid.
         '404':
           description: Package does not exist.
-      summary: Delete this version of the package.
     get:
       description: Return this package.
       operationId: PackageRetrieve
@@ -497,7 +485,6 @@ paths:
             is formed improperly, or the AuthenticationToken is invalid.
         '404':
           description: Package does not exist.
-      summary: Interact with the package with this ID
     parameters:
       - description: Package ID
         examples:
@@ -550,7 +537,6 @@ paths:
             is formed improperly, or the AuthenticationToken is invalid.
         '404':
           description: Package does not exist.
-      summary: Update this content of the package.
   '/package/{id}/rate':
     get:
       operationId: PackageRate
@@ -646,7 +632,6 @@ paths:
             it is formed improperly, or the AuthenticationToken is invalid.
         '413':
           description: Too many packages returned.
-      summary: Get the packages from the registry.
   /reset:
     delete:
       description: Reset the registry to a system default state.
@@ -661,7 +646,6 @@ paths:
             improperly, or the AuthenticationToken is invalid.
         '401':
           description: You do not have permission to reset the registry.
-      summary: Reset the registry
     parameters:
       - description: >-
           The spec permits you to use any token format you like. You could, for
