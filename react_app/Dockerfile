@@ -7,6 +7,3 @@ RUN npm run build
 EXPOSE 1234
 ENV REACT_APP_SERVER_URL https://project461-web-fgnl7r7dtq-uc.a.run.app
 CMD ["npm", "run", "start"]
-
-# COPY react_app/package*.json ./
-#  --openssl-legacy-provider
