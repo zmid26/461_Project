@@ -51,27 +51,27 @@ def get_package_by_name(Name):
 def get_version(cursor, package_entry_history, i):
     query = text("SELECT Version FROM Package WHERE ID = %s")
     line = (package_entry_history[-1][i][0],)
-    cursor.execute(query, line)
+    cursor.execute(query, *line)
     version = cursor.fetchone()
     return version
 
 def get_user_data(cursor, package_entry_history, i):
     query = text("SELECT name, isAdmin FROM User WHERE name = %s")
     line = (package_entry_history[-1][i][1],)
-    cursor.execute(query, line)
+    cursor.execute(query, *line)
     userdata = cursor.fetchall()
     return userdata
 
 def get_package_entry(cursor, id):
     query = text("SELECT * FROM PackageEntryHistory WHERE ID = %s")
     line = (id,)
-    cursor.execute(query, line)
+    cursor.execute(query, *line)
     return cursor.fetchall()
 
 def get_ids(Name, cursor):
     query = text("SELECT ID FROM Package WHERE Name = %s")
     line = (Name,)
-    cursor.execute(query, line)
+    cursor.execute(query, *line)
     ids = cursor.fetchall()
     # print(f"got id with name = {Name}")
     return ids
@@ -110,15 +110,15 @@ def delete_package_by_name(Name):
 def delete_from_Package(Name, cursor):
     query = text("DELETE FROM Package WHERE Name = %s")
     line = (Name,)
-    cursor.execute(query, line)
+    cursor.execute(query, *line)
 
 def delete_from_PackageEntryHistory(cursor, id):
     query = text("DELETE FROM PackageEntryHistory WHERE ID = %s")
     line = (id,)
-    cursor.execute(query, line)
+    cursor.execute(query, *line)
 
 def delete_from_PackageRating(cursor, id):
     print("Deleting id = {} from PackageRating".format(id))
     query = text("DELETE FROM PackageRating WHERE ID = %s")
     line = (id,)
-    cursor.execute(query, line)
+    cursor.execute(query, *line)

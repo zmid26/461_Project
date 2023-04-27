@@ -79,21 +79,21 @@ def mark_as_updated(id, cursor):
 
 def update_rating(id, rating, cursor):
     query = text("UPDATE PackageRating SET BusFactor = %s, Correctness = %s, RampUp = %s, ResponsiveMaintainer = %s, LicenseScore = %s, GoodPinningPractice = %s, PullRequest = %s, NetScore = %s WHERE ID = %s")
-    cursor.execute(query, (rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
+    cursor.execute(query, *(rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
                        rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"], id))
 
 def mark_as_rated(id, cursor):
     query = text("INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (%s, %s, %s, %s)")
-    cursor.execute(query, (id, "placeholder", datetime.now(), "RATE"))
+    cursor.execute(query, *(id, "placeholder", datetime.now(), "RATE"))
 
 def insert_rating(id, rating, cursor):
     query = text("INSERT INTO PackageRating (ID, BusFactor, Correctness, RampUp, ResponsiveMaintainer, LicenseScore, GoodPinningPractice, PullRequest, NetScore) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
-    cursor.execute(query, (id, rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
+    cursor.execute(query, *(id, rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
                        rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"]))
 
 def get_package_rating(id, cursor):
     query = text("SELECT * FROM PackageRating WHERE ID = %s")
-    cursor.execute(query, (id,))
+    cursor.execute(query, *(id,))
     package_rating = cursor.fetchone()
     return package_rating
 
@@ -103,10 +103,9 @@ def run_cli(package_url, clipath):
     
     return rating
 
-def get_package_url(id, cnx):
-    cursor = cnx.cursor()
+def get_package_url(id, cursor):
     query = text("SELECT URL FROM Package where ID= %s")
-    cursor.execute(query, (id,))
+    cursor.execute(query, *(id,))
     package_url = cursor.fetchone()
     cursor.close()
     return package_url
