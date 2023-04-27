@@ -45,9 +45,17 @@ const RatePackage = () => {
             </form>
             </div>
             {israted && <div>
-                <p>Rating:{rating.map(post => (
-          <li key={post.id}>{post.title}</li>
-        ))}</p>
+                <p>Rating:</p>
+                <ul>
+                    <li>BusFactor:  {rating.BusFactor}</li>
+                    <li>Correctness: {rating.Correctness}</li>
+                    <li>RampUp:  {rating.RampUp}</li>
+                    <li>Responsive Maintainer: {rating.ResponsiveMaintainer}</li>
+                    <li>License Score: {rating.LicenseScore}</li>
+                    <li>Good Pinning Practice:  {rating.GoodPinningPractice}</li>
+                    <li>Pull Request:  {rating.PullRequest}</li>
+                </ul>
+                <p>Overall Rating: {rating.NetScore}</p>
             </div>}
             {errorbool && <div>
             <p>Error {errorcode}: {errormsg}</p>

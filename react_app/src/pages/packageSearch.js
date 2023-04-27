@@ -12,7 +12,7 @@ const PackageSearch = () => {
   const token = sessionStorage.getItem('auth_token');
   const handleSubmit = (event) => {
     event.preventDefault();
-        axios.put(process.env.REACT_APP_SERVER_URL + `/package/${id}`, {
+        axios.get(process.env.REACT_APP_SERVER_URL + `/package/${id}`, {
           headers: {
             'Content-Type': 'application/json',
             'X-Authorization': token
@@ -44,11 +44,21 @@ const PackageSearch = () => {
         <button type="submit">Search</button>
       </form>
       <div>
-        {search && <ul>
-        {packagedata.map(post => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>}
+        {search && 
+        <div>
+          <ul>
+            <li>Metadata:</li>
+            <ul>
+              <li>Name: {packagedata.metadata.Name}</li>
+              <li>Version: {packagedata.metadata.Version}</li>
+              <li>ID: {packagedata.metadata.ID}</li>
+            </ul>
+            <li>Data:</li>
+            <ul>
+              <li>URL: {packagedata.data.URL}</li>
+            </ul>
+          </ul>
+          </div>}
       </div>
       {errorbool && <div>
             <p>Error {errorcode}: {errormsg}</p>
