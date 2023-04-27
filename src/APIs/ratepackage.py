@@ -75,26 +75,25 @@ def rate_package(id):
 # Functions to interact with the database
 def mark_as_updated(id, cursor):
     query = text("INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (:id, :username, :date, :action)")
-    cursor.execute(query, parameters = {"id":id, "Username":"placeholder", "date":datetime.now(), "action":"UPDATE"})
+    cursor.execute(query, parameters = {"id":id, "Username":"ece30861defaultadminuser", "date":datetime.now(), "action":"UPDATE"})
 
 def update_rating(id, rating, cursor):
-    query = text("UPDATE PackageRating SET BusFactor = %s, Correctness = %s, RampUp = %s, ResponsiveMaintainer = %s, LicenseScore = %s, GoodPinningPractice = %s, PullRequest = %s, NetScore = %s WHERE ID = %s")
-    cursor.execute(query, *(rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
-                       rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"], id))
+    query = text("UPDATE PackageRating SET BusFactor = :bf, Correctness = :c, RampUp = :ru, ResponsiveMaintainer = :rm, LicenseScore = :ls, GoodPinningPractice = :gpp, PullRequest = :pr, NetScore = :ns WHERE ID = :id")
+    cursor.execute(query, parameters = {"id":id, "bf":rating["BusFactor"], "c":rating["Correctness"], "ru":rating["RampUp"], "rm":rating["ResponsiveMaintainer"],
+                       "ls":rating["LicenseScore"], "gpp":rating["GoodPinningPractice"], "pr":rating["PullRequest"], "ns":rating["NetScore"]})
 
 def mark_as_rated(id, cursor):
-    query = text("INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (%s, %s, %s, %s)")
-    cursor.execute(query, *(id, "placeholder", datetime.now(), "RATE"))
+    query = text("INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (:id, :username, :date, :action)")
+    cursor.execute(query, parameters = {"id":id, "username":"ece30861defaultadminuser", "date":datetime.now(), "action":"RATE"})
 
 def insert_rating(id, rating, cursor):
-    query = text("INSERT INTO PackageRating (ID, BusFactor, Correctness, RampUp, ResponsiveMaintainer, LicenseScore, GoodPinningPractice, PullRequest, NetScore) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
-    cursor.execute(query, *(id, rating["BusFactor"], rating["Correctness"], rating["RampUp"], rating["ResponsiveMaintainer"],
-                       rating["LicenseScore"], rating["GoodPinningPractice"], rating["PullRequest"], rating["NetScore"]))
+    query = text("INSERT INTO PackageRating (ID, BusFactor, Correctness, RampUp, ResponsiveMaintainer, LicenseScore, GoodPinningPractice, PullRequest, NetScore) VALUES (:id, :bf, :c, :ru, :rm, :ls, :gpp, :pr, :ns)")
+    cursor.execute(query, parameters = {"id":id, "bf":rating["BusFactor"], "c":rating["Correctness"], "ru":rating["RampUp"], "rm":rating["ResponsiveMaintainer"],
+                       "ls":rating["LicenseScore"], "gpp":rating["GoodPinningPractice"], "pr":rating["PullRequest"], "ns":rating["NetScore"]})
 
 def get_package_rating(id, cursor):
-    query = text("SELECT * FROM PackageRating WHERE ID = %s")
-    cursor.execute(query, *(id,))
-    package_rating = cursor.fetchone()
+    query = text("SELECT * FROM PackageRating WHERE ID = :id")
+    package_rating = cursor.execute(query, paramaters = {"id":id}).fetchone()
     return package_rating
 
 def run_cli(package_url, clipath):
@@ -104,8 +103,7 @@ def run_cli(package_url, clipath):
     return rating
 
 def get_package_url(id, cursor):
-    query = text("SELECT URL FROM Package where ID= %s")
-    cursor.execute(query, *(id,))
-    package_url = cursor.fetchone()
+    query = text("SELECT URL FROM Package where ID=:id")
+    package_url = cursor.execute(query, parameters = {"id":id}).fetchone()
     cursor.close()
     return package_url
