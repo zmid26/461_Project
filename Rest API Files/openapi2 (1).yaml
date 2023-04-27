@@ -240,6 +240,7 @@ definitions:
     required:
       - password
     type: object
+host: "echo-api.endpoints.ece461-team25.cloud.goog"
 info:
   contact:
     email: davisjam@purdue.edu
