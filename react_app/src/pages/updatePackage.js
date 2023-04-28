@@ -9,30 +9,32 @@ const UpdatePackage = () => {
     const [name, setName] = useState('');
     const [version, setVersion] = useState('');
     const [url, seturl] = useState('');
-    const [file, setFile] = useState('');
+    let base64data = '';
 
     const createBase64 = (e) => {
         const reader = new FileReader();
         reader.readAsDataURL(e);
         reader.onload = () => {
-            setFile(reader.result);
+            let res = reader.result;
+            base64data = res.split(',')[1];
         }
+        
     }
     
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
         "metadata": {
-          "Name": {name},
-          "Version": {version},
-          "ID": {id}
+          "Name": name,
+          "Version": version,
+          "ID": id
         },
         "data": {
-          "Content": "string",
-          "URL": {url},
-          "JSProgram": "string"
+                "content": base64data,
+                "URL": url,
+                "JSProgram": "if (process.argv.length === 7) {\nconsole.log('Success')\nprocess.exit(0)\n} else {\nconsole.log('Failed')\nprocess.exit(1)\n}\n"
         }
-      }
+      };
         axios.put(process.env.REACT_APP_SERVER_URL + `/package/${id}`, { data }, {
             headers: {
                 'Content-Type': 'application/json',
@@ -91,8 +93,7 @@ const UpdatePackage = () => {
                 type="file"
                 accept=".zip"
                 placeholder="Search packages"
-                value={file}
-                onChange={(e) => createBase64(e.target.value)}
+                onChange={(e) => createBase64(e.target.files[0])}
                 />
                 <br/>
                 <button type="submit">Search</button>
