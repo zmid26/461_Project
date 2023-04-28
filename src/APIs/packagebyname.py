@@ -5,10 +5,10 @@ This file contains the following api calls:
 
     **Until authentication token is provided, both calls will return a 400**
 '''
+from .auth import *
 from flask import abort
 from flask.blueprints import Blueprint
 from .database import db_connect
-from .auth import *
 bp = Blueprint('packagebyname', __name__)
 
 # Returns all packages with name = Name from the database

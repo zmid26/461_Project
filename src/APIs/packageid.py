@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, make_response
 import json
 import jsonschema
 from jsonschema import validate
@@ -99,9 +99,9 @@ def package():
             return jsonify(response)
 
         except jsonschema.exceptions.ValidationError as err:
-            return jsonify({"error": "There is missing field(s) in the PackageID/AuthenticationToken or it is formed improperly, or the AuthenticationToken is invalid."}), 400
+            return make_response('', 400)
     else:
-        return jsonify({"error": "Package is not uploaded due to the disqualified rating."}), 424
+        return make_response('', 424)
 
 # Function to interact with database
 def post_package(content, jsprog, cur, name, version, url):
@@ -111,7 +111,6 @@ def post_package(content, jsprog, cur, name, version, url):
 
 
 @bp.route('/package/<int:id>', methods=['GET'])
-@token_required
 def get_package(id):
   # Connect to database
   cnx = db_connect()
@@ -120,7 +119,7 @@ def get_package(id):
   package = get_package(id, cnx)
 
   if package is None:
-    return jsonify({'error': 'Package does not exist.'}), 404
+    return make_response('', 404)
   
   metadata = {
     "Name": package[1],
@@ -196,7 +195,6 @@ input_schema2 = {
 }
 
 @bp.route('/package/<int:id>', methods=['PUT'])
-@token_required
 def put_package(id):
   # Connect to database
   cnx = db_connect()
@@ -209,7 +207,7 @@ def put_package(id):
       package = get_package(id, cnx)
 
       if package is None:
-        return jsonify({'error': 'Package does not exist.'}), 404
+        return make_response('', 404)
       
       #get input data 
       metadata = request.json["metadata"]
@@ -223,11 +221,11 @@ def put_package(id):
       #update
       update_package(id, cnx, name, version, content, url, jsprogram)
 
-      return jsonify({"type": "Version is updated."})
+      return make_response('', 200)
     except jsonschema.exceptions.ValidationError as err:
-      return jsonify({"error": "There is missing field(s) in the PackageID/AuthenticationToken or it is formed improperly, or the AuthenticationToken is invalid."}), 400
+      return make_response('', 400)
   else:
-        return jsonify({"error": "NEEDS TO BE REPLACED OR DESTROYED"}), 424
+        return make_response('', 424)
 
 def update_package(id, cnx, name, version, content, url, jsprogram):
     cnx.reconnect()
@@ -239,7 +237,6 @@ def update_package(id, cnx, name, version, content, url, jsprogram):
 
 
 @bp.route('/package/<int:id>', methods=['DELETE'])
-@token_required
 def delete_package(id):
   # Connect to database
   cnx = db_connect()
@@ -248,10 +245,10 @@ def delete_package(id):
   package = get_package(id, cnx)
 
   if package is None:
-    return jsonify({'error': 'Package does not exist.'}), 404
+    return make_response('', 404)
   
   delete_from_db(id, cnx)
-  return jsonify({"message": "Package is deleted."}), 200
+  return make_response('', 200)
 
 # Function to interact with database
 def delete_from_db(id, cnx):
@@ -264,7 +261,6 @@ def delete_from_db(id, cnx):
 
 
 @bp.route('/reset', methods=['DELETE'])
-@token_required
 def reset_package():
   cnx = db_connect()
 
@@ -275,5 +271,5 @@ def reset_package():
   cur.close()
   cnx.close()
 
-  return jsonify({'message': 'Registry is reset'}), 200
+  return make_response('', 200)
 
