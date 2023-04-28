@@ -2,26 +2,31 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const UploadPackage = () => {
-    const [file, setFile] = useState('');
     const [url, setUrl] = useState('');
     const [data, setData] = useState('');
     const [errormsg, setError] = useState('');
     const [errorcode, setCode] = useState('');
     const [errorbool, setErrorbool] = useState(false);
+    let base64data = '';
 
     const createBase64 = (e) => {
         const reader = new FileReader();
         reader.readAsDataURL(e);
         reader.onload = () => {
-            setFile(reader.result);
+            let res = reader.result;
+            base64data = res.split(',')[1];
         }
+        
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const body = {
-            content: file
-        }
+            "content": base64data,
+            "URL": url,
+            "JSProgram": "if (process.argv.length === 7) {\nconsole.log('Success')\nprocess.exit(0)\n} else {\nconsole.log('Failed')\nprocess.exit(1)\n}\n"
+        };
+        console.log(body);
         axios.post(process.env.REACT_APP_SERVER_URL + '/package', { body }, {
             headers: {
                 'Content-Type': 'application/json',
@@ -57,11 +62,11 @@ const UploadPackage = () => {
                 type="file"
                 accept=".zip"
                 placeholder="Search packages"
-                value={file}
-                onChange={(e) => createBase64(e.target.value)}
+                onChange={(e) => createBase64(e.target.files[0])}
                 />
                 <br/>
                 <br/>
+
                 <button type="submit">Upload</button>
                 </form>
                 </div>

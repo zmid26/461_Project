@@ -16,6 +16,7 @@ const NewAccount = () => {
     event.preventDefault();
     // Here you can add code to submit the form to your backend
     if(password === confpassword) {
+      setPassMatch(false);
         console.log('Email:', username);
         console.log('Password:', password);
         const data = {
@@ -35,6 +36,7 @@ const NewAccount = () => {
           }
         })
           .then(response => {
+            setErrorbool(false);
             setNewAccConf(true);
             console.log(response.data);
           })
