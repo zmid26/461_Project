@@ -5,14 +5,15 @@ This file contains the following api calls:
 
     **Until authentication token is provided, both calls will return a 400**
 '''
+from .auth import *
 from flask import abort
 from flask.blueprints import Blueprint
 from .database import db_connect
-
 bp = Blueprint('packagebyname', __name__)
 
 # Returns all packages with name = Name from the database
 @bp.route('/package/byname/<string:Name>', methods=['GET'])
+@token_required
 def get_package_by_name(Name):
     cnx = db_connect()
 
