@@ -29,3 +29,4 @@ pyrsistent==0.19.3
     # via jsonschema
 werkzeug==2.2.3
     # via flask
+requests==2.28.2
