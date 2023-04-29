@@ -1,0 +1,5 @@
+https://www.npmjs.com/package/axios
+https://www.npmjs.com/package/webpack
+https://www.npmjs.com/package/lodash
+https://www.npmjs.com/package/fastify
+https://www.npmjs.com/package/async

@@ -7,14 +7,15 @@ const UploadPackage = () => {
     const [errormsg, setError] = useState('');
     const [errorcode, setCode] = useState('');
     const [errorbool, setErrorbool] = useState(false);
-    let base64data = '';
+   // let base64data = '';
+    const [base64data, setBase64] = useState('');
 
     const createBase64 = (e) => {
         const reader = new FileReader();
         reader.readAsDataURL(e);
         reader.onload = () => {
             let res = reader.result;
-            base64data = res.split(',')[1];
+            setBase64(res.split(',')[1]);
         }
         
     }
@@ -63,6 +64,14 @@ const UploadPackage = () => {
                 accept=".zip"
                 placeholder="Search packages"
                 onChange={(e) => createBase64(e.target.files[0])}
+                />
+                <br/>
+                <label>Base 64 String:</label>
+                <input
+                type="text"
+                placeholder="base 64 string"
+                value={base64data}
+                onChange={(e) => setBase64(e.target.value)}
                 />
                 <br/>
                 <br/>

@@ -169,3 +169,78 @@ struct Contributor {
     site_admin: bool,
     contributions: i32,
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_normalize_score() {
+        let result = normalize_score(1.0, 1.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.89);
+
+        let result = normalize_score(1.0, 2.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.76);
+
+        let result = normalize_score(0.0, 0.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.1);
+
+        let result = normalize_score(0.0, 1.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.92);
+
+        let result = normalize_score(0.0, 2.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.79);
+
+        let result = normalize_score(1.0, 0.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.07);
+
+        let result = normalize_score(2.0, 0.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.05);
+
+        let result = normalize_score(3.0, 0.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.02);
+    }
+
+    #[test]
+    fn test_normalize_score2() {
+        let result = normalize_score(5.0, 5.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.41);
+
+        let result = normalize_score(0.0, 1000000.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.3);
+
+        let result = normalize_score(1000000.0, 0.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.8);
+
+        let result = normalize_score(1000000.0, 1000000.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.0);
+    }
+
+   //  #[test]
+   /*  fn test_get_urls_1() {
+        let path = "./npm_urls_1.txt";
+        let url_list: Vec<String> = get_urls(&path);
+        assert_eq!(url_list.len(), 5);
+        assert_eq!(url_list[0], "https://www.npmjs.com/package/express");
+        assert_eq!(url_list[1], "https://www.npmjs.com/package/vue");
+        assert_eq!(url_list[2], "https://www.npmjs.com/package/react");
+        assert_eq!(url_list[3], "https://www.npmjs.com/package/svelte");
+        assert_eq!(url_list[4], "https://www.npmjs.com/package/next");
+        
+        assert_eq!(path, "./npm_urls_1.txt");
+    }*/
+        
+}
