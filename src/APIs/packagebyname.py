@@ -9,10 +9,11 @@ from .auth import *
 from flask import abort
 from flask.blueprints import Blueprint
 from .database import db_connect
+from .auth import *
 bp = Blueprint('packagebyname', __name__)
 
 # Returns all packages with name = Name from the database
-@bp.route('/package/byname/<string:Name>', methods=['GET'])
+@bp.route('/package/byname/<string:Name>', methods=['GET'], endpoint='rateGET')
 @token_required
 def get_package_by_name(Name):
     cnx = db_connect()
@@ -85,7 +86,8 @@ def get_ids(Name, cursor):
 
 # Deletes all instances of a packages with name = Name from the database
 # Deletes entries in PackageEntryHistory, Package, PackageRating
-@bp.route('/package/byname/<string:Name>', methods=['DELETE'])
+@bp.route('/package/byname/<string:Name>', methods=['DELETE'], endpoint='rateDELETE')
+@token_required
 def delete_package_by_name(Name):
     cnx = db_connect()
 

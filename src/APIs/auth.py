@@ -6,6 +6,7 @@ from jsonschema import validate
 from flask.blueprints import Blueprint
 from .database import db_connect
 from functools import wraps
+import functools
 
 bp = Blueprint('auth', __name__)
 
@@ -37,18 +38,21 @@ input_schema = {
   "required": ["User", "Secret"]
 }
 
+
+
 def token_required(func):
+    @functools.wraps(func)
     def wrapper(*args, **kwargs):
         token = request.headers.get('X-Authorization')
         if not token:
-            return make_response('', 400)
+            return make_response('No token', 400)
 
         try:
             payload = jwt.decode(token, 'dyhgccydyxrtxttrxtrzxrt', algorithms=['HS256'])
             # add the payload to the request object for future use in the function
             request.payload = payload
         except jwt.InvalidTokenError:
-            return make_response('', 400)
+            return make_response('Invalid token', 400)
 
         return func(*args, **kwargs)
 
@@ -90,12 +94,7 @@ def generate_token():
             algorithm='HS256'
             )
             
-            #response = Response()
-            #response.headers['X-Authorization'] = token
-            #response.set_cookie('X-Authorization', token)
             return token
-
-            #return token #should not be error , what can I write for it to not show up in the response?
 
         except jsonschema.exceptions.ValidationError as err:
             return make_response('', 400)
