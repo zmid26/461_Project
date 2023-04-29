@@ -5,7 +5,6 @@ from jsonschema import validate
 import base64
 import io
 import zipfile
-import json
 import os
 from flask.blueprints import Blueprint
 from .database import db_connect
