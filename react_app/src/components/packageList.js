@@ -2,7 +2,6 @@ import React from 'react';
 
 function PackageList(props) {
   const pkgs = props.data;
-
   return (
     <div>
       <h2>Package List</h2>

@@ -12,7 +12,6 @@ const DeleteRegistry = () => {
         axios.delete(process.env.REACT_APP_SERVER_URL + '/reset')
             .then(res => {
                 setValue(true);
-                
                 console.log(res.data);
             })
             .catch(error => {

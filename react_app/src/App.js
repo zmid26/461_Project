@@ -17,18 +17,6 @@ import UploadPackage from './pages/uploadPackage';
 import UpdatePackage from './pages/updatePackage';
 import NameSearch from './pages/nameSearch';
 
-// import {
-// 	BrowserRouter as Router,
-// 	Routes,
-// 	Route,
-// }'
-
-// import {
-// 	BrowserRouter as Router,
-// 	Routes,
-// 	Route,
-// }
-
 function App() {
 return (
 	<Router>
