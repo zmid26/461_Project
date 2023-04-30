@@ -287,6 +287,42 @@ mod tests {
     }
 
     #[test]
+    fn test_get_urls_4() {
+        let path = "./test/bad_urls.txt";
+
+        let url_list: Vec<String> = get_urls(&path);
+        assert_eq!(url_list.len(), 10);
+        assert_eq!(url_list[0], "https://github.com/phonegap/phonegap-app-anyconference");
+        assert_eq!(url_list[1], "https://github.com/ReversedK/LocateAnything");
+        assert_eq!(url_list[2], "https://github.com/l3lackcurtains/graphql-boilerplate");
+        assert_eq!(url_list[3], "https://github.com/vbaicu/mMusicCast");
+        assert_eq!(url_list[4], "https://github.com/anychart-solutions/anystock-drawing-tools-and-annotations-demo");
+        assert_eq!(url_list[5], "https://www.npmjs.com/package/url-inspector");
+        assert_eq!(url_list[6], "https://www.npmjs.com/package/sharebutton");
+        assert_eq!(url_list[7], "https://www.npmjs.com/package/anycontrol");
+        assert_eq!(url_list[8], "https://www.npmjs.com/package/pan-zoom");
+        assert_eq!(url_list[9], "https://www.npmjs.com/package/opentok-screen-sharing");
+    }
+
+    #[test]
+    fn test_get_urls_5() {
+        let path = "./test/good_urls.txt";
+        let url_list: Vec<String> = get_urls(&path);
+
+        assert_eq!(url_list.len(), 10);
+        assert_eq!(url_list[0], "https://github.com/ramda/ramda");
+        assert_eq!(url_list[1], "https://github.com/debug-js/debug");
+        assert_eq!(url_list[2], "https://github.com/josephg/ShareJS");
+        assert_eq!(url_list[3], "https://github.com/jashkenas/underscore");
+        assert_eq!(url_list[4], "https://github.com/Automattic/mongoose");
+        assert_eq!(url_list[5], "https://www.npmjs.com/package/express");
+        assert_eq!(url_list[6], "https://www.npmjs.com/package/async");
+        assert_eq!(url_list[7], "https://www.npmjs.com/package/lodash");
+        assert_eq!(url_list[8], "https://www.npmjs.com/package/axios");
+        assert_eq!(url_list[9], "https://www.npmjs.com/package/mocha");
+    }
+
+    #[test]
     fn test_empty_file() {
         let path = "./test/empty_file.txt";
         let url_list: Vec<String> = get_urls(&path);
@@ -299,30 +335,37 @@ mod tests {
         let npm_url = "https://www.npmjs.com/package/axios";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/axios/axios");
+        assert_ne!(github_url, "");
 
         let npm_url = "https://www.npmjs.com/package/lodash";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/lodash/lodash");
+        assert_ne!(github_url, "");
 
         let npm_url = "https://www.npmjs.com/package/react";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/facebook/react");
+        assert_ne!(github_url, "");
 
         let npm_url = "https://www.npmjs.com/package/svelte";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/sveltejs/svelte");
+        assert_ne!(github_url, "");
 
         let npm_url = "https://www.npmjs.com/package/next";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/vercel/next.js");
+        assert_ne!(github_url, "");
 
         let npm_url = "https://www.npmjs.com/package/express";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/expressjs/express");
+        assert_ne!(github_url, "");
 
         let npm_url = "https://www.npmjs.com/package/vue";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/vuejs/core");
+        assert_ne!(github_url, "");
     }
 
         
