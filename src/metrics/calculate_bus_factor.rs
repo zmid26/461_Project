@@ -208,6 +208,8 @@ mod tests {
         let result = normalize_score(3.0, 0.0);
         let round_res = (result * 100.0).round() / 100.0;
         assert_eq!(round_res, 1.02);
+
+        simple_log::info!("Calculate normalized score test 1 passed");
     }
 
     #[test]
@@ -244,6 +246,7 @@ mod tests {
         let round_res = (result * 100.0).round() / 100.0;
         assert_eq!(round_res, 1.07);
 
+        simple_log::info!("Calculate normalized score test 2 passed");
     }
 
     #[test]
@@ -253,10 +256,30 @@ mod tests {
 
         assert_eq!(url_list.len(), 5);
         assert_eq!(url_list[0], "https://www.npmjs.com/package/express\r");
+        assert_ne!(url_list[0], "");
+        assert_ne!(url_list[0], "https://www.npmjs.com/package/vue\r");
+        simple_log::info!("Read express url from file");
+
         assert_eq!(url_list[1], "https://www.npmjs.com/package/vue\r");
+        assert_ne!(url_list[1], "");
+        assert_ne!(url_list[1], "https://www.npmjs.com/package/react\r");
+        simple_log::info!("Read vue url from file");
+
         assert_eq!(url_list[2], "https://www.npmjs.com/package/react\r");
+        assert_ne!(url_list[2], "");
+        assert_ne!(url_list[2], "https://www.npmjs.com/package/svelte\r");
+        simple_log::info!("Read react url from file");
+
         assert_eq!(url_list[3], "https://www.npmjs.com/package/svelte\r");
+        assert_ne!(url_list[3], "");
+        assert_ne!(url_list[3], "https://www.npmjs.com/package/next");
+        simple_log::info!("Read svelte url from file");
+
         assert_eq!(url_list[4], "https://www.npmjs.com/package/next");
+        assert_ne!(url_list[4], "https://www.npmjs.com/package/next\r");
+        assert_ne!(url_list[4], "");
+        simple_log::info!("Read next url from file");
+        simple_log::info!("test URL 1 success");
         
     }
 
@@ -267,10 +290,31 @@ mod tests {
 
         assert_eq!(url_list.len(), 5);
         assert_eq!(url_list[0], "https://www.npmjs.com/package/axios\r");
+        assert_ne!(url_list[0], "");
+        assert_ne!(url_list[0], "https://www.npmjs.com/package/axios");
+        simple_log::info!("Read axios url from file");
+
         assert_eq!(url_list[1], "https://www.npmjs.com/package/webpack\r");
+        assert_ne!(url_list[1], "https://www.npmjs.com/package/webpack");
+        assert_ne!(url_list[1], "");
+        simple_log::info!("Read webpack url from file");
+
         assert_eq!(url_list[2], "https://www.npmjs.com/package/lodash\r");
+        assert_ne!(url_list[2], "https://www.npmjs.com/package/lodash");
+        assert_ne!(url_list[2], "");
+        simple_log::info!("Read lodash url from file");
+
         assert_eq!(url_list[3], "https://www.npmjs.com/package/fastify\r");
+        assert_ne!(url_list[3], "https://www.npmjs.com/package/fastify");
+        assert_ne!(url_list[3], "");
+        simple_log::info!("Read fastify url from file");
+
         assert_eq!(url_list[4], "https://www.npmjs.com/package/async");
+        assert_ne!(url_list[4], "https://www.npmjs.com/package/async\r");
+        assert_ne!(url_list[4], "");
+        simple_log::info!("Read async url from file");
+
+        simple_log::info!("test URL 2 success");
     }
 
     #[test]
@@ -280,10 +324,149 @@ mod tests {
 
         assert_eq!(url_list.len(), 5);
         assert_eq!(url_list[0], "https://www.npmjs.com/package/aws-sdk\r");
+        assert_ne!(url_list[0], "https://www.npmjs.com/package/aws-sdk");
+        assert_ne!(url_list[0], "");
+        simple_log::info!("Read aws-sdk url from file");
+
         assert_eq!(url_list[1], "https://www.npmjs.com/package/bcrypt\r");
+        assert_ne!(url_list[1], "https://www.npmjs.com/package/bcrypt");
+        assert_ne!(url_list[1], "");
+        simple_log::info!("Read bcrypt url from file");
+
         assert_eq!(url_list[2], "https://www.npmjs.com/package/cors\r");
+        assert_ne!(url_list[2], "https://www.npmjs.com/package/cors");
+        assert_ne!(url_list[2], "");
+        simple_log::info!("Read cors url from file");
+
         assert_eq!(url_list[3], "https://www.npmjs.com/package/deep-equal\r");
+        assert_ne!(url_list[3], "https://www.npmjs.com/package/deep-equal");
+        assert_ne!(url_list[3], "");
+        simple_log::info!("Read deep-equal url from file");
+
         assert_eq!(url_list[4], "https://www.npmjs.com/package/eslint");
+        assert_ne!(url_list[4], "https://www.npmjs.com/package/eslint\r");
+        assert_ne!(url_list[4], "");
+        simple_log::info!("Read eslint url from file");
+
+        simple_log::info!("test URL 3 success");
+    }
+
+    #[test]
+    fn test_get_urls_4() {
+        let path = "./test/bad_urls.txt";
+
+        let url_list: Vec<String> = get_urls(&path);
+        assert_eq!(url_list.len(), 10);
+        assert_eq!(url_list[0], "https://github.com/phonegap/phonegap-app-anyconference");
+        assert_ne!(url_list[0], "https://github.com/phonegap/phonegap-app-anyconference\r");
+        assert_ne!(url_list[0], "");
+        simple_log::info!("Read phonegap url from file");
+
+        assert_eq!(url_list[1], "https://github.com/ReversedK/LocateAnything");
+        assert_ne!(url_list[1], "https://github.com/ReversedK/LocateAnything\r");
+        assert_ne!(url_list[1], "");
+        simple_log::info!("Read LocateAnything url from file");
+
+        assert_eq!(url_list[2], "https://github.com/l3lackcurtains/graphql-boilerplate");
+        assert_ne!(url_list[2], "https://github.com/l3lackcurtains/graphql-boilerplate\r");
+        assert_ne!(url_list[2], "");
+        simple_log::info!("Read graphql-boilerplate url from file");
+
+        assert_eq!(url_list[3], "https://github.com/vbaicu/mMusicCast");
+        assert_ne!(url_list[3], "https://github.com/vbaicu/mMusicCast\r");
+        assert_ne!(url_list[3], "");
+        simple_log::info!("Read mMusicCast url from file");
+
+        assert_eq!(url_list[4], "https://github.com/anychart-solutions/anystock-drawing-tools-and-annotations-demo");
+        assert_ne!(url_list[4], "https://github.com/anychart-solutions/anystock-drawing-tools-and-annotations-demo\r");
+        assert_ne!(url_list[4], "");
+        simple_log::info!("Read anystock-drawing-tools-and-annotations-demo url from file");
+
+        assert_eq!(url_list[5], "https://www.npmjs.com/package/url-inspector");
+        assert_ne!(url_list[5], "https://www.npmjs.com/package/url-inspector\r");
+        assert_ne!(url_list[5], "");
+        simple_log::info!("Read url-inspector url from file");
+
+        assert_eq!(url_list[6], "https://www.npmjs.com/package/sharebutton");
+        assert_ne!(url_list[6], "https://www.npmjs.com/package/sharebutton\r");
+        assert_ne!(url_list[6], "");
+        simple_log::info!("Read sharebutton url from file");
+
+        assert_eq!(url_list[7], "https://www.npmjs.com/package/anycontrol");
+        assert_ne!(url_list[7], "https://www.npmjs.com/package/anycontrol\r");
+        assert_ne!(url_list[7], "");
+        simple_log::info!("Read anycontrol url from file");
+
+        assert_eq!(url_list[8], "https://www.npmjs.com/package/pan-zoom");
+        assert_ne!(url_list[8], "https://www.npmjs.com/package/pan-zoom\r");
+        assert_ne!(url_list[8], "");
+        simple_log::info!("Read pan-zoom url from file");
+
+        assert_eq!(url_list[9], "https://www.npmjs.com/package/opentok-screen-sharing");
+        assert_ne!(url_list[9], "https://www.npmjs.com/package/opentok-screen-sharing\r");
+        assert_ne!(url_list[9], "");
+        simple_log::info!("Read opentok-screen-sharing url from file");
+
+        simple_log::info!("test URL 4 success");
+    }
+
+    #[test]
+    fn test_get_urls_5() {
+        let path = "./test/good_urls.txt";
+        let url_list: Vec<String> = get_urls(&path);
+
+        assert_eq!(url_list.len(), 10);
+        assert_eq!(url_list[0], "https://github.com/ramda/ramda");
+        assert_ne!(url_list[0], "https://github.com/ramda/ramda\r");
+        assert_ne!(url_list[0], "");
+        simple_log::info!("Read ramda url from file");
+
+        assert_eq!(url_list[1], "https://github.com/debug-js/debug");
+        assert_ne!(url_list[1], "https://github.com/debug-js/debug\r");
+        assert_ne!(url_list[1], "");
+        simple_log::info!("Read debug url from file");
+
+        assert_eq!(url_list[2], "https://github.com/josephg/ShareJS");
+        assert_ne!(url_list[2], "https://github.com/josephg/ShareJS\r");
+        assert_ne!(url_list[2], "");
+        simple_log::info!("Read ShareJS url from file");
+
+        assert_eq!(url_list[3], "https://github.com/jashkenas/underscore");
+        assert_ne!(url_list[3], "https://github.com/jashkenas/underscore\r");
+        assert_ne!(url_list[3], "");
+        simple_log::info!("Read underscore url from file");
+
+        assert_eq!(url_list[4], "https://github.com/Automattic/mongoose");
+        assert_ne!(url_list[4], "https://github.com/Automattic/mongoose\r");
+        assert_ne!(url_list[4], "");
+        simple_log::info!("Read mongoose url from file");
+
+        assert_eq!(url_list[5], "https://www.npmjs.com/package/express");
+        assert_ne!(url_list[5], "https://www.npmjs.com/package/express\r");
+        assert_ne!(url_list[5], "");
+        simple_log::info!("Read express url from file");
+
+        assert_eq!(url_list[6], "https://www.npmjs.com/package/async");
+        assert_ne!(url_list[6], "https://www.npmjs.com/package/async\r");
+        assert_ne!(url_list[6], "");
+        simple_log::info!("Read async url from file");
+
+        assert_eq!(url_list[7], "https://www.npmjs.com/package/lodash");
+        assert_ne!(url_list[7], "https://www.npmjs.com/package/lodash\r");
+        assert_ne!(url_list[7], "");
+        simple_log::info!("Read lodash url from file");
+
+        assert_eq!(url_list[8], "https://www.npmjs.com/package/axios");
+        assert_ne!(url_list[8], "https://www.npmjs.com/package/axios\r");
+        assert_ne!(url_list[8], "");
+        simple_log::info!("Read axios url from file");
+
+        assert_eq!(url_list[9], "https://www.npmjs.com/package/mocha");
+        assert_ne!(url_list[9], "https://www.npmjs.com/package/mocha\r");
+        assert_ne!(url_list[9], "");
+        simple_log::info!("Read mocha url from file");
+
+        simple_log::info!("test URL 5 success");
     }
 
     #[test]
@@ -292,6 +475,8 @@ mod tests {
         let url_list: Vec<String> = get_urls(&path);
         assert_eq!(url_list.len(), 1);
         assert_eq!(url_list[0], "");
+        simple_log::info!("Read empty file");
+        simple_log::info!("test empty file success");
     }
 
     #[test]
@@ -299,30 +484,44 @@ mod tests {
         let npm_url = "https://www.npmjs.com/package/axios";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/axios/axios");
+        assert_ne!(github_url, "");
+        simple_log::info!("successfully retrieved axios github url");
 
         let npm_url = "https://www.npmjs.com/package/lodash";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/lodash/lodash");
+        assert_ne!(github_url, "");
+        simple_log::info!("successfully retrieved lodash github url");
 
         let npm_url = "https://www.npmjs.com/package/react";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/facebook/react");
+        assert_ne!(github_url, "");
+        simple_log::info!("successfully retrieved react github url");
 
         let npm_url = "https://www.npmjs.com/package/svelte";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/sveltejs/svelte");
+        assert_ne!(github_url, "");
+        simple_log::info!("successfully retrieved svelte github url");
 
         let npm_url = "https://www.npmjs.com/package/next";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/vercel/next.js");
+        assert_ne!(github_url, "");
+        simple_log::info!("successfully retrieved nextjs github url");
 
         let npm_url = "https://www.npmjs.com/package/express";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/expressjs/express");
+        assert_ne!(github_url, "");
+        simple_log::info!("successfully retrieved expressjs github url");
 
         let npm_url = "https://www.npmjs.com/package/vue";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/vuejs/core");
+        assert_ne!(github_url, "");
+        simple_log::info!("successfully retrieved vuejs github url");
     }
 
         
