@@ -68,7 +68,7 @@ def generate_token():
             isAdmin = request.json["User"]["isAdmin"]
             password = request.json["Secret"]["password"]
 
-            cnx.reconnect()
+            # cnx.reconnect()
             cur = cnx.cursor(buffered = True)
             result = select_user(username, isAdmin, password, cur)
             cnx.commit()
