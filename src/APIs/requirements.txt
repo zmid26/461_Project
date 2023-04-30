@@ -11,7 +11,7 @@ flask==2.2.3
     # via -r requirements.in
 Flask-Cors==3.0.10
 gunicorn==20.1.0
-google-cloud==0.34.0
+google==3.0.0
 SQLAlchemy==2.0.11
 PyMySQL==1.0.3
 itsdangerous==2.1.2
