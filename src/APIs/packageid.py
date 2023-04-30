@@ -147,7 +147,10 @@ def get_package(id):
   cnx = db_connect()
 
   # Get package from the database
-  package = get_package(id, cnx)
+  #package = get_package(id, cnx)
+  search_stmt = sqlalchemy.text("SELECT * FROM Package WHERE ID=:id")
+  package = cnx.execute(search_stmt, parameters={"id": id}).fetchone()
+  cnx.commit()
 
   if package is None:
     return make_response('', 404)
