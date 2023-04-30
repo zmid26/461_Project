@@ -76,18 +76,6 @@ def generate_token():
             result = cnx.execute(search_stmt, parameters={"name": username, "isAdmin": isAdmin, "password": password}).fetchone()
             cnx.commit()
 
-
-            '''
-            cur = cnx.cursor(buffered = True)
-            result = select_user(username, isAdmin, password, cur)
-            query = ("SELECT * FROM User WHERE name = %s AND isAdmin = %s AND password = %s")
-            cur.execute(query, (username, isAdmin, password))
-            result = cur.fetchone()
-            cnx.commit()
-            cur.close()
-            cnx.close()
-            '''
-
             if not result:
                 return make_response('', 401)
            
