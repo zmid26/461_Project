@@ -120,3 +120,81 @@ fn clone_repos(filepath: String) {
         std::process::exit(1);
     }
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_calculate_ramp_up() {
+        //test calculate_ramp_up
+        let result = calculate_ramp_up(10, 5);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.0);
+
+        let result = calculate_ramp_up(5, 10);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.0);
+
+        let result = calculate_ramp_up(50, 10);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.4);
+
+        let result = calculate_ramp_up(10000000, 1234567);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.25);
+
+        let result = calculate_ramp_up(1, 0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.0);
+
+        let result = calculate_ramp_up(100,0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.0);
+    }
+
+    #[test]
+    fn test_calculate_ramp_up2() {
+        let result = calculate_ramp_up(100, 50);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.0);
+
+        let result = calculate_ramp_up(50, 100);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_ne!(round_res, 4.0);
+
+        let result = calculate_ramp_up(4000,0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_ne!(round_res, 1.0);
+
+        let result = calculate_ramp_up(4294967295, 0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.0);
+
+        let result = calculate_ramp_up(4294967295, 2147483647);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.0);
+
+        let result = calculate_ramp_up(332323203, 12948343);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.08);
+
+        let result = calculate_ramp_up(1212121,121212);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.20);
+
+        let result = calculate_ramp_up(999999999,111111111);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.22);
+
+        let result = calculate_ramp_up(1500000000,500000000);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.67);
+
+        let result = calculate_ramp_up(1000,345);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.69);
+
+    }
+}

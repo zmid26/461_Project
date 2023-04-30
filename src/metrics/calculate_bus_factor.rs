@@ -227,20 +227,103 @@ mod tests {
         let result = normalize_score(1000000.0, 1000000.0);
         let round_res = (result * 100.0).round() / 100.0;
         assert_eq!(round_res, 0.0);
+
+        let result = normalize_score(100000000.0,10000.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.0);
+
+        let result = normalize_score(2.0,1.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.87);
+
+        let result = normalize_score(1.234,5.678);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.46);
+
+        let result = normalize_score(1.234,0.0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.07);
+
     }
 
-   //  #[test]
-   /*  fn test_get_urls_1() {
-        let path = "./npm_urls_1.txt";
+    #[test]
+    fn test_get_urls_1() {
+        let path = "./test/npm_urls_1.txt";
         let url_list: Vec<String> = get_urls(&path);
+
         assert_eq!(url_list.len(), 5);
-        assert_eq!(url_list[0], "https://www.npmjs.com/package/express");
-        assert_eq!(url_list[1], "https://www.npmjs.com/package/vue");
-        assert_eq!(url_list[2], "https://www.npmjs.com/package/react");
-        assert_eq!(url_list[3], "https://www.npmjs.com/package/svelte");
+        assert_eq!(url_list[0], "https://www.npmjs.com/package/express\r");
+        assert_eq!(url_list[1], "https://www.npmjs.com/package/vue\r");
+        assert_eq!(url_list[2], "https://www.npmjs.com/package/react\r");
+        assert_eq!(url_list[3], "https://www.npmjs.com/package/svelte\r");
         assert_eq!(url_list[4], "https://www.npmjs.com/package/next");
         
-        assert_eq!(path, "./npm_urls_1.txt");
-    }*/
+    }
+
+    #[test]
+    fn test_get_urls_2() {
+        let path = "./test/npm_urls_2.txt";
+        let url_list: Vec<String> = get_urls(&path);
+
+        assert_eq!(url_list.len(), 5);
+        assert_eq!(url_list[0], "https://www.npmjs.com/package/axios\r");
+        assert_eq!(url_list[1], "https://www.npmjs.com/package/webpack\r");
+        assert_eq!(url_list[2], "https://www.npmjs.com/package/lodash\r");
+        assert_eq!(url_list[3], "https://www.npmjs.com/package/fastify\r");
+        assert_eq!(url_list[4], "https://www.npmjs.com/package/async");
+    }
+
+    #[test]
+    fn test_get_urls_3() {
+        let path = "./test/npm_urls_3.txt";
+        let url_list: Vec<String> = get_urls(&path);
+
+        assert_eq!(url_list.len(), 5);
+        assert_eq!(url_list[0], "https://www.npmjs.com/package/aws-sdk\r");
+        assert_eq!(url_list[1], "https://www.npmjs.com/package/bcrypt\r");
+        assert_eq!(url_list[2], "https://www.npmjs.com/package/cors\r");
+        assert_eq!(url_list[3], "https://www.npmjs.com/package/deep-equal\r");
+        assert_eq!(url_list[4], "https://www.npmjs.com/package/eslint");
+    }
+
+    #[test]
+    fn test_empty_file() {
+        let path = "./test/empty_file.txt";
+        let url_list: Vec<String> = get_urls(&path);
+        assert_eq!(url_list.len(), 1);
+        assert_eq!(url_list[0], "");
+    }
+
+    #[test]
+    fn test_get_github_url_for_npm() {
+        let npm_url = "https://www.npmjs.com/package/axios";
+        let github_url = get_github_url_for_npm(npm_url).unwrap();
+        assert_eq!(github_url, "https://github.com/axios/axios");
+
+        let npm_url = "https://www.npmjs.com/package/lodash";
+        let github_url = get_github_url_for_npm(npm_url).unwrap();
+        assert_eq!(github_url, "https://github.com/lodash/lodash");
+
+        let npm_url = "https://www.npmjs.com/package/react";
+        let github_url = get_github_url_for_npm(npm_url).unwrap();
+        assert_eq!(github_url, "https://github.com/facebook/react");
+
+        let npm_url = "https://www.npmjs.com/package/svelte";
+        let github_url = get_github_url_for_npm(npm_url).unwrap();
+        assert_eq!(github_url, "https://github.com/sveltejs/svelte");
+
+        let npm_url = "https://www.npmjs.com/package/next";
+        let github_url = get_github_url_for_npm(npm_url).unwrap();
+        assert_eq!(github_url, "https://github.com/vercel/next.js");
+
+        let npm_url = "https://www.npmjs.com/package/express";
+        let github_url = get_github_url_for_npm(npm_url).unwrap();
+        assert_eq!(github_url, "https://github.com/expressjs/express");
+
+        let npm_url = "https://www.npmjs.com/package/vue";
+        let github_url = get_github_url_for_npm(npm_url).unwrap();
+        assert_eq!(github_url, "https://github.com/vuejs/core");
+    }
+
         
 }
