@@ -71,6 +71,7 @@ def generate_token():
 
             # cnx.reconnect()
             #search_stmt = sqlalchemy.text("SELECT * FROM User WHERE name = %s AND isAdmin = %s AND password = %s")
+            
             search_stmt = sqlalchemy.text("SELECT * FROM User WHERE (name, isAdmin, password) VALUES (:name, :isAdmin, :password)")
             with pool.connect() as db_conn:
               result = db_conn.execute(search_stmt, parameters={"name": name, "isAdmin": isAdmin, "password": passsword}).fetchone()
