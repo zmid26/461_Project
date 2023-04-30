@@ -1,5 +1,5 @@
 from flask import Flask
-from APIs import ratepackage, packagebyname, auth, packageid
+from src.APIs import ratepackage, packagebyname, auth, packageid
 from flask_cors import CORS
 
 app = Flask(__name__)
