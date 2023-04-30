@@ -73,7 +73,7 @@ def generate_token():
             #search_stmt = sqlalchemy.text("SELECT * FROM User WHERE name = %s AND isAdmin = %s AND password = %s")
             
             search_stmt = sqlalchemy.text("SELECT * FROM User WHERE (name, isAdmin, password) VALUES (:name, :isAdmin, :password)")
-            result = cnx.execute(search_stmt, parameters={"name": name, "isAdmin": isAdmin, "password": passsword}).fetchone()
+            result = cnx.execute(search_stmt, parameters={"name": username, "isAdmin": isAdmin, "password": password}).fetchone()
             cnx.commit()
 
             '''
