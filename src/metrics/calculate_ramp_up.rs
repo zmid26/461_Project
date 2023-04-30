@@ -152,6 +152,28 @@ mod tests {
         let result = calculate_ramp_up(100,0);
         let round_res = (result * 100.0).round() / 100.0;
         assert_eq!(round_res, 0.0);
+
+        let result = calculate_ramp_up(5,2);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.8);
+
+        let result = calculate_ramp_up(50,4);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.16);
+
+        let result = calculate_ramp_up(50,5);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.2);
+
+        let result = calculate_ramp_up(200, 56);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.56);
+
+        let result = calculate_ramp_up(150, 70);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.93);
+
+        simple_log::info!("Calculate Rampup score 1 test passed");
     }
 
     #[test]
@@ -196,5 +218,6 @@ mod tests {
         let round_res = (result * 100.0).round() / 100.0;
         assert_eq!(round_res, 0.69);
 
+        simple_log::info!("Calculate Rampup score 2 test passed");
     }
 }
