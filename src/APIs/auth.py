@@ -7,6 +7,7 @@ from flask.blueprints import Blueprint
 from .database import db_connect
 from functools import wraps
 import functools
+import sqlalchemy
 
 bp = Blueprint('auth', __name__)
 
@@ -70,9 +71,8 @@ def generate_token():
 
             # cnx.reconnect()
             search_stmt = sqlalchemy.text("SELECT * FROM User WHERE name = %s AND isAdmin = %s AND password = %s")
-            with pool.connect() as db_conn:
-              result = db_conn.execute(search_stmt, (username, isAdmin, password)).fetchone()
-              db_conn.commit()
+            result = cnx.execute(search_stmt, (username, isAdmin, password)).fetchone()
+            cnx.commit()
 
             '''
             cur = cnx.cursor(buffered = True)
