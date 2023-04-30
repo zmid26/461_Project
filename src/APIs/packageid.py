@@ -167,7 +167,7 @@ def get_package(id):
 # Function to interact with database
 def get_package(id, cnx):
 
-    search_stmt = sqlalchemy.text("SELECT * FROM User WHERE ID=:id")
+    search_stmt = sqlalchemy.text("SELECT * FROM Package WHERE ID=:id")
     package = cnx.execute(search_stmt, parameters={"id": id}).fetchone()
     cnx.commit()
 
