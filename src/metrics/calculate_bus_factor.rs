@@ -253,10 +253,20 @@ mod tests {
 
         assert_eq!(url_list.len(), 5);
         assert_eq!(url_list[0], "https://www.npmjs.com/package/express\r");
+        assert_ne!(url_list[0], "");
+        assert_ne!(url_list[0], "https://www.npmjs.com/package/vue\r");
         assert_eq!(url_list[1], "https://www.npmjs.com/package/vue\r");
+        assert_ne!(url_list[1], "");
+        assert_ne!(url_list[1], "https://www.npmjs.com/package/react\r");
         assert_eq!(url_list[2], "https://www.npmjs.com/package/react\r");
+        assert_ne!(url_list[2], "");
+        assert_ne!(url_list[2], "https://www.npmjs.com/package/svelte\r");
         assert_eq!(url_list[3], "https://www.npmjs.com/package/svelte\r");
+        assert_ne!(url_list[3], "");
+        assert_ne!(url_list[3], "https://www.npmjs.com/package/next");
         assert_eq!(url_list[4], "https://www.npmjs.com/package/next");
+        assert_ne!(url_list[4], "https://www.npmjs.com/package/next\r");
+        assert_ne!(url_list[4], "");
         
     }
 
@@ -267,10 +277,20 @@ mod tests {
 
         assert_eq!(url_list.len(), 5);
         assert_eq!(url_list[0], "https://www.npmjs.com/package/axios\r");
+        assert_ne!(url_list[0], "");
+        assert_ne!(url_list[0], "https://www.npmjs.com/package/axios");
         assert_eq!(url_list[1], "https://www.npmjs.com/package/webpack\r");
+        assert_ne!(url_list[1], "https://www.npmjs.com/package/webpack");
+        assert_ne!(url_list[1], "");
         assert_eq!(url_list[2], "https://www.npmjs.com/package/lodash\r");
+        assert_ne!(url_list[2], "https://www.npmjs.com/package/lodash");
+        assert_ne!(url_list[2], "");
         assert_eq!(url_list[3], "https://www.npmjs.com/package/fastify\r");
+        assert_ne!(url_list[3], "https://www.npmjs.com/package/fastify");
+        assert_ne!(url_list[3], "");
         assert_eq!(url_list[4], "https://www.npmjs.com/package/async");
+        assert_ne!(url_list[4], "https://www.npmjs.com/package/async\r");
+        assert_ne!(url_list[4], "");
     }
 
     #[test]
@@ -280,10 +300,20 @@ mod tests {
 
         assert_eq!(url_list.len(), 5);
         assert_eq!(url_list[0], "https://www.npmjs.com/package/aws-sdk\r");
+        assert_ne!(url_list[0], "https://www.npmjs.com/package/aws-sdk");
+        assert_ne!(url_list[0], "");
         assert_eq!(url_list[1], "https://www.npmjs.com/package/bcrypt\r");
+        assert_ne!(url_list[1], "https://www.npmjs.com/package/bcrypt");
+        assert_ne!(url_list[1], "");
         assert_eq!(url_list[2], "https://www.npmjs.com/package/cors\r");
+        assert_ne!(url_list[2], "https://www.npmjs.com/package/cors");
+        assert_ne!(url_list[2], "");
         assert_eq!(url_list[3], "https://www.npmjs.com/package/deep-equal\r");
+        assert_ne!(url_list[3], "https://www.npmjs.com/package/deep-equal");
+        assert_ne!(url_list[3], "");
         assert_eq!(url_list[4], "https://www.npmjs.com/package/eslint");
+        assert_ne!(url_list[4], "https://www.npmjs.com/package/eslint\r");
+        assert_ne!(url_list[4], "");
     }
 
     #[test]
@@ -293,15 +323,35 @@ mod tests {
         let url_list: Vec<String> = get_urls(&path);
         assert_eq!(url_list.len(), 10);
         assert_eq!(url_list[0], "https://github.com/phonegap/phonegap-app-anyconference");
+        assert_ne!(url_list[0], "https://github.com/phonegap/phonegap-app-anyconference\r");
+        assert_ne!(url_list[0], "");
         assert_eq!(url_list[1], "https://github.com/ReversedK/LocateAnything");
+        assert_ne!(url_list[1], "https://github.com/ReversedK/LocateAnything\r");
+        assert_ne!(url_list[1], "");
         assert_eq!(url_list[2], "https://github.com/l3lackcurtains/graphql-boilerplate");
+        assert_ne!(url_list[2], "https://github.com/l3lackcurtains/graphql-boilerplate\r");
+        assert_ne!(url_list[2], "");
         assert_eq!(url_list[3], "https://github.com/vbaicu/mMusicCast");
+        assert_ne!(url_list[3], "https://github.com/vbaicu/mMusicCast\r");
+        assert_ne!(url_list[3], "");
         assert_eq!(url_list[4], "https://github.com/anychart-solutions/anystock-drawing-tools-and-annotations-demo");
+        assert_ne!(url_list[4], "https://github.com/anychart-solutions/anystock-drawing-tools-and-annotations-demo\r");
+        assert_ne!(url_list[4], "");
         assert_eq!(url_list[5], "https://www.npmjs.com/package/url-inspector");
+        assert_ne!(url_list[5], "https://www.npmjs.com/package/url-inspector\r");
+        assert_ne!(url_list[5], "");
         assert_eq!(url_list[6], "https://www.npmjs.com/package/sharebutton");
+        assert_ne!(url_list[6], "https://www.npmjs.com/package/sharebutton\r");
+        assert_ne!(url_list[6], "");
         assert_eq!(url_list[7], "https://www.npmjs.com/package/anycontrol");
+        assert_ne!(url_list[7], "https://www.npmjs.com/package/anycontrol\r");
+        assert_ne!(url_list[7], "");
         assert_eq!(url_list[8], "https://www.npmjs.com/package/pan-zoom");
+        assert_ne!(url_list[8], "https://www.npmjs.com/package/pan-zoom\r");
+        assert_ne!(url_list[8], "");
         assert_eq!(url_list[9], "https://www.npmjs.com/package/opentok-screen-sharing");
+        assert_ne!(url_list[9], "https://www.npmjs.com/package/opentok-screen-sharing\r");
+        assert_ne!(url_list[9], "");
     }
 
     #[test]
@@ -311,15 +361,35 @@ mod tests {
 
         assert_eq!(url_list.len(), 10);
         assert_eq!(url_list[0], "https://github.com/ramda/ramda");
+        assert_ne!(url_list[0], "https://github.com/ramda/ramda\r");
+        assert_ne!(url_list[0], "");
         assert_eq!(url_list[1], "https://github.com/debug-js/debug");
+        assert_ne!(url_list[1], "https://github.com/debug-js/debug\r");
+        assert_ne!(url_list[1], "");
         assert_eq!(url_list[2], "https://github.com/josephg/ShareJS");
+        assert_ne!(url_list[2], "https://github.com/josephg/ShareJS\r");
+        assert_ne!(url_list[2], "");
         assert_eq!(url_list[3], "https://github.com/jashkenas/underscore");
+        assert_ne!(url_list[3], "https://github.com/jashkenas/underscore\r");
+        assert_ne!(url_list[3], "");
         assert_eq!(url_list[4], "https://github.com/Automattic/mongoose");
+        assert_ne!(url_list[4], "https://github.com/Automattic/mongoose\r");
+        assert_ne!(url_list[4], "");
         assert_eq!(url_list[5], "https://www.npmjs.com/package/express");
+        assert_ne!(url_list[5], "https://www.npmjs.com/package/express\r");
+        assert_ne!(url_list[5], "");
         assert_eq!(url_list[6], "https://www.npmjs.com/package/async");
+        assert_ne!(url_list[6], "https://www.npmjs.com/package/async\r");
+        assert_ne!(url_list[6], "");
         assert_eq!(url_list[7], "https://www.npmjs.com/package/lodash");
+        assert_ne!(url_list[7], "https://www.npmjs.com/package/lodash\r");
+        assert_ne!(url_list[7], "");
         assert_eq!(url_list[8], "https://www.npmjs.com/package/axios");
+        assert_ne!(url_list[8], "https://www.npmjs.com/package/axios\r");
+        assert_ne!(url_list[8], "");
         assert_eq!(url_list[9], "https://www.npmjs.com/package/mocha");
+        assert_ne!(url_list[9], "https://www.npmjs.com/package/mocha\r");
+        assert_ne!(url_list[9], "");
     }
 
     #[test]
