@@ -50,28 +50,24 @@ def get_package_by_name(Name):
 # Functions used to interact with the database
 def get_version(cursor, package_entry_history, i):
     query = text("SELECT Version FROM Package WHERE ID =:entry")
-    line = {"entry":package_entry_history[-1][i][0]}
-    cursor.execute(query, **line)
+    cursor.execute(query, {"entry":package_entry_history[-1][i][0]})
     version = cursor.fetchone()
     return version
 
 def get_user_data(cursor, package_entry_history, i):
     query = text("SELECT name, isAdmin FROM User WHERE name =:entry")
-    line = {"entry":package_entry_history[-1][i][1]}
-    cursor.execute(query, **line)
+    cursor.execute(query, parameters = {"entry":package_entry_history[-1][i][1]})
     userdata = cursor.fetchall()
     return userdata
 
 def get_package_entry(cursor, id):
     query = text("SELECT * FROM PackageEntryHistory WHERE ID =:id")
-    line = {"id":id}
-    cursor.execute(query, **line)
+    cursor.execute(query, parameters={"id":id})
     return cursor.fetchall()
 
 def get_ids(name, cursor):
     query = text("SELECT ID FROM Package WHERE name =:Name")
-    line = {"Name":name}
-    cursor.execute(query, **line)
+    cursor.execute(query, parameters={"Name":name})
     ids = cursor.fetchall()
     return ids
 
@@ -107,17 +103,17 @@ def delete_package_by_name(Name):
 
 # Functions used to interact with the database
 def delete_from_Package(Name, cursor):
-    query = text("DELETE FROM Package WHERE Name = %s")
-    line = (Name,)
-    cursor.execute(query, *line)
+    query = text("DELETE FROM Package WHERE Name =:Name")
+    line = {"Name":Name}
+    cursor.execute(query, **line)
 
 def delete_from_PackageEntryHistory(cursor, id):
-    query = text("DELETE FROM PackageEntryHistory WHERE ID = %s")
-    line = (id,)
-    cursor.execute(query, *line)
+    query = text("DELETE FROM PackageEntryHistory WHERE ID =:id")
+    line = {"id":id}
+    cursor.execute(query, **line)
 
 def delete_from_PackageRating(cursor, id):
     print("Deleting id = {} from PackageRating".format(id))
-    query = text("DELETE FROM PackageRating WHERE ID = %s")
-    line = (id,)
-    cursor.execute(query, *line)
+    query = text("DELETE FROM PackageRating WHERE ID =:idZ")
+    line = {"id":id}
+    cursor.execute(query, **line)
