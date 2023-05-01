@@ -97,9 +97,7 @@ def get_package_rating(id, cursor):
     return package_rating
 
 def run_cli(package_url, clipath):
-    rating = subprocess.check_output(
-        "{} {}".format(clipath, package_url), shell=True)
-    
+    rating = subprocess.check_output("{} {}".format(clipath, package_url), shell=True)
     return rating
 
 def get_package_url(id, cursor):
