@@ -128,6 +128,7 @@ mod tests {
 
     #[test]
     fn test_calculate_ramp_up() {
+        simple_log::info!("Running test_calculate_ramp_up");
         //test calculate_ramp_up
         let result = calculate_ramp_up(10, 5);
         let round_res = (result * 100.0).round() / 100.0;
@@ -173,11 +174,33 @@ mod tests {
         let round_res = (result * 100.0).round() / 100.0;
         assert_eq!(round_res, 0.93);
 
+        let result = calculate_ramp_up(150, 100);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.0);
+
+        let result = calculate_ramp_up(150, 150);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.0);
+
+        let result = calculate_ramp_up(150, 200);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.0);
+
+        let result = calculate_ramp_up(150, 0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.0);
+
+        let result = calculate_ramp_up(1, 0);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.0);
+
+
         simple_log::info!("Calculate Rampup score 1 test passed");
     }
 
     #[test]
     fn test_calculate_ramp_up2() {
+        simple_log::info!("Running test_calculate_ramp_up2");
         let result = calculate_ramp_up(100, 50);
         let round_res = (result * 100.0).round() / 100.0;
         assert_eq!(round_res, 1.0);
@@ -217,6 +240,30 @@ mod tests {
         let result = calculate_ramp_up(1000,345);
         let round_res = (result * 100.0).round() / 100.0;
         assert_eq!(round_res, 0.69);
+
+        let result = calculate_ramp_up(3000,1053);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.70);
+
+        let result = calculate_ramp_up(256, 200);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.00);
+        
+        let result = calculate_ramp_up(256, 126);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.98);
+
+        let result = calculate_ramp_up(256, 128);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 1.0);
+
+        let result = calculate_ramp_up(16,2);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.25);
+
+        let result = calculate_ramp_up(16,4);
+        let round_res = (result * 100.0).round() / 100.0;
+        assert_eq!(round_res, 0.5);
 
         simple_log::info!("Calculate Rampup score 2 test passed");
     }
