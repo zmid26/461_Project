@@ -115,7 +115,7 @@ def package():
             "JSProgram": jsprog
             }
             response = {"metadata": metadata, "data": data}
-            return jsonify(response)
+            return jsonify(response), 201 
             
         except jsonschema.exceptions.ValidationError as err:
             print("schema error")
