@@ -177,6 +177,7 @@ mod tests {
 
     #[test]
     fn test_normalize_score() {
+        simple_log::info!("Calculate normalized score test 1");
         let result = normalize_score(1.0, 1.0);
         let round_res = (result * 100.0).round() / 100.0;
         assert_eq!(round_res, 0.89);
@@ -214,6 +215,7 @@ mod tests {
 
     #[test]
     fn test_normalize_score2() {
+        simple_log::info!("Calculate normalized score test 2");
         let result = normalize_score(5.0, 5.0);
         let round_res = (result * 100.0).round() / 100.0;
         assert_eq!(round_res, 0.41);
@@ -251,6 +253,7 @@ mod tests {
 
     #[test]
     fn test_get_urls_1() {
+        simple_log::info!("test URL 1");
         let path = "./test/npm_urls_1.txt";
         let url_list: Vec<String> = get_urls(&path);
 
@@ -285,6 +288,7 @@ mod tests {
 
     #[test]
     fn test_get_urls_2() {
+        simple_log::info!("test URL 2");
         let path = "./test/npm_urls_2.txt";
         let url_list: Vec<String> = get_urls(&path);
 
@@ -319,6 +323,7 @@ mod tests {
 
     #[test]
     fn test_get_urls_3() {
+        simple_log::info!("test URL 3");
         let path = "./test/npm_urls_3.txt";
         let url_list: Vec<String> = get_urls(&path);
 
@@ -353,6 +358,7 @@ mod tests {
 
     #[test]
     fn test_get_urls_4() {
+        simple_log::info!("test URL 4");
         let path = "./test/bad_urls.txt";
 
         let url_list: Vec<String> = get_urls(&path);
@@ -412,6 +418,7 @@ mod tests {
 
     #[test]
     fn test_get_urls_5() {
+        simple_log::info!("test URL 5");
         let path = "./test/good_urls.txt";
         let url_list: Vec<String> = get_urls(&path);
 
@@ -471,6 +478,7 @@ mod tests {
 
     #[test]
     fn test_empty_file() {
+        simple_log::info!("test empty file");
         let path = "./test/empty_file.txt";
         let url_list: Vec<String> = get_urls(&path);
         assert_eq!(url_list.len(), 1);
@@ -481,6 +489,7 @@ mod tests {
 
     #[test]
     fn test_get_github_url_for_npm() {
+        simple_log::info!("test get github url for npm");
         let npm_url = "https://www.npmjs.com/package/axios";
         let github_url = get_github_url_for_npm(npm_url).unwrap();
         assert_eq!(github_url, "https://github.com/axios/axios");
