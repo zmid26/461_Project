@@ -110,8 +110,8 @@ def package():
             cnx.close()
             '''
 
-            insert_stmt = sqlalchemy.text("INSERT INTO Package (ID, Name, Version, Content, JSProgram) VALUES (:idvalue, :name, :version, :content, :jsprog)")
-            cnx.execute(insert_stmt, parameters={"idvalue": idvalue, "name": name, "version": version, "content": content, "jsprog": jsprog})
+            insert_stmt = sqlalchemy.text("INSERT INTO Package (ID, Name, Version, Content, JSProgram, URL) VALUES (:idvalue, :name, :version, :content, :jsprog, :url)")
+            cnx.execute(insert_stmt, parameters={"idvalue": idvalue, "name": name, "version": version, "content": content, "jsprog": jsprog, "url": url})
             cnx.commit()
 
 
