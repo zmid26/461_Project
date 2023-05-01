@@ -58,30 +58,20 @@ def package():
             
             # BELOW
               zip_file_bytes = base64.b64decode(content)
-
               zip_file_io = io.BytesIO(zip_file_bytes)
 
               with zipfile.ZipFile(zip_file_io, 'r') as zip_file:
-              # List all files in the ZIP archive
                 fileList = zip_file.namelist()
                 for index, file_path in enumerate(fileList):
                   if 'package.json' in file_path:
-                    zip_file.extract(fileList[index], path='src')
-                    os.rename('src/' + fileList[index], 'src/APIs/cur_package.json')
+                    package_json_bytes = zip_file.read(fileList[index])
+                    package_json_str = package_json_bytes.decode('utf-8')
+                    data = json.loads(package_json_str)
+                    name = data['name']
+                    version = data['version']
+                    url = data['repository']['url']
                   else:
                     zero = 0
-                  
-
-              with open('src/APIs/cur_package.json') as file:
-                data = json.load(file)
-
-              name = data['name']
-              version = data['version']
-          
-              url = data['repository']['url']
-            
-              os.remove("src/APIs/cur_package.json")
-              os.rmdir("src/" + name)
             #ABOVE
 
             if "URL" in request.json:
