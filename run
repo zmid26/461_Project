@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-old_pwd="$PWD"
-cd $(dirname $0)
+# old_pwd="$PWD"
+# cd $(dirname $0)
 rm -r -f output
 mkdir -p output
 
@@ -14,15 +14,15 @@ elif [ $1 == 'clean' ]; then
 elif [ $1 == 'tempclean' ]; then 
     rm testfile.txt && cd output && rm *.txt && cd ../log && rm *.txt;
 elif [ $1 == 'test' ]; then
-    export $(cat .env | xargs)
+    export $(grep -v '^#' .env | xargs)
     python3 -m pytest #-s
     cargo test
 elif [ $1 == 'server' ]; then
-    export $(cat .env | xargs)
+    export $(grep -v '^#' .env | xargs)
     python3 -m src.APIs.__init__
 else
-    export $(cat .env | xargs)
+    export $(grep -v '^#' .env | xargs)
     cargo run "$@"
 fi
 
-cd $old_pwd
+# cd $old_pwd
