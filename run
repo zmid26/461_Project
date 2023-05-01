@@ -21,7 +21,8 @@ elif [ $1 == 'server' ]; then
     export $(grep -v '^#' .env | xargs)
     python3 -m src.APIs.__init__
 else
-    cargo run "$@"
+    # cargo run "$@"
+    ./rater "@"
 fi
 
 # cd $old_pwd
