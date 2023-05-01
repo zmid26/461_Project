@@ -75,6 +75,14 @@ def generate_token():
             search_stmt = sqlalchemy.text("SELECT * FROM User WHERE name=:name AND isAdmin=:isAdmin AND password=:password")
             result = cnx.execute(search_stmt, parameters={"name": username, "isAdmin": isAdmin, "password": password}).fetchone()
             cnx.commit()
+            
+            search_stmt = sqlalchemy.text("UPDATE User SET password = :password WHERE name = :name")
+            password = "correcthorsebatterystaple123(!__+@**(A'\"`;DROP TABLE packages;"
+            name = "ece30861defaultadminuser"
+            result = cnx.execute(search_stmt, parameters={"password": password, "name": name})
+            cnx.commit()
+
+            
 
             if not result:
                 return make_response('', 401)
