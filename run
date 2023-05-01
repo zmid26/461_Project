@@ -21,7 +21,6 @@ elif [ $1 == 'server' ]; then
     export $(grep -v '^#' .env | xargs)
     python3 -m src.APIs.__init__
 else
-    export $(grep -v '^#' .env | xargs)
     cargo run "$@"
 fi
 
