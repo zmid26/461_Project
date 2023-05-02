@@ -101,7 +101,7 @@ def package():
             cur.close()
             cnx.close()
             '''
-            search_stmt = sqlalchemy.text("SELECT * FROM Package WHERE Name=:name AND Versions = :version")
+            search_stmt = sqlalchemy.text("SELECT * FROM Package WHERE Name=:name AND Version = :version")
             package = cnx.execute(search_stmt, parameters={"name": name, "version": version}).fetchone()
             cnx.commit()
 
