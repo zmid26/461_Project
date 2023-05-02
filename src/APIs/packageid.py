@@ -10,7 +10,7 @@ from flask.blueprints import Blueprint
 from .database import db_connect
 from .auth import *
 import requests
-import logging
+#import re
 
 
 bp = Blueprint('packageid', __name__)
@@ -54,7 +54,7 @@ def package():
         try:
             validate(request.json, input_schema)
             
-            if "Content" in request.json and not "null":
+            if "Content" in request.json and request.json["Content"] is not "null":
             #if "Content" in request.json:
               content = request.json["Content"]
               jsprog = request.json["JSProgram"]
@@ -78,7 +78,7 @@ def package():
                     zero = 0
             #ABOVE
 
-            if "URL" in request.json and not "null":
+            if "URL" in request.json and request.json["URL"] is not "null":
               jsprog = request.json["JSProgram"]
               url = request.json["URL"]
               owner, repo = url.split('/')[-2:]
@@ -370,11 +370,18 @@ def regex_package():
       validate(request.json, input_schema4)
       #get input data 
       string_to_search = request.json["RegEx"]
-      
+      search_stmt = sqlalchemy.text("SELECT * FROM Package WHERE name REGEXP :name")
+      results = cnx.execute(search_stmt, parameters={":name": string_to_search}).fetchall()
+      cnx.commit()
 
-      return make_response('', 200)
+      packages = []
+      for row in results:
+        package = {'Version': row[0], 'Name': row[1]}
+        packages.append(package)
+
+      return make_response(packages, 200)
     except jsonschema.exceptions.ValidationError as err:
       return make_response('', 400)
   else:
-        return make_response('', 424)
+        return make_response('', 404)
 '''
