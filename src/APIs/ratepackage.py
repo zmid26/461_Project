@@ -37,16 +37,19 @@ def rate_package(id):
 
     # Set the relative path to the CLI from the directory the server was started from **update this**
     # Currently assumes the server is started from the project_461 directory
-    clipath = "./rater"
+    clipath = "./run"
 
-    # ./run "package_url" from and return the results
-    rating = run_cli(package_url, clipath)
-
-    # If the rating returns an error, return a 500
-    result = rating.decode("utf-8")
-    if len(result) < 174:
+    try:
+        # ./run "package_url" from and return the results
+        rating = run_cli(package_url, clipath)
+        result = rating.decode("utf-8")
+    except:
+        # If the rating returns an error, return a 500
         return "Error: Could not get rating for package {} with error = {}".format(id,result), 500
-    rating = json.loads(rating)
+    else:
+        if len(result) < 174:
+            return "Error: Could not get rating for package {} with error = {}".format(id,result), 500
+        rating = json.loads(rating)
 
     # Insert the results into the database
     # See if ID is already in PackageRating
