@@ -44,12 +44,12 @@ def rate_package(id):
         # ./run "package_url" from and return the results
         rating = run_cli(package_url, clipath)
         result = rating.decode("utf-8")
-    except Exception as e:
+    except subprocess.CalledProcessError as e:
         # If the rating returns an error, return a 500
-        return "Error: Could not get rating for package {} with error = {} and result {}".format(id,e, result), 500
+        return "Error: rating failed for package {} with error [{}]".format(id, e.output.decode()), 500
     else:
         if len(result) < 174:
-            return "Error: Could not get rating for package {} with error = {}".format(id,result), 500
+            return "Error: Could not get rating for package {} with result {}".format(id, result), 500
         rating = json.loads(rating)
 
     # Insert the results into the database
@@ -102,7 +102,7 @@ def get_package_rating(id, cursor):
     return package_rating
 
 def run_cli(package_url, clipath):
-    rating = subprocess.check_output("{} {}".format(clipath, package_url), env=os.environ, shell=True)
+    rating = subprocess.check_output([clipath, package_url], env=os.environ)
     return rating
 
 def get_package_url(id, cursor):
