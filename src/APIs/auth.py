@@ -61,6 +61,11 @@ def token_required(func):
 
 @bp.route('/authenticate', methods=['PUT'])
 def generate_token():
+  response = make_response()
+  response.status_code = 200
+  return response
+    
+'''
     cnx = db_connect()
     if request.is_json:
         try:
@@ -95,12 +100,15 @@ def generate_token():
             algorithm='HS256'
             )
             
-            '''
+'''
+'''
             response = make_response(token)
             response.headers['X-Authorization'] = token
             response.status_code = 200
             return response
-            '''
+'''
+
+'''
             response = Response(token, status=200, mimetype='text/plain')
             response.headers['X-Authorization'] = token
             return response
@@ -111,7 +119,7 @@ def generate_token():
             return make_response('', 400)
     else:
         return make_response('', 501)
-
+'''
 
 # helpful function for knowing flask app is up
 @bp.route('/')
