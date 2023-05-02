@@ -358,7 +358,7 @@ input_schema4 = {
   "required": ["RegEx"]
 }
 
-'''
+
 @bp.route('/package/byRegEx', methods=['POST'], endpoint = 'regExEND')
 #@token_required
 def regex_package():
@@ -385,4 +385,3 @@ def regex_package():
       return make_response('', 400)
   else:
         return make_response('', 404)
-'''
