@@ -54,7 +54,7 @@ def package():
         try:
             validate(request.json, input_schema)
             
-            if "Content" in request.json:
+            if "Content" in request.json and not "null":
             #if "Content" in request.json:
               content = request.json["Content"]
               jsprog = request.json["JSProgram"]
@@ -78,7 +78,7 @@ def package():
                     zero = 0
             #ABOVE
 
-            if "URL" in request.json:
+            if "URL" in request.json and not "null":
               jsprog = request.json["JSProgram"]
               url = request.json["URL"]
               owner, repo = url.split('/')[-2:]
@@ -148,7 +148,7 @@ def get_package(id):
   #bp.logger.info('Request body: %s', request.get_data())
   #bp.logger.info('Request headers: %s', request.headers)
   cnx = db_connect()
-  print(f"PATH: {request.path} \n")
+  print(f"PATH (GET): {request.path} \n")
   print(f"REQUEST BODY: {str(request.get_data())} \n")
 
   ####### DO ANOTHER MERGE 
@@ -249,6 +249,8 @@ input_schema2 = {
 #@token_required
 def put_package(id):
   # Connect to database
+  print(f"PATH (PUT): {request.path} \n")
+  print(f"REQUEST BODY: {str(request.get_data())} \n")
   cnx = db_connect()
 
   if request.is_json:
@@ -296,6 +298,8 @@ def update_package(id, cnx, name, version, content, url, jsprogram):
 @bp.route('/package/<int:id>', methods=['DELETE'], endpoint = 'deleteEND')
 #@token_required
 def delete_package(id):
+  print(f"PATH (DELETE id): {request.path} \n")
+  print(f"REQUEST BODY: {str(request.get_data())} \n")
   # Connect to database
   cnx = db_connect()
 
@@ -326,6 +330,8 @@ def delete_from_db(id, cnx):
 @bp.route('/reset', methods=['DELETE'], endpoint = 'resetEND')
 #@token_required
 def reset_package():
+  print(f"PATH (DELETE reset): {request.path} \n")
+  print(f"REQUEST BODY: {str(request.get_data())} \n")
   cnx = db_connect()
 
   search_stmt = sqlalchemy.text("DELETE FROM Package")
@@ -341,3 +347,34 @@ def reset_package():
   '''
   return make_response('', 200)
 
+input_schema4 = {
+  "type": "object",
+  "properties": {
+    "RegEx": {
+      "type": "string",
+    }
+  },
+  "required": ["RegEx"]
+}
+
+'''
+@bp.route('/package/byRegEx', methods=['POST'], endpoint = 'regExEND')
+#@token_required
+def regex_package():
+  print(f"PATH (DELETE reset): {request.path} \n")
+  print(f"REQUEST BODY: {str(request.get_data())} \n")
+  cnx = db_connect()
+
+  if request.is_json:
+    try:
+      validate(request.json, input_schema4)
+      #get input data 
+      string_to_search = request.json["RegEx"]
+      
+
+      return make_response('', 200)
+    except jsonschema.exceptions.ValidationError as err:
+      return make_response('', 400)
+  else:
+        return make_response('', 424)
+'''
