@@ -21,18 +21,30 @@ input_schema = {
   "type": "object",
   "properties": {
     "Content": {
-      "type": "string"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "URL": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "JSProgram": {
       "type": "string"
-    },
-    "URL": {
-      "type": "string"
     }
   },
-  "required": [
-    "JSProgram"
-  ]
+  "required": ["JSProgram"]
 }
 
 
