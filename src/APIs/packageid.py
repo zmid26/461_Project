@@ -145,6 +145,8 @@ def get_package(id):
   #bp.logger.info('Request body: %s', request.get_data())
   #bp.logger.info('Request headers: %s', request.headers)
   cnx = db_connect()
+  print(f"PATH: {request.path} \n")
+  print(f"REQUEST BODY: {request.get_data()} \n")
 
   ####### DO ANOTHER MERGE 
   # Get package from the database
@@ -169,6 +171,7 @@ def get_package(id):
 
   #bp.logger.info(f"Request: {request.method} {request.url} Headers: {request.headers} Body: {request.json}")
   #bp.logger.info(f"Response: {response}")
+  print(f"RESPONSE BODY: {response}")
   return jsonify(response)
 
 # Function to interact with database
