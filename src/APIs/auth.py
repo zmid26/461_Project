@@ -98,7 +98,12 @@ def generate_token():
             algorithm='HS256'
             )
             
-            return token
+            response = make_response(token)
+            response.headers['X-Authorization'] = token
+            response.status_code = 200
+            return response
+
+            #return token
 
         except jsonschema.exceptions.ValidationError as err:
             return make_response('', 400)
