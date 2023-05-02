@@ -47,7 +47,7 @@ def rate_package(id):
         result = rating.decode("utf-8")
     except Exception as e:
         # If the rating returns an error, return a 500
-        return "Error: rating failed for package {} with error [{}]".format(id, e.output.decode()), 500
+        return "Error: rating failed for package {} with error [{}]".format(id, e), 500
     else:
         if len(result) < 174:
             return "Error: Could not get rating for package {} with result {}".format(id, result), 500
