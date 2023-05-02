@@ -101,6 +101,12 @@ def package():
             cur.close()
             cnx.close()
             '''
+            search_stmt = sqlalchemy.text("SELECT * FROM Package WHERE Name=:name AND Versions = :version")
+            package = cnx.execute(search_stmt, parameters={"name": name, "version": version}).fetchone()
+            cnx.commit()
+
+            if package:
+              return make_response('', 409)
 
             insert_stmt = sqlalchemy.text("INSERT INTO Package (ID, Name, Version, Content, JSProgram, URL) VALUES (:idvalue, :name, :version, :content, :jsprog, :url)")
             cnx.execute(insert_stmt, parameters={"idvalue": idvalue, "name": name, "version": version, "content": content, "jsprog": jsprog, "url": url})
@@ -120,7 +126,7 @@ def package():
             return jsonify(response), 201 
             
         except jsonschema.exceptions.ValidationError as err:
-            print("schema error")
+            #print("schema error")
             return make_response('', 400)
     else:
         return make_response('', 424)

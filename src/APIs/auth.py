@@ -75,9 +75,6 @@ def generate_token():
             search_stmt = sqlalchemy.text("SELECT * FROM User WHERE name=:name AND isAdmin=:isAdmin AND password=:password")
             result = cnx.execute(search_stmt, parameters={"name": username, "isAdmin": isAdmin, "password": password}).fetchone()
             cnx.commit()
-            
-
-            
 
             if not result:
                 return make_response('', 401)
@@ -98,9 +95,14 @@ def generate_token():
             algorithm='HS256'
             )
             
+            '''
             response = make_response(token)
             response.headers['X-Authorization'] = token
             response.status_code = 200
+            return response
+            '''
+            response = Response(token, status=200, mimetype='text/plain')
+            response.headers['X-Authorization'] = token
             return response
 
             #return token
