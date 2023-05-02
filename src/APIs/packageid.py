@@ -138,7 +138,9 @@ def post_package(content, jsprog, cur, name, version, url):
 @token_required
 def get_package(id):
   # Connect to database
-  logger = logging.getLogger(__name__)
+  app.logger.info('Request body: %s', request.get_data())
+  app.logger.info('Request headers: %s', request.headers)
+
   cnx = db_connect()
 
   ####### DO ANOTHER MERGE 
@@ -160,11 +162,14 @@ def get_package(id):
     "Content": package[3],
     "JSProgram": package[5]
   }
-  response = {"metadata": metadata, "data": data}
+  response1 = {"metadata": metadata, "data": data}
 
   logger.info(f"Request: {request.method} {request.url} Headers: {request.headers} Body: {request.json}")
   logger.info(f"Response: {response}")
-  return jsonify(response)
+
+  app.logger.info('Response body: %s', response.get_data())
+  app.logger.info('Response headers: %s', response.headers)
+  return jsonify(response1)
 
 # Function to interact with database
 def get_package(id, cnx):
