@@ -56,8 +56,6 @@ base64_string = "UEsDBBQAAAAIAFRtmFb+YTyDbQAAAJIAAAAfAAAAZmVjaGEvbm90ZXNfZnJvbV9
 def package():
     # Connect to database
     cnx = db_connect()
-    print(f"PATH (POST): {request.path} \n")
-    print(f"REQUEST BODY: {str(request.get_data())} \n")
   
     global idvalue
     idvalue += 1
@@ -125,12 +123,13 @@ def package():
             "JSProgram": jsprog
             }
             response = {"metadata": metadata, "data": data}
+            print(f"PATH (post package): {request.path} {request.method}")
+            print(f"REQUEST BODY: {str(request.get_data())}")
             print(f"RESPONSE BODY: {response}")
             return jsonify(response), 201 
             
         except jsonschema.exceptions.ValidationError as err:
             print("schema error")
-            print(err)
             return make_response('', 400)
     else:
         return make_response('', 424)
@@ -149,8 +148,7 @@ def get_package(id):
   #bp.logger.info('Request body: %s', request.get_data())
   #bp.logger.info('Request headers: %s', request.headers)
   cnx = db_connect()
-  print(f"PATH (GET): {request.path} \n")
-  print(f"REQUEST BODY: {str(request.get_data())} \n")
+  
 
   ####### DO ANOTHER MERGE 
   # Get package from the database
@@ -173,8 +171,8 @@ def get_package(id):
   }
   response = {"metadata": metadata, "data": data}
 
-  #bp.logger.info(f"Request: {request.method} {request.url} Headers: {request.headers} Body: {request.json}")
-  #bp.logger.info(f"Response: {response}")
+  print(f"PATH (POST): {request.path} {request.method}")
+  print(f"REQUEST BODY: {str(request.get_data())}")
   print(f"RESPONSE BODY: {response}")
   return jsonify(response)
 
@@ -207,8 +205,7 @@ input_schema2 = {
           "type": "string"
         },
         "Version": {
-          "type": "string",
-          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          "type": "string"
         },
         "ID": {
           "type": "string"
@@ -250,8 +247,9 @@ input_schema2 = {
 #@token_required
 def put_package(id):
   # Connect to database
-  print(f"PATH (PUT): {request.path} \n")
-  print(f"REQUEST BODY: {str(request.get_data())} \n")
+  print(f"PATH (put package): {request.path} {request.method}")
+  print(f"REQUEST BODY: {str(request.get_data())}")
+  
   cnx = db_connect()
 
   if request.is_json:
@@ -299,8 +297,8 @@ def update_package(id, cnx, name, version, content, url, jsprogram):
 @bp.route('/package/<int:id>', methods=['DELETE'], endpoint = 'deleteEND')
 #@token_required
 def delete_package(id):
-  print(f"PATH (DELETE id): {request.path} \n")
-  print(f"REQUEST BODY: {str(request.get_data())} \n")
+  print(f"PATH (delete id): {request.path} {request.method}")
+  print(f"REQUEST BODY: {str(request.get_data())}")
   # Connect to database
   cnx = db_connect()
 
@@ -331,8 +329,8 @@ def delete_from_db(id, cnx):
 @bp.route('/reset', methods=['DELETE'], endpoint = 'resetEND')
 #@token_required
 def reset_package():
-  print(f"PATH (DELETE reset): {request.path} \n")
-  print(f"REQUEST BODY: {str(request.get_data())} \n")
+  print(f"PATH (/reset): {request.path} {request.method}")
+  print(f"REQUEST BODY: {str(request.get_data())}")
   cnx = db_connect()
 
   search_stmt = sqlalchemy.text("DELETE FROM Package")
@@ -362,24 +360,24 @@ input_schema4 = {
 @bp.route('/package/byRegEx', methods=['POST'], endpoint = 'regExEND')
 #@token_required
 def regex_package():
-  print(f"PATH (DELETE reset): {request.path} \n")
-  print(f"REQUEST BODY: {str(request.get_data())} \n")
+  print(f"PATH (POST RegEx): {request.path} {request.method}")
+  print(f"REQUEST BODY: {str(request.get_data())}")
   cnx = db_connect()
 
   if request.is_json:
     try:
       validate(request.json, input_schema4)
       #get input data 
-      string_to_search = request.json["RegEx"]
-      search_stmt = sqlalchemy.text("SELECT * FROM Package WHERE name REGEXP :name")
-      results = cnx.execute(search_stmt, parameters={":name": string_to_search}).fetchall()
+      reg = request.json["RegEx"]
+      search_stmt = sqlalchemy.text("SELECT * FROM Package WHERE name REGEXP :reg")
+      results = cnx.execute(search_stmt, parameters={":reg": reg}).fetchall()
       cnx.commit()
 
       packages = []
       for row in results:
         package = {'Version': row[0], 'Name': row[1]}
         packages.append(package)
-
+      print(f"RESPONSE BODY: {packages}")
       return make_response(packages, 200)
     except jsonschema.exceptions.ValidationError as err:
       return make_response('', 400)
