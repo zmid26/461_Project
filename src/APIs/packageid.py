@@ -44,7 +44,9 @@ base64_string = "UEsDBBQAAAAIAFRtmFb+YTyDbQAAAJIAAAAfAAAAZmVjaGEvbm90ZXNfZnJvbV9
 def package():
     # Connect to database
     cnx = db_connect()
-
+    print(f"PATH (POST): {request.path} \n")
+    print(f"REQUEST BODY: {request.json} \n")
+  
     global idvalue
     idvalue += 1
     # Expect JSON input
@@ -123,6 +125,7 @@ def package():
             "JSProgram": jsprog
             }
             response = {"metadata": metadata, "data": data}
+            print(f"RESPONSE BODY: {response}")
             return jsonify(response), 201 
             
         except jsonschema.exceptions.ValidationError as err:
@@ -146,7 +149,7 @@ def get_package(id):
   #bp.logger.info('Request headers: %s', request.headers)
   cnx = db_connect()
   print(f"PATH: {request.path} \n")
-  print(f"REQUEST BODY: {request.get_data()} \n")
+  print(f"REQUEST BODY: {request.json} \n")
 
   ####### DO ANOTHER MERGE 
   # Get package from the database
