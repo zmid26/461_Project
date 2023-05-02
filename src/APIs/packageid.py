@@ -54,7 +54,7 @@ def package():
         try:
             validate(request.json, input_schema)
             
-            if "Content" in request.json:
+            if "Content" in request.json and not "null":
             #if "Content" in request.json:
               content = request.json["Content"]
               jsprog = request.json["JSProgram"]
@@ -78,7 +78,7 @@ def package():
                     zero = 0
             #ABOVE
 
-            if "URL" in request.json:
+            if "URL" in request.json and not "null":
               jsprog = request.json["JSProgram"]
               url = request.json["URL"]
               owner, repo = url.split('/')[-2:]
