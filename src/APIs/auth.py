@@ -62,7 +62,7 @@ def token_required(func):
 @bp.route('/authenticate', methods=['PUT'])
 def generate_token():
   response = make_response()
-  response.status_code = 200
+  response.status_code = 501
   return response
     
 '''
