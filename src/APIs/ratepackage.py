@@ -43,9 +43,9 @@ def rate_package(id):
         # ./run "package_url" from and return the results
         rating = run_cli(package_url, clipath)
         result = rating.decode("utf-8")
-    except:
+    except Exception as e:
         # If the rating returns an error, return a 500
-        return "Error: Could not get rating for package {} with error = {}".format(id,result), 500
+        return "Error: Could not get rating for package {} with error = {} and result {}".format(id,e, result), 500
     else:
         if len(result) < 174:
             return "Error: Could not get rating for package {} with error = {}".format(id,result), 500
