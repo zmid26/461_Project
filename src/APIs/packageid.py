@@ -91,18 +91,6 @@ def package():
               name = package_info['name']
               version = package_info['version']
 
-            #https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#download-a-repository-archive-zip
-            '''
-            cnx.reconnect()
-            cur = cnx.cursor()
-            insert_query = "INSERT INTO Package (ID, Name, Version, Content, JSProgram) VALUES (%s, %s, %s, %s, %s)"
-            values = (idvalue, name, version, content, jsprog)
-            cur.execute(insert_query, values)
-
-            cnx.commit()
-            cur.close()
-            cnx.close()
-            '''
             search_stmt = sqlalchemy.text("SELECT * FROM Package WHERE Name=:name AND Version = :version")
             package = cnx.execute(search_stmt, parameters={"name": name, "version": version}).fetchone()
             cnx.commit()
@@ -129,7 +117,8 @@ def package():
             return jsonify(response), 201 
             
         except jsonschema.exceptions.ValidationError as err:
-            #print("schema error")
+            print("schema error")
+            print(err)
             return make_response('', 400)
     else:
         return make_response('', 424)
