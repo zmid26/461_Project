@@ -10,7 +10,7 @@ from flask.blueprints import Blueprint
 from .database import db_connect
 from .auth import *
 import requests
-import re
+#import re
 
 
 bp = Blueprint('packageid', __name__)
