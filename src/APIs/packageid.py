@@ -149,7 +149,6 @@ def get_package(id):
   print(f"PATH (get): {request.path} {request.method}")
   print(f"trying to get id = {id}")
   print(f"REQUEST BODY of get: {str(request.get_data())}")
-  print(f"RESPONSE (get): {response}")
   # Connect to database
   #bp.logger.info('Request body: %s', request.get_data())
   #bp.logger.info('Request headers: %s', request.headers)
@@ -176,6 +175,7 @@ def get_package(id):
     "JSProgram": package[5]
   }
   response = {"metadata": metadata, "data": data}
+  print(f"RESPONSE (get): {response}")
   return jsonify(response)
 
 # Function to interact with database
@@ -411,4 +411,6 @@ def regex_package():
 @bp.route('/packages', methods=['POST'], endpoint = 'packagesExEND')
 #@token_required
 def regex_package():
-   return make_response('',501)
+  print(f"PATH (/packages): {request.path} {request.method}")
+  print(f"REQUEST BODY (packages): {str(request.get_data())}")
+  return make_response('',200)
