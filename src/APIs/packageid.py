@@ -250,7 +250,7 @@ input_schema2 = {
 def put_package(id):
   # Connect to database
   print(f"PATH (put package): {request.path} {request.method}")
-  print(f"REQUEST BODY: {str(request.get_data())}")
+  print(f"REQUEST BODY put: {str(request.get_data())}")
   if(len(str(request.get_data())) == 0):
      print(f"no request body for update package id = {id}")
   cnx = db_connect()
