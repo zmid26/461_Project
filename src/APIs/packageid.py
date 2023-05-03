@@ -61,12 +61,17 @@ def package():
     if request.is_json:
         try:
             validate(request.json, input_schema)
+            print(f"PATH (post package): {request.path} {request.method}")
+            print(f"REQUEST BODY: {str(request.get_data())}")
+            if request.json["Content"] == None and request.json["URL"] == None:
+              print(f"post package both content and url are null")
+              return make_response('', 409)
             
             if "Content" in request.json and request.json["Content"] != None:
             #if "Content" in request.json:
               content = request.json["Content"]
               jsprog = request.json["JSProgram"]
-              
+            
             
             # BELOW
               zip_file_bytes = base64.b64decode(content)
@@ -93,7 +98,9 @@ def package():
               response = requests.get(f"https://api.github.com/repos/{owner}/{repo}/zipball")
               content = base64.b64encode(response.content).decode('utf-8')
               package_response = requests.get(f"https://api.github.com/repos/{owner}/{repo}/contents/package.json")
-
+              if package_response.status_code == 404:
+                 print(f"no package.json was found - post package")
+                 return make_response('', 424)
               # Parse the package.json file to extract the name and version of the package
               package_info = json.loads(base64.b64decode(package_response.json()['content']).decode('utf-8'))
               name = package_info['name']
@@ -121,13 +128,11 @@ def package():
             "JSProgram": jsprog
             }
             response = {"metadata": metadata, "data": data}
-            print(f"PATH (post package): {request.path} {request.method}")
-            print(f"REQUEST BODY: {str(request.get_data())}")
             print(f"RESPONSE BODY: {response}")
             return jsonify(response), 201 
             
         except jsonschema.exceptions.ValidationError as err:
-            print("schema error")
+            print("schema error for post package")
             return make_response('', 400)
     else:
         return make_response('', 424)
@@ -142,6 +147,10 @@ def post_package(content, jsprog, cur, name, version, url):
 @bp.route('/package/<int:id>', methods=['GET'], endpoint = 'getEND')
 #@token_required
 def get_package(id):
+  print(f"PATH (get): {request.path} {request.method}")
+  print(f"trying to get id = {id}")
+  print(f"REQUEST BODY of get: {str(request.get_data())}")
+  print(f"RESPONSE (get): {response}")
   # Connect to database
   #bp.logger.info('Request body: %s', request.get_data())
   #bp.logger.info('Request headers: %s', request.headers)
@@ -168,11 +177,40 @@ def get_package(id):
     "JSProgram": package[5]
   }
   response = {"metadata": metadata, "data": data}
+  return jsonify(response)
 
+@bp.route('/package/<string:id>', methods=['GET'], endpoint = 'getEND')
+#@token_required
+def get_str_package(id):
+  print(f"GET ID WAS GIVEN AS A STRING")
   print(f"PATH (get): {request.path} {request.method}")
   print(f"trying to get id = {id}")
   print(f"REQUEST BODY of get: {str(request.get_data())}")
   print(f"RESPONSE (get): {response}")
+  
+  cnx = db_connect()
+  
+  id = int(id)
+  ####### DO ANOTHER MERGE 
+  # Get package from the database
+  #package = get_package(id, cnx)
+  search_stmt = sqlalchemy.text("SELECT * FROM Package WHERE ID=:id")
+  package = cnx.execute(search_stmt, parameters={"id": id}).fetchone()
+  cnx.commit()
+
+  if package is None:
+    return make_response('', 404)
+  
+  metadata = {
+    "Name": package[1],
+    "Version": package[2],
+    "ID": package[0]
+  }
+  data = {
+    "Content": package[3],
+    "JSProgram": package[5]
+  }
+  response = {"metadata": metadata, "data": data}
   return jsonify(response)
 
 # Function to interact with database
@@ -248,7 +286,7 @@ def put_package(id):
   # Connect to database
   print(f"PATH (put package): {request.path} {request.method}")
   print(f"REQUEST BODY: {str(request.get_data())}")
-  if(len(str(request.get_data()))):
+  if(len(str(request.get_data())) == 0):
      print(f"no request body for update package id = {id}")
   cnx = db_connect()
 
@@ -273,6 +311,7 @@ def put_package(id):
       jsprogram = metadata["JSProgram"]
 
       if request.json["URL"] == None and request.json["Content"] == None:
+        print(f"both url and content is null for update package {id}")
         return make_response('', 400)
 
       if request.json["URL"] == None:
@@ -299,7 +338,7 @@ def put_package(id):
 
       return make_response('', 200)
     except jsonschema.exceptions.ValidationError as err:
-      print("update package schema doesnt match id = {id}")
+      print("update package schema doesnt match {id}")
       return make_response('', 400)
   else:
         return make_response('', 424)
