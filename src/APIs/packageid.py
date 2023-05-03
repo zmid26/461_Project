@@ -178,40 +178,6 @@ def get_package(id):
   response = {"metadata": metadata, "data": data}
   return jsonify(response)
 
-@bp.route('/package/<string:id>', methods=['GET'], endpoint = 'getEND2')
-#@token_required
-def get_str_package(id):
-  print(f"GET ID WAS GIVEN AS A STRING")
-  print(f"PATH (get): {request.path} {request.method}")
-  print(f"trying to get id = {id}")
-  print(f"REQUEST BODY of get: {str(request.get_data())}")
-  print(f"RESPONSE (get): {response}")
-  
-  cnx = db_connect()
-  
-  id = int(id)
-  ####### DO ANOTHER MERGE 
-  # Get package from the database
-  #package = get_package(id, cnx)
-  search_stmt = sqlalchemy.text("SELECT * FROM Package WHERE ID=:id")
-  package = cnx.execute(search_stmt, parameters={"id": id}).fetchone()
-  cnx.commit()
-
-  if package is None:
-    return make_response('', 404)
-  
-  metadata = {
-    "Name": package[1],
-    "Version": package[2],
-    "ID": package[0]
-  }
-  data = {
-    "Content": package[3],
-    "JSProgram": package[5]
-  }
-  response = {"metadata": metadata, "data": data}
-  return jsonify(response)
-
 # Function to interact with database
 def get_package(id, cnx):
 
