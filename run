@@ -2,8 +2,6 @@
 
 # old_pwd="$PWD"
 # cd $(dirname $0)
-rm -r -f output
-mkdir -p output
 
 if [ $1 == 'install' ]; then
     python3 src/metric_utility_functions/localclone_install.py
@@ -23,7 +21,8 @@ elif [ $1 == 'server' ]; then
 else
     # cargo run "$@"
     cd ../../
-    pwd
+    rm -r -f output
+    mkdir -p output
     ./rater $1
     cd src/APIs/
 fi
