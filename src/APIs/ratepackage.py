@@ -23,10 +23,10 @@ bp = Blueprint('ratepackage', __name__)
 @bp.route('/package/<int:id>/rate', methods=['GET'])
 #@token_required
 def rate_package(id):
-    cursor = db_connect()
+    cnx = db_connect()
 
     # Get the package url from the database
-    package_url = get_package_url(id, cursor)
+    package_url = get_package_url(id, cnx)
 
     # If the package doesn't exist, return a 404
     if package_url is None:
@@ -56,59 +56,64 @@ def rate_package(id):
 
     # Insert the results into the database
     # See if ID is already in PackageRating
-    package_rating = get_package_rating(id, cursor)
+    package_rating = get_package_rating(id, cnx)
 
     if package_rating is None:
         # Insert the rating into the database
         print("Inserting rating into database")
-        insert_rating(id, rating, cursor)
+        insert_rating(id, rating, cnx)
         
         # Add time package was rated in PackageEntryHistory
         print(f"Marking package with id = {id} as rated in PackageEntryHistory")
-        mark_as_rated(id, cursor)
+        mark_as_rated(id, cnx)
     else:
         # Update the rating in the database
         print("Updating rating in database")
-        update_rating(id, rating, cursor)
+        update_rating(id, rating, cnx)
         
         # Add time package was updated in PackageEntryHistory
         print("Marking id = {} as updated in PackageEntryHistory".format(id))
-        mark_as_updated(id, cursor)
+        mark_as_updated(id, cnx)
 
-    cursor.close()
+    # cnx.close()
 
     return jsonify(rating)
 
 # Functions to interact with the database
-def mark_as_updated(id, cursor):
+def mark_as_updated(id, cnx):
     query = text("INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (:id, :username, :date, :action)")
-    cursor.execute(query, parameters = {"id":id, "Username":"ece30861defaultadminuser", "date":datetime.now(), "action":"UPDATE"})
+    cnx.execute(query, parameters = {"id":id, "Username":"ece30861defaultadminuser", "date":datetime.now(), "action":"UPDATE"})
+    cnx.commit()
 
-def update_rating(id, rating, cursor):
+def update_rating(id, rating, cnx):
     query = text("UPDATE PackageRating SET BusFactor = :bf, Correctness = :c, RampUp = :ru, ResponsiveMaintainer = :rm, LicenseScore = :ls, GoodPinningPractice = :gpp, PullRequest = :pr, NetScore = :ns WHERE ID = :id")
-    cursor.execute(query, parameters = {"id":id, "bf":rating["BusFactor"], "c":rating["Correctness"], "ru":rating["RampUp"], "rm":rating["ResponsiveMaintainer"],
+    cnx.execute(query, parameters = {"id":id, "bf":rating["BusFactor"], "c":rating["Correctness"], "ru":rating["RampUp"], "rm":rating["ResponsiveMaintainer"],
                        "ls":rating["LicenseScore"], "gpp":rating["GoodPinningPractice"], "pr":rating["PullRequest"], "ns":rating["NetScore"]})
+    cnx.commit()
 
-def mark_as_rated(id, cursor):
+def mark_as_rated(id, cnx):
     query = text("INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (:id, :username, :date, :action)")
-    cursor.execute(query, parameters = {"id":id, "username":"ece30861defaultadminuser", "date":datetime.now(), "action":"RATE"})
+    cnx.execute(query, parameters = {"id":id, "username":"ece30861defaultadminuser", "date":datetime.now(), "action":"RATE"})
+    cnx.commit()
 
-def insert_rating(id, rating, cursor):
+def insert_rating(id, rating, cnx):
     query = text("INSERT INTO PackageRating (ID, BusFactor, Correctness, RampUp, ResponsiveMaintainer, LicenseScore, GoodPinningPractice, PullRequest, NetScore) VALUES (:id, :bf, :c, :ru, :rm, :ls, :gpp, :pr, :ns)")
-    cursor.execute(query, parameters = {"id":id, "bf":rating["BusFactor"], "c":rating["Correctness"], "ru":rating["RampUp"], "rm":rating["ResponsiveMaintainer"],
+    cnx.execute(query, parameters = {"id":id, "bf":rating["BusFactor"], "c":rating["Correctness"], "ru":rating["RampUp"], "rm":rating["ResponsiveMaintainer"],
                        "ls":rating["LicenseScore"], "gpp":rating["GoodPinningPractice"], "pr":rating["PullRequest"], "ns":rating["NetScore"]})
+    cnx.commit()
 
-def get_package_rating(id, cursor):
+def get_package_rating(id, cnx):
     query = text("SELECT * FROM PackageRating WHERE ID = :id")
-    package_rating = cursor.execute(query, paramaters = {"id":id}).fetchone()
+    package_rating = cnx.execute(query, parameters = {"id":id}).fetchone()
+    cnx.commit()
     return package_rating
 
 def run_cli(package_url, clipath):
     rating = subprocess.check_output([clipath, package_url], env=os.environ)
     return rating
 
-def get_package_url(id, cursor):
+def get_package_url(id, cnx):
     query = text("SELECT URL FROM Package where ID=:id")
-    package_url = cursor.execute(query, parameters = {"id":id}).fetchone()
-    cursor.close()
+    package_url = cnx.execute(query, parameters = {"id":id}).fetchone()
+    cnx.commit()
     return package_url
