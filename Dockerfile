@@ -11,7 +11,7 @@ FROM python:3.10-slim-buster
 WORKDIR /flask-app
 COPY --from=rust-builder /rust-app/target/release/project_461 rater
 COPY src/. src/.
-COPY run .
+COPY run src/APIs/run
 RUN pip3 install -r src/APIs/requirements.txt
 RUN apt-get update && apt-get install -y default-libmysqlclient-dev
 RUN apt-get install -y git
