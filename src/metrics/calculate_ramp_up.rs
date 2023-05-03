@@ -3,6 +3,7 @@ use std::fs::File; //rust file library
 use std::io::BufWriter;
 use std::io::Write;
 use std::process::Command; //library to run processes in rust
+use std::env;
 use tokei::{Config, LanguageType, Languages};
 
 pub fn ramp_up_score(filepath: &str) {
@@ -117,6 +118,7 @@ fn clone_repos(filepath: String) {
     //if the clone script didnt return success, exit 1 and print error
     if _run_clone_script.success() == false {
         println!("Error cloning metric repos! (called from rampup.rs)");
+        println!("Path: {}", env::current_dir().unwrap().display());
         std::process::exit(1);
     }
 }
