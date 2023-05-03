@@ -10,7 +10,7 @@ This file contains the following api call:
 from flask import jsonify
 import subprocess
 import json
-from datetime import datetime 
+import datetime
 from flask.blueprints import Blueprint
 from .database import db_connect 
 from .auth import *
@@ -18,6 +18,7 @@ from sqlalchemy.sql import text
 import os
 
 bp = Blueprint('ratepackage', __name__)
+
 
 # Rates a package if it exists and stores the rating in PackageRating table
 @bp.route('/package/<int:id>/rate', methods=['GET'])
@@ -82,7 +83,7 @@ def rate_package(id):
 # Functions to interact with the database
 def mark_as_updated(id, cnx):
     query = text("INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (:id, :username, :date, :action)")
-    cnx.execute(query, parameters = {"id":id, "Username":"ece30861defaultadminuser", "date":datetime.now(), "action":"UPDATE"})
+    cnx.execute(query, parameters = {"id":id, "Username":"ece30861defaultadminuser", "date":datetime.datetime.now(), "action":"UPDATE"})
     cnx.commit()
 
 def update_rating(id, rating, cnx):
@@ -93,7 +94,7 @@ def update_rating(id, rating, cnx):
 
 def mark_as_rated(id, cnx):
     query = text("INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (:id, :username, :date, :action)")
-    cnx.execute(query, parameters = {"id":id, "username":"ece30861defaultadminuser", "date":datetime.now(), "action":"RATE"})
+    cnx.execute(query, parameters = {"id":id, "username":"ece30861defaultadminuser", "date":datetime.datetime.now(), "action":"RATE"})
     cnx.commit()
 
 def insert_rating(id, rating, cnx):
