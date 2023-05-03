@@ -83,7 +83,7 @@ def rate_package(id):
 # Functions to interact with the database
 def mark_as_updated(id, cnx):
     query = text("INSERT INTO PackageEntryHistory (ID, Username, Date, Action) VALUES (:id, :username, :date, :action)")
-    cnx.execute(query, parameters = {"id":id, "Username":"ece30861defaultadminuser", "date":datetime.datetime.now(), "action":"UPDATE"})
+    cnx.execute(query, parameters = {"id":id, "username":"ece30861defaultadminuser", "date":datetime.datetime.now(), "action":"UPDATE"})
     cnx.commit()
 
 def update_rating(id, rating, cnx):
