@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-old_pwd="$PWD"
-cd $(dirname $0)
+# old_pwd="$PWD"
+# cd $(dirname $0)
 rm -r -f output
 mkdir -p output
 
@@ -22,9 +22,10 @@ elif [ $1 == 'server' ]; then
     python3 -m src.APIs.__init__
 else
     # cargo run "$@"
-    # cd ../../
+    cd ../../
+    pwd
     ./rater $1
-    # cd src/APIs/
+    cd src/APIs/
 fi
 
-cd $old_pwd
+# cd $old_pwd

@@ -44,6 +44,7 @@ def rate_package(id):
         # ./run "package_url" from and return the results
         # rating = run_cli(package_url, clipath)
         rating = subprocess.check_output([clipath, package_url], env=os.environ)
+        print(f"Rating json: {rating}")
         result = rating.decode("utf-8")
     except Exception as e:
         # If the rating returns an error, return a 500
