@@ -117,6 +117,7 @@ fn clone_repos(filepath: String) {
     //if the clone script didnt return success, exit 1 and print error
     if _run_clone_script.success() == false {
         println!("Error cloning metric repos! (called from rampup.rs)");
+        println!("Path: {}", env::current_dir().unwrap());
         std::process::exit(1);
     }
 }

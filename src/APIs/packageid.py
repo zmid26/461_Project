@@ -117,7 +117,6 @@ def package():
             cnx.execute(insert_stmt, parameters={"idvalue": idvalue, "name": name, "version": version, "content": content, "jsprog": jsprog, "url": url})
             cnx.commit()
 
-
             metadata = {
             "Name": name,
             "Version": version,
@@ -179,7 +178,7 @@ def get_package(id):
   response = {"metadata": metadata, "data": data}
   return jsonify(response)
 
-@bp.route('/package/<string:id>', methods=['GET'], endpoint = 'getEND')
+@bp.route('/package/<string:id>', methods=['GET'], endpoint = 'getEND2')
 #@token_required
 def get_str_package(id):
   print(f"GET ID WAS GIVEN AS A STRING")
