@@ -169,9 +169,10 @@ def get_package(id):
   }
   response = {"metadata": metadata, "data": data}
 
-  print(f"PATH (POST): {request.path} {request.method}")
-  print(f"REQUEST BODY: {str(request.get_data())}")
-  print(f"RESPONSE BODY: {response}")
+  print(f"PATH (get): {request.path} {request.method}")
+  print(f"trying to get id = {id}")
+  print(f"REQUEST BODY of get: {str(request.get_data())}")
+  print(f"RESPONSE (get): {response}")
   return jsonify(response)
 
 # Function to interact with database
@@ -247,7 +248,8 @@ def put_package(id):
   # Connect to database
   print(f"PATH (put package): {request.path} {request.method}")
   print(f"REQUEST BODY: {str(request.get_data())}")
-  
+  if(len(str(request.get_data()))):
+     print(f"no request body for update package id = {id}")
   cnx = db_connect()
 
   if request.is_json:
@@ -258,6 +260,7 @@ def put_package(id):
       package = get_package(id, cnx)
 
       if package is None:
+        print(f"searched package doesn't exist {id}")
         return make_response('', 404)
       
       #get input data 
@@ -296,6 +299,7 @@ def put_package(id):
 
       return make_response('', 200)
     except jsonschema.exceptions.ValidationError as err:
+      print("update package schema doesnt match id = {id}")
       return make_response('', 400)
   else:
         return make_response('', 424)
@@ -373,6 +377,8 @@ input_schema4 = {
 @bp.route('/package/byRegEx', methods=['POST'], endpoint = 'regExEND')
 #@token_required
 def regex_package():
+  return make_response('', 502)
+'''
   print(f"PATH (POST RegEx): {request.path} {request.method}")
   print(f"REQUEST BODY: {str(request.get_data())}")
   cnx = db_connect()
@@ -396,3 +402,9 @@ def regex_package():
       return make_response('', 400)
   else:
         return make_response('', 404)
+'''
+
+@bp.route('/packages', methods=['POST'], endpoint = 'packagesExEND')
+#@token_required
+def regex_package():
+   return make_response('',501)
