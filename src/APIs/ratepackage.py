@@ -37,7 +37,7 @@ def rate_package(id):
 
     # Set the relative path to the CLI from the directory the server was started from **update this**
     # Currently assumes the server is started from the project_461 directory
-    clipath = "../../rater"
+    clipath = "./run"
     result = ""
 
     try:

@@ -22,7 +22,9 @@ elif [ $1 == 'server' ]; then
     python3 -m src.APIs.__init__
 else
     # cargo run "$@"
+    cd ../../
     ./rater $1
+    cd src/APIs/
 fi
 
 # cd $old_pwd
